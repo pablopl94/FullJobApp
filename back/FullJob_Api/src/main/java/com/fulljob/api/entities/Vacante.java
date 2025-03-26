@@ -60,6 +60,4 @@ public class Vacante implements Serializable{
     @JoinColumn(name = "id_empresa")
     private Empresa empresa;
 	
-
-	
 }
