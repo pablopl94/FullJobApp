@@ -1,47 +1,24 @@
 package com.fulljob.api.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import com.fulljob.api.models.entities.Usuario;
 import com.fulljob.api.repository.IUsuarioRepository;
 
 @Service
-public class UsuarioImplService implements IUsuarioService {
+public class UsuarioImplService extends GenericCrudServiceImpl<Usuario, String> implements IUsuarioService {
 	
 	@Autowired
-	private IUsuarioRepository usuarioRepository;
-	
+	private IUsuarioRepository usuarioRepo;
+
+	// Aquí indicamos el repositorio que usamos en el CRUD genérico
 	@Override
-	public List<Usuario> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	protected JpaRepository<Usuario, String> getRepository() {
+		return usuarioRepo;
 	}
 
-	@Override
-	public Usuario findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public Usuario insertOne(Usuario entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Usuario updatetOne(Usuario entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteOne(String id) {
-		// TODO Auto-generated method stub
-		return;
-	}
 
 }

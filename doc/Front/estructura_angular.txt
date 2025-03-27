@@ -1,109 +1,89 @@
-
-📂 Estructura completa del proyecto Angular 19
+📂 Estructura completa del proyecto Angular 19 (TFG)
 
 📁 app
 │
-├── 📁 core
+├── 📁 interceptors              --> Interceptores HTTP para auth y errores
+│   ├── auth.interceptor.ts
+│   └── error.interceptor.ts
+│
+├── 📁 core                     --> Modelos e interfaces de datos + servicios compartidos
 │   ├── 📁 models
 │   └── 📁 services
 │
-├── 📁 public
-│   ├── 📁 componentesComunes
+├── 📁 public                   --> Parte pública (landing, login, etc.)
+│   ├── 📁 layout               --> Layout general para la parte pública (con router-outlet)
+│   │   └── public-layout.component.ts
+│   ├── 📁 components           --> Componentes comunes públicos (header, footer, login...)
 │   │   ├── login-form
-│   │   ├── header
-│   │   └── footer
-│   │
-│   ├── 📁 landing
-│   │   ├── 📁 pages
-│   │   │   └── landing.component.ts
-│   │   └── 📁 components
-│   │       └── hero
-│   │
-│   ├── 📁 candidato-access
-│   │   └── 📁 pages
-│   │       ├── candidato-access.component.ts
-│   │       └── register-form.component.ts
-│   │
-│   ├── 📁 empresa-access
-│   │   └── 📁 pages
-│   │       └── empresa-access.component.ts
-│   │
-│   └── 📁 admin-login
-│       └── 📁 pages
+│   │   ├── public-header
+│   │   ├── public-footer
+│   │   └── landing-hero
+│   └── 📁 pages                --> Páginas públicas accesibles sin login
+│       ├── landing
+│       │   └── landing-page.component.ts
+│       ├── candidato-access
+│       │   ├── candidato-login.component.ts
+│       │   └── candidato-register-form.component.ts
+│       ├── empresa-access
+│       │   └── empresa-login.component.ts
+│       └── admin-access
 │           └── admin-login.component.ts
 │
-├── 📁 internal
-│   │
-│   ├── 📁 componentesComunes
-│   │   ├── footer
-│   │   ├── nav-bar
-│   │   └── botones
-│   │
-│   ├── 📁 candidato
-│   │   ├── 📁 home
-│   │   │   └── 📁 pages
-│   │   │       └── home.component.ts
-│   │   │
-│   │   ├── 📁 vacantes
-│   │   │   ├── 📁 pages
-│   │   │   │   ├── vacantes.component.ts
-│   │   │   │   ├── detalles-vacante.component.ts
-│   │   │   │   └── formulario-inscripcion-vacante.component.ts
-│   │   │   └── 📁 components
-│   │   │       ├── filtro
-│   │   │       └── card
-│   │   │
-│   │   ├── 📁 mis-solicitudes
-│   │   │   └── 📁 pages
-│   │   │       └── mis-solicitudes.component.ts
-│   │   │
-│   │   └── 📁 perfil
-│   │       └── 📁 pages
-│   │           └── perfil.component.ts
-│   │
-│   ├── 📁 empresa
-│   │   ├── 📁 home
-│   │   │   └── 📁 pages
-│   │   │       └── home.component.ts
-│   │   │
-│   │   ├── 📁 mis-vacantes
-│   │   │   └── 📁 pages
-│   │   │       ├── mis-vacantes.component.ts
-│   │   │       ├── formulario-vacante.component.ts
-│   │   │       └── detalles-vacante.component.ts
-│   │   │
-│   │   ├── 📁 solicitudes
-│   │   │   └── 📁 pages
-│   │   │       ├── solicitudes.component.ts
-│   │   │       └── formulario-solicitud.component.ts
-│   │   │
-│   │   └── 📁 perfil
-│   │       └── 📁 pages
-│   │           └── perfil.component.ts
-│   │
-│   └── 📁 admin
-│       ├── 📁 gestion-empresas
-│       │   └── 📁 pages
-│       │       ├── gestion-empresas.component.ts
-│       │       └── formulario-empresa.component.ts
-│       │
-│       ├── 📁 gestion-candidatos
-│       │   └── 📁 pages
-│       │       └── gestion-candidatos.component.ts
-│       │
-│       ├── 📁 gestion-admin
-│       │   └── 📁 pages
-│       │       ├── gestion-admin.component.ts
-│       │       └── formulario-admin.component.ts
-│       │
-│       └── 📁 gestion-categorias
-│           └── 📁 pages
-│               ├── gestion-categorias.component.ts
+├── 📁 internal                 --> Parte interna (protegida tras login)
+│   ├── 📁 layout               --> Layouts por rol (navbar, router-outlet...)
+│   │   ├── candidato-layout.component.ts
+│   │   ├── empresa-layout.component.ts
+│   │   └── admin-layout.component.ts
+│   ├── 📁 components           --> Componentes compartidos internos (botones, navbar...)
+│   │   ├── app-navbar
+│   │   ├── app-footer
+│   │   ├── botones-genericos
+│   │   ├── vacante-filtro
+│   │   └── vacante-card
+│   └── 📁 pages                --> Páginas internas separadas por rol
+│       ├── candidato          --> Páginas internas del candidato
+│       │   ├── candidato-home
+│       │   │   └── candidato-home.component.ts
+│       │   ├── vacantes
+│       │   │   ├── lista-vacantes-candidato.component.ts
+│       │   │   ├── detalles-vacante-candidato.component.ts
+│       │   │   └── formulario-inscripcion-vacante.component.ts
+│       │   ├── solicitudes
+│       │   │   └── candidato-solicitudes.component.ts
+│       │   └── perfil
+│       │       └── candidato-perfil.component.ts
+│       ├── empresa            --> Páginas internas de empresa
+│       │   ├── empresa-home
+│       │   │   └── empresa-home.component.ts
+│       │   ├── mis-vacantes
+│       │   │   ├── lista-vacantes-empresa.component.ts
+│       │   │   ├── formulario-vacante.component.ts
+│       │   │   └── detalles-vacante-empresa.component.ts
+│       │   ├── solicitudes
+│       │   │   ├── lista-solicitudes.component.ts
+│       │   │   └── formulario-solicitud-empresa.component.ts
+│       │   └── perfil
+│       │       └── empresa-perfil.component.ts
+│       └── admin              --> Páginas internas del administrador
+│           ├── gestion-empresas
+│           │   ├── lista-empresas.component.ts
+│           │   └── formulario-empresa.component.ts
+│           ├── gestion-candidatos
+│           │   └── lista-candidatos.component.ts
+│           ├── gestion-admin
+│           │   ├── lista-administradores.component.ts
+│           │   └── formulario-admin.component.ts
+│           └── gestion-categorias
+│               ├── lista-categorias.component.ts
 │               └── formulario-categoria.component.ts
 │
-├── 📁 guards
-│   └── auth.guard.ts
+├── 📁 guards                   --> Guards para proteger rutas según el rol
+│   ├── auth.guard.ts
+│   ├── admin.guard.ts
+│   ├── empresa.guard.ts
+│   └── candidato.guard.ts
 │
-├── app.config.ts
-├── app.routes.ts
-└── main.ts
+├── app.config.ts              --> Configuración global (providers como interceptores)
+├── app.routes.ts              --> Archivo principal de rutas
+└── main.ts                    
+
