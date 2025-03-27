@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.fulljob.api.entities.Empresa;
+
 import com.fulljob.api.exceptions.ResourceNotFoundException;
+import com.fulljob.api.models.entities.Empresa;
 import com.fulljob.api.repository.IEmpresaRepository;
 
 @Service
