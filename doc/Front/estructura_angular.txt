@@ -1,0 +1,109 @@
+
+📂 Estructura completa del proyecto Angular 19
+
+📁 app
+│
+├── 📁 core
+│   ├── 📁 models
+│   └── 📁 services
+│
+├── 📁 public
+│   ├── 📁 componentesComunes
+│   │   ├── login-form
+│   │   ├── header
+│   │   └── footer
+│   │
+│   ├── 📁 landing
+│   │   ├── 📁 pages
+│   │   │   └── landing.component.ts
+│   │   └── 📁 components
+│   │       └── hero
+│   │
+│   ├── 📁 candidato-access
+│   │   └── 📁 pages
+│   │       ├── candidato-access.component.ts
+│   │       └── register-form.component.ts
+│   │
+│   ├── 📁 empresa-access
+│   │   └── 📁 pages
+│   │       └── empresa-access.component.ts
+│   │
+│   └── 📁 admin-login
+│       └── 📁 pages
+│           └── admin-login.component.ts
+│
+├── 📁 internal
+│   │
+│   ├── 📁 componentesComunes
+│   │   ├── footer
+│   │   ├── nav-bar
+│   │   └── botones
+│   │
+│   ├── 📁 candidato
+│   │   ├── 📁 home
+│   │   │   └── 📁 pages
+│   │   │       └── home.component.ts
+│   │   │
+│   │   ├── 📁 vacantes
+│   │   │   ├── 📁 pages
+│   │   │   │   ├── vacantes.component.ts
+│   │   │   │   ├── detalles-vacante.component.ts
+│   │   │   │   └── formulario-inscripcion-vacante.component.ts
+│   │   │   └── 📁 components
+│   │   │       ├── filtro
+│   │   │       └── card
+│   │   │
+│   │   ├── 📁 mis-solicitudes
+│   │   │   └── 📁 pages
+│   │   │       └── mis-solicitudes.component.ts
+│   │   │
+│   │   └── 📁 perfil
+│   │       └── 📁 pages
+│   │           └── perfil.component.ts
+│   │
+│   ├── 📁 empresa
+│   │   ├── 📁 home
+│   │   │   └── 📁 pages
+│   │   │       └── home.component.ts
+│   │   │
+│   │   ├── 📁 mis-vacantes
+│   │   │   └── 📁 pages
+│   │   │       ├── mis-vacantes.component.ts
+│   │   │       ├── formulario-vacante.component.ts
+│   │   │       └── detalles-vacante.component.ts
+│   │   │
+│   │   ├── 📁 solicitudes
+│   │   │   └── 📁 pages
+│   │   │       ├── solicitudes.component.ts
+│   │   │       └── formulario-solicitud.component.ts
+│   │   │
+│   │   └── 📁 perfil
+│   │       └── 📁 pages
+│   │           └── perfil.component.ts
+│   │
+│   └── 📁 admin
+│       ├── 📁 gestion-empresas
+│       │   └── 📁 pages
+│       │       ├── gestion-empresas.component.ts
+│       │       └── formulario-empresa.component.ts
+│       │
+│       ├── 📁 gestion-candidatos
+│       │   └── 📁 pages
+│       │       └── gestion-candidatos.component.ts
+│       │
+│       ├── 📁 gestion-admin
+│       │   └── 📁 pages
+│       │       ├── gestion-admin.component.ts
+│       │       └── formulario-admin.component.ts
+│       │
+│       └── 📁 gestion-categorias
+│           └── 📁 pages
+│               ├── gestion-categorias.component.ts
+│               └── formulario-categoria.component.ts
+│
+├── 📁 guards
+│   └── auth.guard.ts
+│
+├── app.config.ts
+├── app.routes.ts
+└── main.ts
