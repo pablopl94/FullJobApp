@@ -1,0 +1,5 @@
+package com.fulljob.api.controller.usuario;
+
+public class SolicitudUsuarioController {
+
+}
