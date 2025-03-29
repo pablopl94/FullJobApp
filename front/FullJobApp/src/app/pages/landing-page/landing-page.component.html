@@ -1,0 +1,35 @@
+<header class="flex items-center justify-between p-4 bg-white shadow-md">
+  <!-- Logo -->
+  <img src="assets/img/FullJob_logo_1.png" alt="Logo FullJob" class="h-16 w-auto" />
+
+  <!-- Botones -->
+  <div class="flex items-center gap-4">
+    <button
+      class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-6 rounded-xl shadow transition duration-200"
+      (click)="showLogin = true"
+    >
+      Iniciar sesión
+    </button>
+
+    <a
+      routerLink="/auth/register"
+      class="bg-white border border-yellow-500 text-yellow-500 font-semibold py-2 px-6 rounded-xl shadow transition duration-200 hover:bg-yellow-100"
+    >
+      Registrarse
+    </a>
+  </div>
+</header>
+
+
+
+<div class="min-h-screen bg-white relative">
+  <div class="flex flex-col items-center justify-center text-center mt-40 px-4">
+    <h1 class="text-4xl font-bold mb-4">Bienvenido a FullJob</h1>
+
+  </div>
+</div>
+
+<app-login-modal *ngIf="showLogin" (close)="showLogin = false" />
+
+
+

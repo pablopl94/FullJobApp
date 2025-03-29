@@ -1,0 +1,14 @@
+<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-8 rounded shadow-lg w-[90%] max-w-md relative">
+    <button class="absolute top-2 right-2" (click)="close.emit()">❌</button>
+
+    <h2 class="text-2xl mb-4 font-semibold text-center">Iniciar sesión</h2>
+
+    <form (ngSubmit)="onLogin()" class="space-y-4">
+      <input type="email" [(ngModel)]="email" name="email" placeholder="Correo" class="w-full p-2 border rounded" />
+      <input type="password" [(ngModel)]="password" name="password" placeholder="Contraseña" class="w-full p-2 border rounded" />
+      <button type="submit" class="w-full bg-black text-white py-2 rounded">Entrar</button>
+    </form>
+  </div>
+</div>
+
