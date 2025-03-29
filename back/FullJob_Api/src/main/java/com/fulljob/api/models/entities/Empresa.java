@@ -27,7 +27,7 @@ public class Empresa implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_emmpresa")
+	@Column(name = "id_empresa")
 	private int  idEmpresa;
 	
 	private String cif;
