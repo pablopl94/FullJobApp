@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AuthService {
 
   private currentUserSubject = new BehaviorSubject<any>(null);
-  private baseUrl = 'http://localhost:9007/auth'; // CAMBIAR SI HAY MODIFICACIONES
+  private baseUrl = 'http://localhost:9007/auth'; // CAMBIAR SI HAY MODIFICACIONES EN LA URL
   // private http = inject(HttpClient); // DESCOMENTAR: LOGIN REAL.
 
   constructor(private router: Router) {}
