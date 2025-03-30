@@ -12,10 +12,21 @@ import lombok.NoArgsConstructor;
 public class AltaEmpresaResponseDto {
 
 	//Datos de la empresa
-	private EmpresaResponseDto empresa;
+    private String cif;
 
-    //Datos usuario
+    private String nombreEmpresa;
+
+    private String direccionFiscal;
+
+    private String pais;
+
+    //Datos del cliente
     private String email;
+    
     private String nombre;
-    private String apellidos;
+    
+    private String rol;
+
+    //Token
+    private String token;
 }

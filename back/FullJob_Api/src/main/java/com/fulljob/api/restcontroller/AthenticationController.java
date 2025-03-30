@@ -49,16 +49,24 @@ public class AthenticationController {
     }
 
     
-    //METODO CON RUTA PARA REGISTRAR UN USUARIO
-    @PostMapping("/registro")
-    public ResponseEntity<AltaClienteResponseDto> registroUsuario(@RequestBody @Valid AltaClienteRequestDto registroDto) {
+    //METODO CON RUTA PARA REGISTRAR UN CLIENTE
+    @PostMapping("/alta/cliente")
+    public ResponseEntity<AltaClienteResponseDto> altaCliente(@RequestBody @Valid AltaClienteRequestDto clienteDto) {
     	
-    	//Damos de alta el usuario,los objetivos y guardamos la respuesta con el metodo del servicio
-    	//Todas las excepciones se controlan en el service tambien
-    	AltaClienteResponseDto respuesta = authService.altaCandidato(registroDto);
+    	AltaClienteResponseDto respuesta = authService.altaCandidato(clienteDto);
     	
     	
+    	return ResponseEntity.ok(respuesta);
     	
+    }
+    
+    
+    //METODO CON RUTA PARA REGISTRAR UNA EMPRESA + USUARIO
+    @PostMapping("/alta/empresa")
+    public ResponseEntity<AltaEmpresaResponseDto> altaEmpresa(@RequestBody @Valid AltaEmpresaRequestDto empresaDto) {
+    	
+    	AltaEmpresaResponseDto respuesta = authService.altaEmpresa(empresaDto);
+    		
     	return ResponseEntity.ok(respuesta);
     	
     }

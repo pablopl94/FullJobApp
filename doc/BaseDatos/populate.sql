@@ -1,60 +1,26 @@
-USE fulljob_bbdd;
+USE vacantes_BBDD_2025_RETO;
 
--- Usuarios 
-INSERT INTO usuarios VALUES
-('admin@fulljob.com', 'Admin', 'Principal', '{noop}admin123', 1, '2024-01-01', 'ADMIN'),
-('juan@correo.com', 'Juan', 'Pérez', '{noop}1234', 1, '2024-02-01', 'CANDIDATO'),
-('ana@correo.com', 'Ana', 'López', '{noop}abcd', 1, '2024-02-03', 'CANDIDATO'),
-('carlos@tech.com', 'Carlos', 'Martínez', '{noop}pass123', 1, '2024-03-01', 'EMPRESA'),
-('marta@softdev.com', 'Marta', 'García', '{noop}qwerty', 1, '2024-03-02', 'EMPRESA'),
-('lucia@correo.com', 'Lucía', 'Rodríguez', '{noop}lucia456', 1, '2024-02-10', 'CANDIDATO'),
-('david@cloudify.com', 'David', 'Ruiz', '{noop}davidpwd', 1, '2024-03-10', 'EMPRESA'),
-('andrea@correo.com', 'Andrea', 'Sánchez', '{noop}andrea89', 1, '2024-02-15', 'CANDIDATO'),
-('pablo@netcorp.com', 'Pablo', 'Moreno', '{noop}pm123', 1, '2024-03-12', 'EMPRESA'),
-('natalia@correo.com', 'Natalia', 'Ortega', '{noop}natpass', 1, '2024-02-20', 'CANDIDATO');
+-- ================== USUARIOS ==================
+-- CONTRASEÑA PARA TODOS 123456
+INSERT INTO Usuarios (email, nombre, apellidos, password, enabled, fecha_registro, rol) VALUES
+('admin@admin.com', 'Pedro', 'Herrero', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-01', 'ADMON'),
+('empresa@empresa.com', 'Elena', 'Cabrera', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-05', 'EMPRESA'),
+('cliente@cliente.com', 'Jose', 'Benito', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-10', 'CLIENTE'); 
 
--- Empresas 
-INSERT INTO empresas (cif, nombre_empresa, direccion_fiscal, pais, email) VALUES
-('B12345678', 'Tech Solutions', 'Calle Falsa 123', 'España', 'carlos@tech.com'),
-('B87654321', 'SoftDev SL', 'Avenida Siempre Viva 742', 'España', 'marta@softdev.com'),
-('C11223344', 'Cloudify', 'Calle Luna 10', 'España', 'david@cloudify.com'),
-('D99887766', 'NetCorp', 'Calle Sol 45', 'España', 'pablo@netcorp.com');
+-- ================== EMPRESA ==================
+INSERT INTO Empresas (cif, nombre_empresa, direccion_fiscal, pais, email) VALUES
+('B12345678', 'TechSoft Solutions', 'Calle Inventada 123', 'España', 'empresa@empresa.com');
 
--- Categorías
-INSERT INTO categorias (nombre, descripcion) VALUES
-('Desarrollo Web', 'Frontend y Backend'),
-('Marketing', 'Publicidad, redes sociales, SEO'),
-('Diseño', 'Diseño gráfico y UI/UX'),
-('Administración', 'Oficina y tareas administrativas'),
-('Ventas', 'Comercial y atención al cliente'),
-('Recursos Humanos', 'Selección de personal'),
-('Ciberseguridad', 'Seguridad informática'),
-('DevOps', 'Infraestructura y despliegue'),
-('Datos', 'Análisis y ciencia de datos'),
-('Soporte', 'Atención técnica');
+-- ================== CATEGORÍAS ==================
+INSERT INTO Categorias (nombre, descripcion) VALUES
+('Desarrollo Web', 'Puestos relacionados con programación frontend y backend'),
+('Diseño Gráfico', 'Diseño de interfaces, logos, y material visual');
 
--- Vacantes
-INSERT INTO vacantes (nombre, descripcion, fecha, salario, estatus, destacado, imagen, detalles, id_categoria, id_empresa) VALUES
-('Frontend Developer', 'HTML, CSS y Angular', '2024-03-01', 25000, 'CREADA', 1, NULL, '', 1, 1),
-('Especialista SEO', 'Optimización web', '2024-03-02', 23000, 'CREADA', 0, NULL, '', 2, 2),
-('Diseñador UI', 'Diseño de interfaces', '2024-03-03', 24000, 'ASIGNADA', 1, NULL, '', 3, 3),
-('Auxiliar Administrativo', 'Gestión de archivos', '2024-03-04', 20000, 'CREADA', 0, NULL, '', 4, 4),
-('Comercial', 'Venta de productos', '2024-03-05', 18000, 'CREADA', 0, NULL, '', 5, 1),
-('Técnico RRHH', 'Selección de candidatos', '2024-03-06', 22000, 'CREADA', 1, NULL, '', 6, 2),
-('Analista Seguridad', 'Auditoría de sistemas', '2024-03-07', 27000, 'CANCELADA', 0, NULL, '', 7, 3),
-('DevOps Engineer', 'CI/CD pipelines', '2024-03-08', 28000, 'CREADA', 1, NULL, '', 8, 4),
-('Data Analyst', 'SQL y Power BI', '2024-03-09', 26000, 'ASIGNADA', 0, NULL, '', 9, 1),
-('Soporte Técnico', 'Resolución de problemas', '2024-03-10', 21000, 'CREADA', 0, NULL, '', 10, 2);
+-- ================== VACANTES ==================
+INSERT INTO Vacantes (nombre, descripcion, fecha, salario, estatus, destacado, imagen, detalles, id_categoria, id_empresa) VALUES
+('Desarrollador Frontend', 'Buscamos frontend con experiencia en Angular o React.', '2025-03-01', 27000, 'CREADA', 1, '', 'Horario flexible, equipo joven.', 1, 1),
+('Diseñador UI/UX', 'Diseñador con experiencia en Figma y Adobe XD.', '2025-03-02', 25000, 'CREADA', 0, '', 'Proyecto innovador en el sector e-learning.', 2, 1);
 
--- Solicitudes (solo candidatos)
-INSERT INTO solicitudes (fecha, archivo, comentarios, estado, curriculum, id_vacante, email) VALUES
-('2024-03-11', 'cv_juan.pdf', 'Estoy interesado.', 0, 'cv_juan.pdf', 1, 'juan@correo.com'),
-('2024-03-11', 'cv_ana.pdf', 'Buena oportunidad.', 1, 'cv_ana.pdf', 2, 'ana@correo.com'),
-('2024-03-11', 'cv_lucia.pdf', 'Disponible inmediatamente.', 0, 'cv_lucia.pdf', 3, 'lucia@correo.com'),
-('2024-03-11', 'cv_andrea.pdf', 'Gracias por considerar.', 2, 'cv_andrea.pdf', 4, 'andrea@correo.com'),
-('2024-03-11', 'cv_nat.pdf', 'Experiencia en el sector.', 0, 'cv_nat.pdf', 5, 'natalia@correo.com'),
-('2024-03-11', 'cv_juan2.pdf', 'Me interesa el reto.', 0, 'cv_juan2.pdf', 6, 'juan@correo.com'),
-('2024-03-11', 'cv_ana2.pdf', 'Tengo formación específica.', 1, 'cv_ana2.pdf', 7, 'ana@correo.com'),
-('2024-03-11', 'cv_lucia2.pdf', 'Gran oportunidad.', 2, 'cv_lucia2.pdf', 8, 'lucia@correo.com'),
-('2024-03-11', 'cv_andrea2.pdf', 'Experiencia previa.', 0, 'cv_andrea2.pdf', 9, 'andrea@correo.com'),
-('2024-03-11', 'cv_nat2.pdf', 'Adjunto mi CV.', 0, 'cv_nat2.pdf', 10, 'natalia@correo.com');
+-- ================== SOLICITUD ==================
+INSERT INTO Solicitudes (fecha, archivo, comentarios, estado, curriculum, id_Vacante, email) VALUES
+('2025-03-05', 'cv_jose.pdf', 'Me interesa mucho esta vacante, gracias.', 0, 'cv_jose.pdf', 1, 'cliente@cliente.com');

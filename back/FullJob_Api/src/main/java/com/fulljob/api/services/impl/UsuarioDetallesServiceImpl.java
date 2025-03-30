@@ -45,8 +45,8 @@ public class UsuarioDetallesServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("El usuario está deshabilitado: " + email);
         }
 
-        // Obtenemos el rol y lo adaptamos al formato que Spring Security espera: "ROLE_NOMBRE"
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toUpperCase());
+        // Obtenemos el rol y lo adaptamos al formato que Spring Security 
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(usuario.getRol().toUpperCase());
 
         // Retornamos una instancia de User (propia de Spring Security) con email, contraseña y rol
         return new User(

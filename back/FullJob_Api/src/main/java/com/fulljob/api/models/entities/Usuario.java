@@ -52,7 +52,7 @@ public class Usuario implements Serializable, UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 	    return List.of(rol.split(",")).stream()
-	        .map(role -> (GrantedAuthority) () -> "ROLE_" + role.trim())
+	        .map(role -> (GrantedAuthority) () -> role.trim())
 	        .toList();
 	}
 
