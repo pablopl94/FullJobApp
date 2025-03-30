@@ -1,4 +1,4 @@
-package com.fulljob.api.services;
+package com.fulljob.api.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,7 +1,6 @@
-package com.fulljob.api.services;
+package com.fulljob.api.services.impl;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,12 +8,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fulljob.api.models.dto.EmpresaRegistroRequestDto;
-import com.fulljob.api.models.dto.UsuarioPasswordResponseDto;
+import com.fulljob.api.models.dto.AltaEmpresaRequestDto;
 import com.fulljob.api.models.entities.Empresa;
 import com.fulljob.api.models.entities.Usuario;
 import com.fulljob.api.repository.IEmpresaRepository;
 import com.fulljob.api.repository.IUsuarioRepository;
+import com.fulljob.api.services.IEmpresaService;
 import com.fulljob.api.utils.PasswordGenerator;
 
 @Service
@@ -58,43 +57,7 @@ public class EmpresaImplService extends GenericCrudServiceImpl<Empresa, Integer>
 	 * @throws IllegalArgumentException si el email ya está registrado.
 	 */
 
-	@Override
-	@Transactional
-	public UsuarioPasswordResponseDto  altaEmpresa(EmpresaRegistroRequestDto dto, Usuario usuario) {
-        if (usuarioRepository.existsById(dto.getEmail())) {
-            throw new IllegalArgumentException("El email ya esta dado de alta.");
-        }
-        
-        String rawPassword = PasswordGenerator.generarPasswordAleatoria(10);
-        String encodedPassword = passwordEncoder.encode(rawPassword);
-		
-        Usuario cliente = Usuario.builder()
-                .email(dto.getEmail())
-                .nombre(dto.getNombre())
-                .apellidos(dto.getApellidos())
-                .password(encodedPassword)
-                .enabled(1)
-                .fechaRegistro(LocalDate.now())
-                .rol("EMPRESA")
-                .build();
 
-       		usuarioRepository.save(cliente);
-		
-	    Empresa empresa = Empresa.builder()
-	            .cif(dto.getCif())
-	            .nombreEmpresa(dto.getNombreEmpresa())
-	            .direccionFiscal(dto.getDireccionFiscal())
-	            .pais(dto.getPais())
-	            .usuario(cliente)
-	            .build();
-	    
-	     empresaRepository.save(empresa);
-	     
-	     	return UsuarioPasswordResponseDto .builder()
-	                .usuario(cliente)
-	                .passwordGenerada(rawPassword)
-	                .build();
-	}
 
 	//METODO PARA BUSCAR EL USUARIO DE UNA EMPRESA 
 	// Podríamos usar una relación inversa desde Usuario, pero preferimos este enfoque

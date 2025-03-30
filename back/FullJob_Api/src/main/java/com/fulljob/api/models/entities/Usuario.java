@@ -37,14 +37,17 @@ public class Usuario implements Serializable, UserDetails {
 
 	private String password;
 
-	private Integer enabled;
+	//Aqui le asignamos por defecto que este activo el usuario
+	//para cuando se da de alta un usuario
+    @Builder.Default
+	private Integer enabled = 1;
 
 	@Column(name = "fecha_registro")
 	private LocalDate fechaRegistro;
 
 	private String rol;
 
-	// Métodos  UserDetails 
+	// METODOS CLASE USERDETAILS DE SPRINGSECURIRY 
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -52,7 +55,6 @@ public class Usuario implements Serializable, UserDetails {
 	        .map(role -> (GrantedAuthority) () -> "ROLE_" + role.trim())
 	        .toList();
 	}
-
 
 	@Override
 	public String getUsername() {

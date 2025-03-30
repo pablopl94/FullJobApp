@@ -4,48 +4,51 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Interfaz genérica para operaciones CRUD (Crear, Leer, Actualizar y Eliminar).
+ * Esta interfaz la hemos creado en grupo para tener una base común con las funciones
+ * básicas que casi todas las entidades necesitan (crear, leer, actualizar y eliminar).
  * 
- * @param <E> Tipo de la entidad que se va a manejar (por ejemplo, Vacante, Empresa...).
- * @param <ID> Tipo del identificador de la entidad (por ejemplo, Long, String...).
+ * Así, en vez de repetir el mismo código en cada clase, usamos esta interfaz y lo reutilizamos.
+ *
+ * @param <E> Tipo de entidad que vamos a usar (por ejemplo: Empresa, Vacante...).
+ * @param <ID> Tipo del identificador (puede ser un número, un string... depende de la entidad).
  */
 public interface IGenericCrud<E, ID> {
 
     /**
-     * Obtiene una lista con todos los elementos de la entidad.
+     * Devuelve una lista con todos los elementos guardados de ese tipo.
      *
-     * @return lista de elementos encontrados.
+     * @return lista con todos los elementos encontrados.
      */
     List<E> findAll();
 
     /**
-     * Busca un elemento por su identificador.
+     * Busca un elemento por su ID (identificador único).
      *
-     * @param id identificador del elemento.
-     * @return un Optional que puede contener el elemento si se encuentra.
+     * @param id el valor con el que queremos buscar.
+     * @return un Optional que puede traer el resultado o estar vacío si no existe.
      */
     Optional<E> findById(ID id);
 
     /**
-     * Inserta un nuevo elemento en la base de datos.
+     * Guarda un nuevo elemento en la base de datos.
      *
-     * @param entity el objeto que se quiere guardar.
+     * @param entity el objeto que queremos guardar.
      * @return el objeto guardado.
      */
     E insertOne(E entity);
 
     /**
-     * Actualiza un elemento existente.
+     * Actualiza un objeto que ya existe con nuevos datos.
      *
-     * @param entity el objeto con los datos actualizados.
+     * @param entity el objeto con los cambios.
      * @return el objeto actualizado.
      */
     E updateOne(E entity); 
 
     /**
-     * Elimina un elemento por su identificador.
+     * Borra un objeto de la base de datos usando su ID.
      *
-     * @param id identificador del elemento a eliminar.
+     * @param id el identificador del objeto que queremos eliminar.
      */
     void deleteOne(ID id);
 }

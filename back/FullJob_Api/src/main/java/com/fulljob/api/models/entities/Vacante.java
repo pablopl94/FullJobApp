@@ -3,8 +3,6 @@ package com.fulljob.api.models.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,13 +44,16 @@ public class Vacante implements Serializable{
     @Enumerated(EnumType.STRING)
     private EstadoVacante estado = EstadoVacante.CREADA;
     
-	//Este atributo booleano le asignamos por decfecto el valor falso
+	//Aqui le asignamos por defecto que no sea destacado
+	//para cuando se publica una vacante
     @Builder.Default
     private boolean destacado = false;
     
     private String imagen;
     
     private String detalles;
+    
+    // ANOTACIONES RELACIONES DE VACANTE
     
     @ManyToOne
     @JoinColumn(name = "id_categoria")

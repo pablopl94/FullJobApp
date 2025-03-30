@@ -40,6 +40,8 @@ public class Empresa implements Serializable{
 	
 	private String pais;
 	
+	// ANOTACIONES RELACIONES DE EMPRESA
+	
     @OneToOne
     @JoinColumn(name = "email", referencedColumnName = "email")
     private Usuario usuario;

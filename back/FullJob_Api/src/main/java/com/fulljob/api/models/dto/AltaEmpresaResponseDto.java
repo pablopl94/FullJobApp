@@ -1,6 +1,5 @@
 package com.fulljob.api.models.dto;
 
-import com.fulljob.api.models.entities.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,8 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UsuarioPasswordResponseDto {
-	
-    private Usuario usuario;
-    private String passwordGenerada;
+public class AltaEmpresaResponseDto {
+
+	//Datos de la empresa
+	private EmpresaResponseDto empresa;
+
+    //Datos usuario
+    private String email;
+    private String nombre;
+    private String apellidos;
 }

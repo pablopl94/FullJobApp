@@ -1,10 +1,11 @@
-package com.fulljob.api.services;
+package com.fulljob.api.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.fulljob.api.models.entities.Solicitud;
 import com.fulljob.api.repository.ISolicitudRepository;
+import com.fulljob.api.services.ISolicitudService;
 
 public class SolicitudServiceImpl extends GenericCrudServiceImpl<Solicitud, Integer> implements ISolicitudService{
 

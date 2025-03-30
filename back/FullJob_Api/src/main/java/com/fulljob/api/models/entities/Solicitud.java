@@ -35,12 +35,14 @@ public class Solicitud {
 	
 	private String comentario;
 	
-	@Builder.Default
+	// Se guarda como 0 o 1 segun el orden del enum, por defecto sera 0 
+	@Builder.Default 
 	@Enumerated(EnumType.ORDINAL)
 	private EstadoSolicitud estado = EstadoSolicitud.PENDIENTE;
 
-	
 	private String curriculum;
+	
+	// ANOTACIONES RELACIONES DE SOLICITUD
 	
     @ManyToOne
     @JoinColumn(name = "id_vacante")

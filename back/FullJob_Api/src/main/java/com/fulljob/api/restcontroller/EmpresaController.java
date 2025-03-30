@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fulljob.api.models.dto.EmpresaRegistroRequestDto;
-import com.fulljob.api.models.dto.EmpresaResponseDto;
+import com.fulljob.api.auth.JwtUtils;
+import com.fulljob.api.models.dto.AltaEmpresaRequestDto;
+import com.fulljob.api.models.dto.AltaEmpresaResponseDto;
 import com.fulljob.api.models.dto.UsuarioPasswordResponseDto;
 import com.fulljob.api.services.IEmpresaService;
 
@@ -22,14 +23,14 @@ import jakarta.validation.Valid;
 @RequestMapping("/admin")
 @CrossOrigin(origins = "*")
 
-public class AdminController {
+public class EmpresaController {
 
     @Autowired
     private IEmpresaService empresaService;
 
     @Autowired
     private ModelMapper modelMapper;
-
+   
     /**
      * Este método lo hemos creado para registrar una nueva empresa en el sistema.
      *
@@ -46,13 +47,12 @@ public class AdminController {
      *   con el email y la contraseña que le haya dado el admin.
      */
     @PostMapping("/alta/empresa")
-    public ResponseEntity<Map<String, Object>> altaEmpresa(@RequestBody @Valid EmpresaRegistroRequestDto dto) {
+    public ResponseEntity<Map<String, Object>> altaEmpresa(@RequestBody @Valid AltaEmpresaRequestDto dto) {
 
-        // Llamamos al servicio que registra al usuario y a la empresa
-        UsuarioPasswordResponseDto cliente = empresaService.altaEmpresa(dto, null);
+        UsuarioPasswordResponseDto cliente = empresaService.altaEmpresa(dto);
 
         // Mapeamos la entidad Empresa a un DTO para enviarla como respuesta
-        EmpresaResponseDto newEmpresaResponse = modelMapper.map(empresaService.findByUsuario(cliente.getUsuario()), EmpresaResponseDto.class);
+        AltaEmpresaResponseDto newEmpresaResponse = modelMapper.map(empresaService.findByUsuario(cliente.getUsuario()), AltaEmpresaResponseDto.class);
 
         // Metemos los datos del usuario manualmente por ahora, ya que ModelMapper no puede mapearlos directamente
         // (porque están dentro de la relación con Empresa). Si da tiempo, lo configuramos más adelante con un PropertyMap.

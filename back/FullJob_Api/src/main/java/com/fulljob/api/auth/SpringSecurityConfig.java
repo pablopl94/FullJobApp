@@ -74,37 +74,51 @@ public class SpringSecurityConfig {
             .cors(Customizer.withDefaults()) // Usamos configuración CORS por defecto
             .authorizeHttpRequests(authorize -> {
             	
-                // ======================= AUTH =======================
-                authorize.requestMatchers(HttpMethod.POST, "/auth/login", "/auth/alta/cliente", "/admin/alta/empresa" ).permitAll();
-                authorize.requestMatchers(HttpMethod.GET, "/auth/obtenerusuario").authenticated();
-                
-                // ===================== CATEGORIAS ====================
-                authorize.requestMatchers(HttpMethod.GET,"/categorias", "/categorias/{id}", "/categorias/buscar/{nombre}").permitAll();
-                authorize.requestMatchers(HttpMethod.POST, "/categorias").hasAuthority("ROLE_ADMON");
-                authorize.requestMatchers(HttpMethod.PUT, "/categorias/{id}").hasAuthority("ROLE_ADMON");
-                authorize.requestMatchers(HttpMethod.DELETE, "/categorias/{id}").hasAuthority("ROLE_ADMON");
+            	// =================== AUTHENTICATION ===================
+            	authorize.requestMatchers(HttpMethod.POST, "/auth/login", "/auth/alta/cliente").permitAll();
+            	authorize.requestMatchers(HttpMethod.POST, "/auth/alta/empresa").hasAuthority("ROLE_ADMON");
+            	authorize.requestMatchers(HttpMethod.GET, "/auth/obtenerusuario").authenticated();
 
-                // ===================== VACANTES ======================
-                authorize.requestMatchers(HttpMethod.GET,"/vacantes", "/vacantes/{id}", "/vacantes/buscar/{nombre}", "/vacantes/categoria/{idCategoria}").permitAll();
-                authorize.requestMatchers(HttpMethod.POST, "/vacantes").hasAuthority("ROLE_EMPRESA");
-                authorize.requestMatchers(HttpMethod.PUT, "/vacantes/{id}").hasAuthority("ROLE_EMPRESA");
-                authorize.requestMatchers(HttpMethod.DELETE, "/vacantes/{id}").hasAuthority("ROLE_EMPRESA");
+            	// =================== CATEGORIAS ======================
+            	authorize.requestMatchers(HttpMethod.GET, "/categorias").permitAll();
+            	authorize.requestMatchers(HttpMethod.POST, "/categorias").hasAuthority("ROLE_ADMON");
+            	authorize.requestMatchers(HttpMethod.PUT, "/categorias/{id}").hasAuthority("ROLE_ADMON");
+            	authorize.requestMatchers(HttpMethod.DELETE, "/categorias/{id}").hasAuthority("ROLE_ADMON");
 
-                // ===================== EMPRESAS ======================
-                authorize.requestMatchers(HttpMethod.GET,"/empresas", "/empresas/{id}", "/empresas/buscar/{nombre}").hasAuthority("ROLE_ADMON");
-                authorize.requestMatchers(HttpMethod.POST, "/empresas/register").hasAuthority("ROLE_ADMON");
-                authorize.requestMatchers(HttpMethod.PUT,"/empresas/{id}", "/desactivar/{id}", "/activar/{id}").hasAuthority("ROLE_ADMON");
-                authorize.requestMatchers(HttpMethod.DELETE, "/empresas/{id}").hasAuthority("ROLE_ADMON");
+            	// =================== VACANTES ========================
+            	authorize.requestMatchers(HttpMethod.GET, "/vacantes", "/vacantes/{id}").permitAll();
+            	authorize.requestMatchers(HttpMethod.GET, "/vacantes/filtrar").permitAll();
+            	authorize.requestMatchers(HttpMethod.GET, "/vacantes/misvacantes").hasAuthority("ROLE_EMPRESA");
+            	authorize.requestMatchers(HttpMethod.POST, "/vacantes/publicar").hasAuthority("ROLE_EMPRESA");
+            	authorize.requestMatchers(HttpMethod.PUT, "/vacantes/editar/{id}").hasAuthority("ROLE_EMPRESA");
+            	authorize.requestMatchers(HttpMethod.DELETE, "/vacantes/cancelar/{id}").hasAuthority("ROLE_EMPRESA");
 
-                // ===================== SOLICITUDES ===================
-                authorize.requestMatchers(HttpMethod.GET, "/solicitudes/mis-solicitudes").hasAuthority("ROLE_CLIENTE");
-                authorize.requestMatchers(HttpMethod.POST, "/solicitudes").hasAuthority("ROLE_CLIENTE");
-                authorize.requestMatchers(HttpMethod.DELETE, "/solicitudes/{id}").hasAuthority("ROLE_CLIENTE");
-                authorize.requestMatchers(HttpMethod.GET, "/solicitudes/vacante/{idVacante}").hasAuthority("ROLE_EMPRESA");
-                authorize.requestMatchers(HttpMethod.PUT, "/solicitudes/adjudicar/{id}", "/solicitudes/desadjudicar/{id}").hasAuthority("ROLE_EMPRESA");
+            	// =================== EMPRESAS ========================
+            	authorize.requestMatchers(HttpMethod.GET, "/empresas", "/empresas/{id}", "/empresas/buscar/{nombre}").hasAuthority("ROLE_ADMON");
+            	authorize.requestMatchers(HttpMethod.GET, "/empresas/miperfil").hasAuthority("ROLE_EMPRESA");
+            	authorize.requestMatchers(HttpMethod.POST, "/empresas/register").hasAuthority("ROLE_ADMON");
+            	authorize.requestMatchers(HttpMethod.PUT, "/empresas/{id}", "/desactivar/{id}", "/activar/{id}").hasAuthority("ROLE_ADMON");
+            	authorize.requestMatchers(HttpMethod.PUT, "/empresas/update").hasAuthority("ROLE_EMPRESA");
+            	authorize.requestMatchers(HttpMethod.DELETE, "/empresas/{id}").hasAuthority("ROLE_ADMON");
+            	authorize.requestMatchers(HttpMethod.PUT, "/empresa/eliminar/{id}").hasAuthority("ROLE_ADMON");
 
-                // ===================== CUALQUIER OTRA =================
-                authorize.anyRequest().authenticated();
+            	// =================== SOLICITUDES =====================
+            	authorize.requestMatchers(HttpMethod.POST, "/solicitudes").hasAuthority("ROLE_CLIENTE");
+            	authorize.requestMatchers(HttpMethod.GET, "/solicitudes/mis-solicitudes").hasAuthority("ROLE_CLIENTE");
+            	authorize.requestMatchers(HttpMethod.DELETE, "/solicitudes/{id}").hasAuthority("ROLE_CLIENTE");
+            	authorize.requestMatchers(HttpMethod.GET, "/solicitudes/vacante/{idVacante}").hasAuthority("ROLE_EMPRESA");
+            	authorize.requestMatchers(HttpMethod.PUT, "/solicitudes/asignar/{id}").hasAuthority("ROLE_EMPRESA");
+
+            	// =================== CLIENTE =========================
+            	authorize.requestMatchers(HttpMethod.PUT, "/cliente/desactivar/{id}").hasAuthority("ROLE_ADMON");
+            	authorize.requestMatchers(HttpMethod.POST, "/cliente/admin").hasAuthority("ROLE_ADMON");
+            	authorize.requestMatchers(HttpMethod.PUT, "/cliente/admin/{id}").hasAuthority("ROLE_ADMON");
+            	authorize.requestMatchers(HttpMethod.DELETE, "/cliente/admin/{id}").hasAuthority("ROLE_ADMON");
+
+            	// =================== DEFAULT =========================
+            	authorize.anyRequest().authenticated();
+
+
             })
             .exceptionHandling(exception -> exception
                     .authenticationEntryPoint(jwtAuthenticationEntryPoint)) // Usa este manejador si falla la autenticación
