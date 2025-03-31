@@ -1,0 +1,15 @@
+<!--HTML PARA EL ACCESO DE EMPRESA:
+    puede logearse directamente con el login-form ó 
+    puede ver la registro-info(info y boton de CONTACTAR) 
+    el boton de CONTACTAR de momento no llevara a ningun lado-->
+<section class="min-h-screen bg-yellow-400 flex justify-center items-center px-4 py-12">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full items-stretch">
+
+    <!-- Formulario de login para empresas -->
+    <app-login-form [tipo]="'empresa'"></app-login-form>
+
+    <!-- Info registro para empresas -->
+    <app-registro-info [tipo]="'empresa'"></app-registro-info>
+
+  </div>
+</section>

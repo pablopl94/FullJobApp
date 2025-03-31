@@ -6,12 +6,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        mustard: "#FAC402"
-      }
+        mustard: "#FAC402", // Tu color mostaza
+      },
+      fontFamily: {
+        sans: ['Poppins', 'sans-serif'], // Añadir Poppins como la fuente predeterminada
+      },
     },
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: [], //Aquí se  puede poner lo que prefieras.
+    themes: [], // Aquí se puede poner lo que prefieras
   },
 };

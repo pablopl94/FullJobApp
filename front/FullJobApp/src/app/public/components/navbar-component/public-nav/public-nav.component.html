@@ -1,0 +1,26 @@
+<!--NAVAGEADOR PARA LA PARTE PÚBLICA-->
+<nav class="bg-white shadow-md py-4 px-6">
+  <div class="max-w-[1280px] mx-auto flex justify-between items-center">
+    
+    <!-- Logo con imagen -->
+    <a routerLink="/">
+      <img src="assets/img/FullJob_logo.png" alt="FullJob Logo" class="h-12" id="logo">
+    </a>
+
+    <!-- Botones de acceso -->
+    <div class="space-x-3">
+
+      <!-- Acceso empresa -->
+      <a routerLink="/empresa/access" 
+        class="border border-yellow-500 text-yellow-500 px-4 py-2 rounded hover:bg-yellow-500 hover:text-white transition no-underline">
+        Acceder Empresas
+      </a>
+
+      <!-- Acceso clientes-->
+      <a routerLink="/access" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition no-underline">
+        Acceder Candidatos
+      </a>
+      
+    </div>
+  </div>
+</nav>
