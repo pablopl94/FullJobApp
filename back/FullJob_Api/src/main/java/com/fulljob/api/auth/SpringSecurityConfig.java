@@ -81,6 +81,7 @@ public class SpringSecurityConfig {
 
             	// =================== CATEGORIAS ======================
             	authorize.requestMatchers(HttpMethod.GET, "/categorias").permitAll();
+            	authorize.requestMatchers(HttpMethod.GET, "/categorias/{id}").hasAuthority("ADMON");
             	authorize.requestMatchers(HttpMethod.POST, "/categorias").hasAuthority("ADMON");
             	authorize.requestMatchers(HttpMethod.PUT, "/categorias/{id}").hasAuthority("ADMON");
             	authorize.requestMatchers(HttpMethod.DELETE, "/categorias/{id}").hasAuthority("ADMON");
