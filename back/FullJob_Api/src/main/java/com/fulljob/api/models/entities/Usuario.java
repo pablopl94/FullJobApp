@@ -28,23 +28,28 @@ public class Usuario implements Serializable, UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(unique = true, nullable = false)
+	@Column(unique = true, nullable = false, length = 45)
 	private String email;
-
+	
+	@Column(nullable = false, length = 45)
 	private String nombre;
-
+	
+	@Column(nullable = false, length = 100)
 	private String apellidos;
-
+	
+	@Column(nullable = false, length = 100)
 	private String password;
 
 	//Aqui le asignamos por defecto que este activo el usuario
 	//para cuando se da de alta un usuario
     @Builder.Default
+    @Column(nullable = false)
 	private Integer enabled = 1;
 
 	@Column(name = "fecha_registro")
 	private LocalDate fechaRegistro;
-
+	
+	@Column(nullable = false, length = 15)
 	private String rol;
 
 	// METODOS CLASE USERDETAILS DE SPRINGSECURIRY 

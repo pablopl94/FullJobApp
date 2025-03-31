@@ -1,5 +1,7 @@
 package com.fulljob.api.services;
 
-public interface ICategoria extends IGenericCrud<ICategoria, Integer> {
+import com.fulljob.api.models.entities.Categoria;
+
+public interface ICategoria extends IGenericCrud<Categoria, Integer> {
 
 }

@@ -1,7 +1,5 @@
 package com.fulljob.api.services.impl;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -16,11 +14,10 @@ public class EmpresaImplService extends GenericCrudServiceImpl<Empresa, Integer>
 	@Autowired
 	private IEmpresaRepository empresaRepository;
 
-
 	// Aquí indicamos el repositorio que usamos en el CRUD genérico
 	@Override
 	protected JpaRepository<Empresa, Integer> getRepository() {
 		return empresaRepository;
 	}
-	
+
 }

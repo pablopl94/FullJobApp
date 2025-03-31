@@ -21,29 +21,31 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "empresas")
-public class Empresa implements Serializable{
+public class Empresa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_empresa")
-	private int  idEmpresa;
-	
+	private Integer idEmpresa;
+
+	@Column(unique = true, nullable = false, length = 10)
 	private String cif;
-	
-	@Column(name = "nombre_empresa")
+
+	@Column(name = "nombre_empresa", nullable = false, length = 100)
 	private String nombreEmpresa;
-	
-	@Column(name = "direccion_fiscal")
+
+	@Column(name = "direccion_fiscal", length = 100)
 	private String direccionFiscal;
-	
+
+	@Column(length = 45)
 	private String pais;
-	
+
 	// ANOTACIONES RELACIONES DE EMPRESA
-	
-    @OneToOne
-    @JoinColumn(name = "email", referencedColumnName = "email")
-    private Usuario usuario;
-	
+
+	@OneToOne
+	@JoinColumn(name = "email", referencedColumnName = "email")
+	private Usuario usuario;
+
 }

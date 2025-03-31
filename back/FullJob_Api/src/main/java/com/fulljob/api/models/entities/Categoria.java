@@ -25,9 +25,11 @@ public class Categoria implements Serializable {
 	@Id
 	@GeneratedValue
 	@Column(name = "id_categoria")
-	private int idCategoria;
-	
+	private Integer idCategoria;
+
+	@Column(nullable = false, length = 100)
 	private String nombre;
-	
+
+	@Column(length = 1000)
 	private String descripcion;
 }

@@ -27,30 +27,34 @@ public class Solicitud {
 	@Id
 	@GeneratedValue()
 	@Column(name = "id_solicitud")
-	private int idSolicitud;
+	private Integer idSolicitud;
 	
+	@Column(nullable = false)
 	private LocalDate fecha;
 	
+	@Column(nullable = false, length = 250)
 	private String archivo;
 	
+	@Column(length = 2000)
 	private String comentario;
 	
 	// Se guarda como 0 o 1 segun el orden del enum, por defecto sera 0 
 	@Builder.Default 
 	@Enumerated(EnumType.ORDINAL)
-	private EstadoSolicitud estado = EstadoSolicitud.PENDIENTE;
-
+	private EstadoSolicitud estado = EstadoSolicitud.PRESENTADA;
+	
+	@Column(length = 45)
 	private String curriculum;
 	
 	// ANOTACIONES RELACIONES DE SOLICITUD
 	
     @ManyToOne
-    @JoinColumn(name = "id_vacante")
+    @JoinColumn(name = "id_vacante", nullable = false)
     private Vacante vacante;
     
     
     @ManyToOne
-    @JoinColumn(name = "email")
+    @JoinColumn(name = "email", nullable = false)
     private Usuario usuario;
 	
 }
