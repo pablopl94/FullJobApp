@@ -1,0 +1,14 @@
+<!--HTML PARA EL ACCESO DE CANDIDATO:
+    puede logearse directamente con el login-form ó
+    puede ver la registro-info(info y boton de registrarse) -->
+    <app-public-nav></app-public-nav>
+
+    <section class="min-h-screen bg-yellow-400 flex justify-center items-center px-4 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
+        <app-login-form [tipo]="tipoSeleccionado"></app-login-form>
+        <app-registro-info [tipo]="tipoSeleccionado"></app-registro-info>
+      </div>
+    </section>
+
+
+

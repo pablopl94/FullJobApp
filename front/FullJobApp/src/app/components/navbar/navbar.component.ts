@@ -15,7 +15,7 @@ export class NavbarComponent {
   private readonly authService: AuthService = inject(AuthService);
 
   get role(): string | null {
-    return this.authService.getRole();
+    return this.authService.obtenerRol();
   }
 }
 
