@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { PublicFooterComponent } from '../../../components/public-footer/public-footer.component';
-import { PublicNavComponent } from '../../../components/public-nav/public-nav.component';
+import { FooterComponent } from '../../../components/footer/footer.component';
+import { PublicNavComponent } from '../../components/public-nav/public-nav.component';
 
 
 @Component({
   selector: 'app-public-layout',
-  imports: [RouterOutlet, PublicFooterComponent, PublicNavComponent],
+  imports: [RouterOutlet, FooterComponent, PublicNavComponent],
   templateUrl: './public-layout.component.html',
   styleUrl: './public-layout.component.css'
 })

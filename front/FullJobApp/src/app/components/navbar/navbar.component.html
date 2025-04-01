@@ -1,38 +1,36 @@
-<aside class="w-64 bg-white p-6 shadow-md min-h-screen">
+<aside class="bg-white p-4 shadow-sm min-vh-100" style="width: 16rem;">
   <!-- Avatar + Info -->
-  <div class="flex items-center gap-4 mb-8">
-    <!-- Imagen redonda más pequeña -->
-    <div class="w-12 h-12 rounded-full bg-gray-300"></div>
+  <div class="d-flex align-items-center gap-3 mb-4">
+
+    <div class="rounded-circle bg-secondary" style="width: 48px; height: 48px;"></div>
 
     <!-- Nombre y rol -->
     <div>
-      <p class="font-semibold text-sm">Nombre usuario</p>
-      <p class="text-xs text-gray-500 uppercase tracking-wide">{{ role }}</p>
+      <p class="fw-semibold small mb-0">Nombre usuario</p>
+      <p class="text-uppercase text-muted text-xs mb-0" style="letter-spacing: 0.05em;">{{ role }}</p>
     </div>
   </div>
 
   <!-- Menú según rol -->
-  <nav class="space-y-4">
+  <nav class="d-flex flex-column gap-3">
     @if (role === 'ADMON') {
-      <a routerLink="/empresa/vacantes" routerLinkActive="font-bold" class="block">HOME</a>
-      <a routerLink="/admin/empresas" routerLinkActive="font-bold" class="block">GESTIÓN EMPRESAS</a>
-      <a routerLink="/admin/candidatos" routerLinkActive="font-bold" class="block">GESTIÓN CANDIDATOS</a>
-      <a routerLink="/admin/administradores" routerLinkActive="font-bold" class="block">GESTIÓN ADMINISTRADOR</a>
-      <a routerLink="/admin/categorias" routerLinkActive="font-bold" class="block">GESTIÓN CATEGORÍAS</a>
+      <a routerLink="/empresa/vacantes" routerLinkActive="fw-bold" class="text-decoration-none">HOME</a>
+      <a routerLink="/admin/empresas" routerLinkActive="fw-bold" class="text-decoration-none">GESTIÓN EMPRESAS</a>
+      <a routerLink="/admin/candidatos" routerLinkActive="fw-bold" class="text-decoration-none">GESTIÓN CANDIDATOS</a>
+      <a routerLink="/admin/administradores" routerLinkActive="fw-bold" class="text-decoration-none">GESTIÓN ADMINISTRADOR</a>
+      <a routerLink="/admin/categorias" routerLinkActive="fw-bold" class="text-decoration-none">GESTIÓN CATEGORÍAS</a>
     }
     @else if (role === 'EMPRESA') {
-      <a routerLink="/empresa/vacantes" routerLinkActive="font-bold" class="block">HOME</a>
-      <a routerLink="/empresa/vacantes" routerLinkActive="font-bold" class="block">MIS VACANTES</a>
-      <a routerLink="/empresa/solicitudes" routerLinkActive="font-bold" class="block">SOLICITUDES</a>
-      <a routerLink="/empresa/perfil" routerLinkActive="font-bold" class="block">PERFIL</a>
+      <a routerLink="/empresa/vacantes" routerLinkActive="fw-bold" class="text-decoration-none">HOME</a>
+      <a routerLink="/empresa/vacantes" routerLinkActive="fw-bold" class="text-decoration-none">MIS VACANTES</a>
+      <a routerLink="/empresa/solicitudes" routerLinkActive="fw-bold" class="text-decoration-none">SOLICITUDES</a>
+      <a routerLink="/empresa/perfil" routerLinkActive="fw-bold" class="text-decoration-none">PERFIL</a>
     }
     @else if (role === 'CLIENTE') {
-      <a routerLink="/empresa/vacantes" routerLinkActive="font-bold" class="block">HOME</a>
-      <a routerLink="/candidato/vacantes" routerLinkActive="font-bold" class="block">BUSCAR VACANTES</a>
-      <a routerLink="/candidato/solicitudes" routerLinkActive="font-bold" class="block">MIS SOLICITUDES</a>
-      <a routerLink="/candidato/perfil" routerLinkActive="font-bold" class="block">PERFIL</a> <!-- OPCIONAL -->
+      <a routerLink="/empresa/vacantes" routerLinkActive="fw-bold" class="text-decoration-none">HOME</a>
+      <a routerLink="/candidato/vacantes" routerLinkActive="fw-bold" class="text-decoration-none">BUSCAR VACANTES</a>
+      <a routerLink="/candidato/solicitudes" routerLinkActive="fw-bold" class="text-decoration-none">MIS SOLICITUDES</a>
+      <a routerLink="/candidato/perfil" routerLinkActive="fw-bold" class="text-decoration-none">PERFIL</a>
     }
   </nav>
 </aside>
-
-

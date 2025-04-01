@@ -1,27 +1,28 @@
-<!--NAVAGEADOR PARA LA PARTE PÚBLICA-->
-<nav class="bg-white shadow-md py-4 px-6">
-  <div class="max-w-[1280px] mx-auto flex justify-between items-center">
+<!-- NAVAGADOR PARA LA PARTE PÚBLICA -->
+<nav class="bg-white shadow-sm py-3 px-4">
+  <div class="container d-flex justify-content-between align-items-center" style="max-width: 1280px;">
 
     <!-- Logo con imagen -->
     <a routerLink="/">
-      <img src="assets/img/FullJob_logo.png" alt="FullJob Logo" class="h-20" id="logo">
+      <img src="assets/img/FullJob_logo.png" alt="FullJob Logo" style="height: 5rem;" id="logo" />
     </a>
 
-    <!-- Botones de acceso -->
-    <div class="space-x-3">
+    <div class="d-flex gap-2">
 
-      <!-- Acceso empresa -->
-      <a [routerLink]="'/access/empresa'" class="bg-yellow-500 text-white font-bold px-4 py-2 rounded hover:bg-yellow-600 transition no-underline"
-      >
+      <a
+        [routerLink]="'/access/empresa'"
+        class="bg-warning text-white fw-bold px-3 py-2 rounded text-decoration-none"
+        style="transition: background-color 0.2s ease;">
         Acceder Empresas
       </a>
 
-
-      <!-- Acceso Candidatos -->
-      <a [routerLink]="'/access/candidato'" class="bg-yellow-500 text-white font-bold px-4 py-2 rounded hover:bg-yellow-600 transition no-underline"
-      >
+      <a
+        [routerLink]="'/access/candidato'"
+        class="bg-warning text-white fw-bold px-3 py-2 rounded text-decoration-none"
+        style="transition: background-color 0.2s ease;">
         Acceder Candidatos
       </a>
+
 
     </div>
   </div>

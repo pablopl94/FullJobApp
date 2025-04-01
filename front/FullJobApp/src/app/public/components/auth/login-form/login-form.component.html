@@ -1,37 +1,39 @@
 <!-- FORMULARIO DE LOGIN -->
-<div class="w-full h-full bg-white rounded-lg shadow-lg p-8 flex flex-col min-h-[400px]">
-  <h2 class="text-2xl font-bold mb-6 text-gray-800 text-center">
+
+<div class="bg-white rounded shadow p-4 p-md-5 d-flex flex-column min-vh-50" style="min-height: 400px;">
+  <h2 class="h4 fw-bold mb-4 text-center text-dark">
     {{ titulo }}
   </h2>
 
-  <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="flex flex-col flex-grow justify-between">
-    <div class="space-y-5 flex-grow">
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="d-flex flex-column flex-grow justify-content-between">
+    <div class="mb-4 flex-grow">
+      <div class="mb-3">
+        <label for="email" class="form-label small fw-medium">Correo electrónico</label>
         <input
+          id="email"
           formControlName="email"
           placeholder="tucorreo@mail.com"
           type="email"
           required
-          class="mt-1 block w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+          class="form-control" />
       </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Contraseña</label>
+      <div class="mb-3">
+        <label for="password" class="form-label small fw-medium">Contraseña</label>
         <input
+          id="password"
           formControlName="password"
           placeholder="********"
           type="password"
           required
-          class="mt-1 block w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+          class="form-control" />
       </div>
     </div>
 
-    <!-- Botón pegado abajo -->
-    <div class="pt-6">
+    <div class="pt-3">
       <button
         type="submit"
-        class="bg-yellow-500 text-white px-4 py-2 rounded w-full hover:bg-yellow-600 transition">
+        class="btn btn-warning w-100 text-white">
         INICIAR SESIÓN
       </button>
     </div>

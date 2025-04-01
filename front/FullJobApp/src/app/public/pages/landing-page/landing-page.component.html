@@ -1,47 +1,50 @@
 <app-public-nav></app-public-nav>
 
-<section class="w-full bg-white pt-20 pb-0 px-4">
-  <div class="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-2 items-start gap-8 relative">
+<!-- Hero principal -->
+<section class="w-100 bg-white pt-5 pb-0 px-3">
+  <div class="container" style="max-width: 1280px;">
+    <div class="position-relative" style="min-height: 500px;">
 
-    <h1
-      class="absolute top-0 left-0 text-3xl md:text-5xl font-extrabold text-gray-700 z-10 md:translate-y-20 leading-tight px-4"
-    >
-      Buscamos el trabajo ideal para ti
-    </h1>
+      <!-- Texto flotante sobre imagen -->
+      <h1 class="position-absolute top-0 start-0 z-3 px-3"
+          style="font-size: 3rem; font-weight: 800; color: #374151; line-height: 1.2; transform: translateY(6rem); z-index: 10;">
+        Buscamos el trabajo ideal para ti
+      </h1>
 
-    <div class="text-left space-y-4 md:mt-36 px-4">
-      <div class="flex flex-col items-start gap-8">
-        <p class="text-gray-900 text-xl font-medium">
-          Más de 100.000 ofertas de empleo
-        </p>
-        <a
-          routerLink="/access"
-          class="bg-yellow-500 text-white text-lg px-7 py-3.5 rounded-lg font-bold hover:bg-yellow-600 transition no-underline"
-        >
-          REGÍSTRATE
-        </a>
+      <div class="row g-4 align-items-center" style="margin-top: 8rem;">
+        <div class="col-12 col-md-6 px-3">
+          <div class="d-flex flex-column align-items-start gap-4 ps-3" style="margin-top: -6rem;">
+  <p class="text-dark fs-5 fw-medium">
+    Más de 100.000 ofertas de empleo
+  </p>
+  <a routerLink="/access"
+    class="btn btn-warning text-white fw-bold fs-6 px-4 py-2 rounded text-decoration-none">
+    REGÍSTRATE
+  </a>
+</div>
+
+        </div>
+
+        <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end pe-md-5">
+          <img
+            src="assets/img/personas.png"
+            alt="Personas"
+            class="img-fluid"
+            style="max-width: 500px; object-fit: contain;" />
+        </div>
       </div>
     </div>
-
-    <div class="flex justify-center md:justify-end md:mr-20">
-      <img
-        src="assets/img/personas.png"
-        alt="Personas"
-        class="block max-w-[500px] w-full object-contain"
-      />
-    </div>
-
   </div>
 </section>
 
-<section class="bg-yellow-400 py-16 px-6">
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-56">
 
-    <img src="assets/img/empresa1.png" alt="Empresa" class="rounded shadow-lg w-full md:w-1/3">
+<section class="bg-warning py-5 px-4">
+  <div class="container d-flex flex-column flex-md-row align-items-center" style="max-width: 1140px; gap: 14rem;">
+    <img src="assets/img/empresa1.png" alt="Empresa" class="rounded shadow img-fluid w-100 w-md-33" style="max-width: 33%;" />
 
     <div class="text-start">
-      <h2 class="text-3xl font-bold mb-4 text-gray-700">Empresa</h2>
-      <p class="text-gray-700 font-medium leading-relaxed">
+      <h2 class="fs-2 fw-bold mb-3 text-dark">Empresa</h2>
+      <p class="text-dark fw-medium lh-lg">
         ¿Por qué publicar tus ofertas en FullJob?<br /><br />
         Publica tus vacantes fácilmente, en pocos pasos.<br />
         Accede a una base de datos con más de 100.000 candidatos activos.<br />
@@ -53,18 +56,16 @@
         Encuentra profesionales cualificados para cualquier sector.
       </p>
     </div>
-
   </div>
 </section>
 
-<section class="bg-white py-16 px-6">
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row-reverse items-center gap-56">
+<section class="bg-white py-5 px-4">
+  <div class="container d-flex flex-column flex-md-row-reverse align-items-center" style="max-width: 1140px; gap: 14rem;">
+    <img src="assets/img/empresa2.png" alt="Empresa" class="rounded shadow img-fluid w-100 w-md-33" style="max-width: 33%;" />
 
-    <img src="assets/img/empresa2.png" alt="Empresa" class="rounded shadow-lg w-full md:w-1/3" />
-
-    <div class="text-start" >
-      <h2 class="text-3xl font-bold mb-4 text-yellow-400">Candidato</h2>
-      <p class="text-gray-700 font-medium leading-relaxed space-y-2">
+    <div class="text-start">
+      <h2 class="fs-2 fw-bold mb-3" style="color: #facc15;">Candidato</h2>
+      <p class="text-dark fw-medium lh-lg">
         ¿Por qué solicitar vacantes en FullJob?<br /><br />
         Encuentra oportunidades que se adaptan a tu perfil profesional.<br />
         Accede a vacantes actualizadas de empresas reales en todo el país.<br />
@@ -72,12 +73,8 @@
         Presenta tu candidatura en segundos con un currículum digital completo.<br />
         Recibe notificaciones cuando tu perfil coincida con una nueva vacante.<br />
         Consulta el estado de tus solicitudes en tiempo real.<br />
-        Cancela o reactiva candidaturas según tus intereses.<br />
-        Recibe recomendaciones y consejos para mejorar tu empleabilidad.<br />
-        Gestiona tu búsqueda de empleo desde una plataforma simple y moderna.<br />
         Da el siguiente paso en tu carrera con FullJob.
       </p>
     </div>
-
   </div>
 </section>
