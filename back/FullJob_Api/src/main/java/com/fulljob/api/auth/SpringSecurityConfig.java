@@ -88,7 +88,8 @@ public class SpringSecurityConfig {
 
             	// =================== VACANTES ========================
             	authorize.requestMatchers(HttpMethod.GET, "/vacantes", "/vacantes/{id}").permitAll();
-            	authorize.requestMatchers(HttpMethod.GET, "/vacantes/filtrar").permitAll();
+            	authorize.requestMatchers(HttpMethod.GET, "/vacantes/filtrar/empresa/{nombre}").permitAll();
+            	authorize.requestMatchers(HttpMethod.GET, "/vacantes/filtrar/**").permitAll();
             	authorize.requestMatchers(HttpMethod.GET, "/vacantes/misvacantes").hasAuthority("EMPRESA");
             	authorize.requestMatchers(HttpMethod.POST, "/vacantes/publicar").hasAuthority("EMPRESA");
             	authorize.requestMatchers(HttpMethod.PUT, "/vacantes/editar/{id}").hasAuthority("EMPRESA");

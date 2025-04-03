@@ -49,7 +49,7 @@ public class Vacante implements Serializable {
 	@Builder.Default
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private EstadoVacante estado = EstadoVacante.CREADA;
+	private EstadoVacante estatus = EstadoVacante.CREADA;
 
 	@Column(nullable = false)
 	private boolean destacado;
@@ -64,7 +64,7 @@ public class Vacante implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "id_categoria", nullable = false)
-	private Categoria categoriaS;
+	private Categoria categoria;
 
 	@ManyToOne
 	@JoinColumn(name = "id_empresa", nullable = false)

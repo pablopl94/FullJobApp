@@ -55,11 +55,13 @@ public class CategoriaRestController {
 
 	}
 
-	@PostMapping
+	@PostMapping  //Aqui tienes un error pixa 
 	public ResponseEntity<CategoriaDTO> createCategory(@Valid Categoria categoria) {
 
-		Categoria nuevaCategoria = Categoria.builder().nombre(categoria.getNombre())
-				.descripcion(categoria.getDescripcion()).build();
+		Categoria nuevaCategoria = Categoria.builder()
+                						    .nombre(categoria.getNombre())
+                						    .descripcion(categoria.getDescripcion())
+                						    .build();
 
 		Categoria categoriBbdd = iCategoria.insertOne(nuevaCategoria);
 
