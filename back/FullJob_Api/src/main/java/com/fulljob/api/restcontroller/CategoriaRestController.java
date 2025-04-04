@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fulljob.api.models.dto.CategoriaDTO;
+import com.fulljob.api.models.dto.CategoriaDto;
 import com.fulljob.api.models.entities.Categoria;
-import com.fulljob.api.services.ICategoria;
+import com.fulljob.api.services.ICategoriaService;
 
 import jakarta.validation.Valid;
 
@@ -30,33 +30,33 @@ public class CategoriaRestController {
 	private ModelMapper modelMapper;
 
 	@Autowired
-	private ICategoria iCategoria;
+	private ICategoriaService iCategoria;
 
 	@GetMapping
-	public ResponseEntity<List<CategoriaDTO>> findAll() {
+	public ResponseEntity<List<CategoriaDto>> findAll() {
 
 		List<Categoria> categorias = iCategoria.findAll();
 
-		List<CategoriaDTO> response = categorias.stream()
-				.map(categoria -> modelMapper.map(categoria, CategoriaDTO.class)).toList();
+		List<CategoriaDto> response = categorias.stream()
+				.map(categoria -> modelMapper.map(categoria, CategoriaDto.class)).toList();
 
 		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<CategoriaDTO> findCategory(@PathVariable Integer id) {
+	public ResponseEntity<CategoriaDto> findCategory(@PathVariable Integer id) {
 
 		Categoria categoria = iCategoria.findById(id)
 				.orElseThrow(() -> new RuntimeException("Categoria con id " + id + " no encontrada."));
 
-		CategoriaDTO response = modelMapper.map(categoria, CategoriaDTO.class);
+		CategoriaDto response = modelMapper.map(categoria, CategoriaDto.class);
 
 		return ResponseEntity.ok(response);
 
 	}
 
 	@PostMapping  //Aqui tienes un error pixa 
-	public ResponseEntity<CategoriaDTO> createCategory(@Valid Categoria categoria) {
+	public ResponseEntity<CategoriaDto> createCategory(@Valid Categoria categoria) {
 
 		Categoria nuevaCategoria = Categoria.builder()
                 						    .nombre(categoria.getNombre())
@@ -65,14 +65,14 @@ public class CategoriaRestController {
 
 		Categoria categoriBbdd = iCategoria.insertOne(nuevaCategoria);
 
-		CategoriaDTO response = modelMapper.map(categoria, CategoriaDTO.class);
+		CategoriaDto response = modelMapper.map(categoria, CategoriaDto.class);
 
 		return ResponseEntity.ok(response);
 
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<CategoriaDTO> UpdateCategory(@PathVariable Integer id,
+	public ResponseEntity<CategoriaDto> UpdateCategory(@PathVariable Integer id,
 			@RequestBody @Valid Categoria categoria) {
 
 		Categoria categoriaBbbdd = iCategoria.findById(id)
@@ -83,7 +83,7 @@ public class CategoriaRestController {
 
 		Categoria categoriaActualizada = iCategoria.updateOne(categoriaBbbdd);
 
-		CategoriaDTO response = modelMapper.map(categoria, CategoriaDTO.class);
+		CategoriaDto response = modelMapper.map(categoria, CategoriaDto.class);
 
 		return ResponseEntity.ok(response);
 

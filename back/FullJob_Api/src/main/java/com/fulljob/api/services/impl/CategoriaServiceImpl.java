@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 
 import com.fulljob.api.models.entities.Categoria;
 import com.fulljob.api.repository.ICategoriaRepository;
-import com.fulljob.api.services.ICategoria;
+import com.fulljob.api.services.ICategoriaService;
 
 @Service
 public class CategoriaServiceImpl extends GenericCrudServiceImpl<Categoria, Integer> 
-		implements ICategoria {
+		implements ICategoriaService {
 
 	@Autowired
 	private ICategoriaRepository categoriaRepo;

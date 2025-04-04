@@ -8,18 +8,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fulljob.api.models.dto.VacanteRequestDto;
 import com.fulljob.api.models.dto.VacanteResponseDto;
+import com.fulljob.api.models.entities.TipoDeContrato;
 import com.fulljob.api.models.entities.Usuario;
 import com.fulljob.api.models.entities.Vacante;
 import com.fulljob.api.services.IVacanteService;
-
-
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -81,7 +85,7 @@ public class VacanteRestController {
 		return ResponseEntity.ok(listaRespuestaDto );
 	}
 	
-	//METODO CON RUTA PARA FILTRAR LAS VACANTES POR NOMBRE EMPRESA
+	//METODO CON RUTA PARA FILTRAR LAS VACANTES POR CATEGORIA
 	@GetMapping("/filtrar/categoria/{id}")
 	public ResponseEntity<List<VacanteResponseDto>> filtroVacantesCategoria(@PathVariable int id) {
 		
@@ -90,9 +94,9 @@ public class VacanteRestController {
 		return ResponseEntity.ok(listaRespuestaDto );
 	}
 	
-	//METODO CON RUTA PARA FILTRAR LAS VACANTES POR NOMBRE EMPRESA
-	@GetMapping("/filtrar/categoria/{contrato}")
-	public ResponseEntity<List<VacanteResponseDto>> filtroVacantesTipoContrato(@PathVariable String contrato) {
+	//METODO CON RUTA PARA FILTRAR LAS VACANTES POR CONTRATO = DETALLES
+	@GetMapping("/filtrar/contrato/{contrato}")
+	public ResponseEntity<List<VacanteResponseDto>> filtroVacantesTipoContrato(@PathVariable TipoDeContrato contrato) {
 		
 		List<VacanteResponseDto> listaRespuestaDto = vacanteService.filtrarVacantesTipoContrato(contrato);
 		
@@ -105,7 +109,7 @@ public class VacanteRestController {
 	public ResponseEntity<List<VacanteResponseDto>> empresaMisVacantes() {
 		
 		//Obtenemos el usuario autenticado con security
-		Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Usuario usuario = (Usuario)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		List<VacanteResponseDto> listaRespuestaDto = vacanteService.obtenerVacantesDeEmpresa(usuario);
 		
@@ -115,50 +119,39 @@ public class VacanteRestController {
 	
 	
 	//METODO CON RUTA PARA PUBLICAR UN VACANTE
-	@GetMapping("/publicar")
-	public ResponseEntity<List<VacanteResponseDto>> publicarVacante() {
+	@PostMapping("/publicar")
+	public ResponseEntity<VacanteResponseDto> publicarVacante(@RequestBody VacanteRequestDto vacanteDto) {
 		
 		//Obtenemos el usuario autenticado con security
 		Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		
-		//ME FALTA IMPLEMENTAR <---- PABLO
-		
-		
-		return ResponseEntity.ok(null);
+		//Le pasamos los datos de usuario y lo que llega por el body de vacanteDto
+		VacanteResponseDto respuestaDto = vacanteService.publicarVacante(vacanteDto, usuario);
+			
+		return ResponseEntity.ok(respuestaDto);
 	}
 	
 	
 	
 	//METODO CON RUTA PARA PUBLICAR UN VACANTE
-	@PutMapping("/editar{id}")
-	public ResponseEntity<List<VacanteResponseDto>> editarVacante(@PathVariable int id) {
+	@PutMapping("/editar/{id}")
+	public ResponseEntity<VacanteResponseDto> editarVacante(@PathVariable int id, @RequestBody VacanteRequestDto vacanteDto) {
 		
-		//Obtenemos el usuario autenticado con security
-		Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+		//Actualizamos la vacante con los datos que nos llega en el dto y guardamos el dto de respuesta
+		VacanteResponseDto respuestaDto = vacanteService.editarVacante(id, vacanteDto);
 		
-		//ME FALTA IMPLEMENTAR <---- PABLO
-		
-		
-		return ResponseEntity.ok(null);
+		return ResponseEntity.ok(respuestaDto);
 	}
 	
 	
 	
-	
 	//METODO CON RUTA PARA PUBLICAR UN VACANTE
-	@GetMapping("/cancelar/{id}")
-	public ResponseEntity<List<VacanteResponseDto>> cancelarVacante(@PathVariable int id) {
+	@DeleteMapping("/cancelar/{id}")
+	public ResponseEntity<String> cancelarVacante(@PathVariable int id) {
 		
-		//Obtenemos el usuario autenticado con security
-		Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+		vacanteService.cancelarVacante(id);
 		
-		//ME FALTA IMPLEMENTAR <---- PABLO
-		
-		
-		return ResponseEntity.ok(null);
+		return ResponseEntity.ok("Vacante cancelada");
 	}
 	
 	

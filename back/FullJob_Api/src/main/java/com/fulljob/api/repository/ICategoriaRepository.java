@@ -8,4 +8,5 @@ import com.fulljob.api.models.entities.Categoria;
 @Repository
 public interface ICategoriaRepository extends JpaRepository<Categoria, Integer> {
 
+	 Categoria findByNombre (String nombre);
 }

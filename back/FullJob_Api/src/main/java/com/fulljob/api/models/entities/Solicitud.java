@@ -36,7 +36,7 @@ public class Solicitud {
 	private String archivo;
 	
 	@Column(length = 2000)
-	private String comentario;
+	private String comentarios;
 	
 	// Se guarda como 0 o 1 segun el orden del enum, por defecto sera 0 
 	@Builder.Default 

@@ -51,14 +51,17 @@ public class Vacante implements Serializable {
 	@Column(nullable = false)
 	private EstadoVacante estatus = EstadoVacante.CREADA;
 
+	//Por defecto ponemos que se creen como no destacadas
+	@Builder.Default
 	@Column(nullable = false)
-	private boolean destacado;
+	private int destacado = 0; // 0 = NO DESTACADA / 1 = DESTACADA
 
-	@Column(nullable = false, length = 250)
 	private String imagen;
 
+	//Detalles es el tipo de contrato, creamos un enum con los 4 tipos
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, columnDefinition = "TEXT")
-	private String detalles;
+	private TipoDeContrato detalles;
 
 	// ANOTACIONES RELACIONES DE VACANTE
 

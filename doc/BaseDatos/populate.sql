@@ -14,7 +14,7 @@ INSERT INTO Usuarios (email, nombre, apellidos, password, enabled, fecha_registr
 
 -- ================== EMPRESA ==================
 INSERT INTO Empresas (cif, nombre_empresa, direccion_fiscal, pais, email) VALUES
-('A98765432', 'InnovApps', 'Calle Creativa 50', 'España', 'info@innovapps.com'),
+('A98765432', 'InnovApps', 'Calle Creativa 50', 'España', 'empresa@empresa.com'),
 ('Z12312345', 'DataInsight', 'Avenida de los Datos 101', 'España', 'contact@datainsight.com'),
 ('C23456789', 'SoftTech Partners', 'Ronda del Progreso 10', 'España', 'info@softtechpartners.com'),
 ('D34567890', 'CloudServe Solutions', 'Paseo de la Nube 88', 'España', 'support@cloudservesolutions.com'),
@@ -28,11 +28,11 @@ INSERT INTO Categorias (nombre, descripcion) VALUES
 
 -- ================== VACANTES ==================
 INSERT INTO Vacantes (nombre, descripcion, fecha, salario, estatus, destacado, imagen, detalles, id_categoria, id_empresa) VALUES
-('Desarrollador Backend', 'Se busca programador con experiencia en Java y Spring.', '2025-04-01', 32000, 'CREADA', 1, '', 'Horario flexible, teletrabajo parcial.', 1, 1),
-('Analista de Datos', 'Experto en SQL, Python y herramientas de BI.', '2025-04-02', 30000, 'CREADA', 1, '', 'Equipo multidisciplinar, proyecto a largo plazo.', 2, 2),
-('Arquitecto de Software', 'Liderar la arquitectura de una plataforma SaaS.', '2025-04-03', 40000, 'CREADA', 0, '', 'Oportunidad de crecimiento y formación continua.', 1, 3),
-('DevOps Engineer', 'Automatización de pipelines y mantenimiento de infraestructuras en AWS.', '2025-04-04', 35000, 'CREADA', 0, '', 'Entorno innovador y equipo internacional.', 1, 4),
-('Diseñador Gráfico', 'Diseño de material publicitario, branding y material digital.', '2025-04-05', 28000, 'CREADA', 1, '', 'Entorno creativo, proyectos variados.', 2, 5);
+('Desarrollador Backend', 'Se busca programador con experiencia en Java y Spring.', '2025-04-01', 32000, 'CREADA', 1, '', 'INDEFINIDO', 1, 1),
+('Analista de Datos', 'Experto en SQL, Python y herramientas de BI.', '2025-04-02', 30000, 'CREADA', 1, '', 'TEMPORAL', 2, 2),
+('Arquitecto de Software', 'Liderar la arquitectura de una plataforma SaaS.', '2025-04-03', 40000, 'CREADA', 0, '', 'INDEFINIDO', 1, 3),
+('DevOps Engineer', 'Automatización de pipelines y mantenimiento de infraestructuras en AWS.', '2025-04-04', 35000, 'CREADA', 0, '', 'AUTONOMO', 1, 4),
+('Diseñador Gráfico', 'Diseño de material publicitario, branding y material digital.', '2025-04-05', 28000, 'CREADA', 1, '', 'PRACTICAS', 2, 5);
 
 
 -- ================== SOLICITUD ==================

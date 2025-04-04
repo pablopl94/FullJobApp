@@ -67,35 +67,41 @@ public class AuthServiceImpl extends GenericCrudServiceImpl<Usuario, String> imp
     @Override
     public LoginResponseDto login(LoginRequestDto loginDto) {
         try {
-        	//Autenticamos al usuario con el metodo de SpringSecurity 
+            // Autenticamos al usuario con el método de Spring Security
             Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword())
             );
 
+            // Guardamos la autenticación en el contexto de seguridad de Spring
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            //Buscamos el usuario con el email que nos llega en el dto y lo guardamos 
-            Usuario usuario = usuarioRepository.findById(loginDto.getEmail())
-                    .orElseThrow(() -> new BadCredentialsException("Usuario no encontrado"));
+            // Obtenemos el usuario autenticado desde el contexto (ya cargado por Spring)
+            Usuario usuario = (Usuario) authentication.getPrincipal();
 
-            //Como en la entidad usuario ya tenemos puesto que por defecto sea enabled = 1 
-            //no hace falta comprobar otra vez que este activo el usuario
-            
-            //Generamos el token con el usuario que hemos guardado
+            // Como en la entidad Usuario ya tenemos puesto que por defecto sea enabled = 1,
+            // no hace falta comprobar otra vez que esté activo el usuario
+
+            // Generamos el token con el usuario que hemos obtenido del contexto
             String token = jwtUtils.generateToken(usuario);
-            
-            //Se lo metemos al Dto de respuesta con los datos del usuario y lo devolvemos para sacarlo por el controller
-            return new LoginResponseDto(usuario.getEmail(),usuario.getNombre(),usuario.getRol(),token);
+
+            // Se lo metemos al Dto de respuesta con los datos del usuario y lo devolvemos para sacarlo por el controller
+            return new LoginResponseDto(
+                usuario.getEmail(),
+                usuario.getNombre(),
+                usuario.getRol(),
+                token
+            );
 
         } catch (BadCredentialsException e) {
             throw new BadCredentialsException("Email o contraseña incorrectos");
         } catch (Exception e) {
             throw new ResponseStatusException(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Error inesperado en el login: " + e.getMessage()
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                "Error inesperado en el login: " + e.getMessage()
             );
         }
     }
+
 
     
     /**

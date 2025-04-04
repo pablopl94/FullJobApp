@@ -1,5 +1,6 @@
 package com.fulljob.api.services.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,10 +10,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fulljob.api.models.dto.VacanteRequestDto;
 import com.fulljob.api.models.dto.VacanteResponseDto;
+import com.fulljob.api.models.entities.Categoria;
 import com.fulljob.api.models.entities.Empresa;
+import com.fulljob.api.models.entities.EstadoVacante;
+import com.fulljob.api.models.entities.TipoDeContrato;
 import com.fulljob.api.models.entities.Usuario;
 import com.fulljob.api.models.entities.Vacante;
+import com.fulljob.api.repository.ICategoriaRepository;
 import com.fulljob.api.repository.IEmpresaRepository;
 import com.fulljob.api.repository.IVacanteRepository;
 import com.fulljob.api.services.IVacanteService;
@@ -27,6 +33,9 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 	private IEmpresaRepository empresaRepo;
 	
 	@Autowired
+	private ICategoriaRepository categoriaRepo;
+	
+	@Autowired
 	private ModelMapper mapper;;
 
 	@Override
@@ -38,8 +47,9 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 	@Override
 	public List<VacanteResponseDto> findAllVacanteActivas() {
 		
-		//Obtenemos tododas las vacantes
-		List<Vacante> listaVacantes = vacanteRepo.findAll();
+		//Usamos el metodo del IGenericCrud porque ya tiene implementada las excepciones
+		//Guardamos en una lista todas las vacantes
+		List<Vacante> listaVacantes = findAll();
 		
 		//Devolvemos la lista filtrada por las que tienen el estado creada
 		//Mapeamos vancate a dto de respuesta
@@ -64,7 +74,9 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 	public List<VacanteResponseDto> filtrarVacantesEmpresa(String empresa) {
 		
 		List<Vacante> listaVacantes =  vacanteRepo.findByEmpresa_NombreEmpresa(empresa);
-		
+		if (listaVacantes == null || listaVacantes.isEmpty()) {
+		    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La" + empresa + "no tiene vacantes");
+		}
 	
 		return listaVacantes.stream()
 				//Aqui filtramos por empresa por las que tiene el estado activo
@@ -85,7 +97,9 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 	public List<VacanteResponseDto> filtrarVacantesCategoria(int idCategoria) {
 		
 		List<Vacante> listaVacantes =  vacanteRepo.findByCategoria_idCategoria(idCategoria);
-		
+		if (listaVacantes == null || listaVacantes.isEmpty()) {
+		    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No hay vacantes de la categoria " + idCategoria);
+		}
 	
 		return listaVacantes.stream()
 				//Aqui filtramos por empresa por las que tiene el estado activo
@@ -104,7 +118,7 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 	
 	//Metodo para filtrar vacantes por TIPO DE CONTRATO = detalles
 	@Override
-	public List<VacanteResponseDto> filtrarVacantesTipoContrato(String detalles) {
+	public List<VacanteResponseDto> filtrarVacantesTipoContrato(TipoDeContrato detalles) {
 		
 		List<Vacante> listaVacantes =  vacanteRepo.findByDetalles(detalles);
 		
@@ -129,7 +143,7 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 	public List<VacanteResponseDto> obtenerVacantesDeEmpresa(Usuario usuario) {
 		
 		//Obtenemos la empresa del usuario que nos llega por paramentro(obtenido de la sesion)
-		Empresa empresa = empresaRepo.findByUsuario(usuario);
+		Empresa empresa = empresaRepo.findByUsuario_email(usuario.getEmail());
 		if (empresa == null) {
 		    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontró la empresa asociada al usuario");
 		}
@@ -151,5 +165,95 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 	}
 	
 	
+	//Metodo para que las empresas publiquen vacantes
+	@Override
+	public VacanteResponseDto publicarVacante(VacanteRequestDto vacanteDto, Usuario usuario) {
+	    
+	    //Buscamos y guardamos los datos de la empresa autenticada en un objeto de su clase
+	    Empresa empresa = empresaRepo.findByUsuario_email(usuario.getEmail());        
+	    if (empresa == null) {
+	        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Empresa no encontrada");
+	    }
+	    
+	    //Buscamos la categoria con el idCategoria que nos llega del dto
+	    Categoria categoria = categoriaRepo.findById(vacanteDto.getIdCategoria())
+	    		 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "La categoria no se ha encontrado"));
 
+	    //Creamos un nuevo objeto de la clase Vacante - mapeando me trae el id y me da error 
+	    Vacante nuevaVacante = Vacante.builder()
+	    		.categoria(categoria)
+	    		.empresa(empresa)
+	    		.nombre(vacanteDto.getNombre())
+	    		.descripcion(vacanteDto.getDescripcion())
+	    		.detalles(vacanteDto.getDetalles())
+	    		.salario(vacanteDto.getSalario())
+	    		.fecha(LocalDate.now())
+	    		.destacado(vacanteDto.getDestacado())
+	    		.imagen(vacanteDto.getImagen())
+	    		//El estado por defecto es CREADO
+	    		.build();
+	    		 		
+	    //Comprobamos que no existe la vacante y si no existe la guardamos
+	    if(vacanteRepo.existsById(nuevaVacante.getIdVacante())) {
+	    	throw new ResponseStatusException(HttpStatus.CONFLICT, "La vacante ya existe con ese ID");
+	    }else {
+	    	vacanteRepo.save(nuevaVacante);
+	    }	  
+	    
+	    //Creamos un dto de respuesta de vacante
+	    VacanteResponseDto respuestaDto = mapper.map(nuevaVacante, VacanteResponseDto.class);
+
+	    return respuestaDto;
+	}
+	
+	//Metodo para que las empresas editen vacantes
+	@Override
+	public VacanteResponseDto editarVacante (int idVacante, VacanteRequestDto vacanteDto) {
+		
+		//Buscamos la vacante que se esta editando y la guardamos en un objeto de su clase
+		Vacante vacanteExistente = findById(idVacante)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "La vacante no se ha encontrado"));
+
+		//Buscamos su categoria y la guardamos
+	    Categoria categoria = categoriaRepo.findById(vacanteDto.getIdCategoria())
+	            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoría no encontrada"));
+
+	    //Tranferimos los datos directamente con ModelMapper a la categoria a modificar y le añadimos la categoria
+	     mapper.map(vacanteDto,vacanteExistente);
+	     vacanteExistente.setCategoria(categoria);
+	  
+	   //Comprobamos que no existe la vacante y si es asi  la guardamos
+		    if(vacanteRepo.existsById(vacanteExistente.getIdVacante())) {
+		    	updateOne(vacanteExistente); //Usamos el metodo de IGenericCrud con validaciones extras
+		    }else {
+		    	throw new ResponseStatusException(HttpStatus.CONFLICT, "La vacante no existe");
+		    }	  
+	    
+	    //Devolvemos un dto de respuesta
+	    return mapper.map(vacanteExistente,VacanteResponseDto.class);
+	}
+
+	
+	@Override
+	public void cancelarVacante (int idVacante) {
+		 
+		//Buscamos la vacante y la guardamos en un objeto
+		Vacante vacante = findById(idVacante)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "La vacante no existe"));
+		
+		//Comprobamos si existe o sino lanzamos excepciones
+		try {
+		    if(vacanteRepo.existsById(vacante.getIdVacante())) {
+		    	//Si existe le cambiamos el estado y actualizamos la vacante
+		    	vacante.setEstatus(EstadoVacante.CANCELADA);
+		    	updateOne(vacante);
+		    	
+		    }else {
+		    	throw new ResponseStatusException(HttpStatus.CONFLICT, "La vacante no existe");
+		    }	
+		}catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al cancelar la vacante", e);
+		}
+	}
+	
 }

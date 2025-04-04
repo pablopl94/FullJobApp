@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder	
-public class CategoriaDTO {
+public class CategoriaDto {
 	
 	@NotBlank(message = "El nombre de la categoría no debe estar vacío o nulo.")
 	@Size(max = 100,  message = "El nombre de la categía no debe contener más de 100 carácteres.")

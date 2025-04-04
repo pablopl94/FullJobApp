@@ -4,7 +4,6 @@ import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -38,20 +37,26 @@ public class UsuarioDetallesServiceImpl implements UserDetailsService {
 	@Autowired
 	private IUsuarioRepository usuarioRepository;
 
+
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Usuario usuario = usuarioRepository.findById(email)
-				.orElseThrow(() -> new UsernameNotFoundException("No se encontró un usuario con el email: " + email));
+	    // Buscamos el usuario en base de datos por su email
+	    Usuario usuario = usuarioRepository.findById(email)
+	            .orElseThrow(() -> new UsernameNotFoundException("No se encontró un usuario con el email: " + email));
 
-		if (usuario.getEnabled() == null || usuario.getEnabled() == 0) {
-			throw new UsernameNotFoundException("El usuario está deshabilitado: " + email);
-		}
+	    // Verificamos que no este deshabilitado el usuario
+	    if (usuario.getEnabled() == null || usuario.getEnabled() == 0) {
+	        throw new UsernameNotFoundException("El usuario esta deshabilitado ");
+	    }
 
-		// Obtenemos el rol y lo adaptamos al formato que Spring Security
-		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(usuario.getRol().toUpperCase());
+	    // Creamos una autoridad con el rol del usuario 
+	    SimpleGrantedAuthority authority = new SimpleGrantedAuthority(usuario.getRol().toUpperCase());
 
-		// Retornamos una instancia de User (propia de Spring Security) con email,
-		// contraseña y rol
-		return new User(usuario.getEmail(), usuario.getPassword(), Collections.singletonList(authority));
+	    // Asignamos las authorities manualmente al objeto Usuario
+	    usuario.setAuthorities(Collections.singletonList(authority));
+
+	    // Devolvemos el propio objeto Usuario, que implementa UserDetails
+	    return usuario;
 	}
+
 }

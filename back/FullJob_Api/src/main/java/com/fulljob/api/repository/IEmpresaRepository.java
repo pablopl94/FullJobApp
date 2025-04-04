@@ -9,7 +9,7 @@ import com.fulljob.api.models.entities.Usuario;
 @Repository
 public interface IEmpresaRepository extends JpaRepository<Empresa, Integer> {
 
-	Empresa findByUsuario(Usuario usuario);
+	Empresa findByUsuario_email(String email);
 
 	
 }
