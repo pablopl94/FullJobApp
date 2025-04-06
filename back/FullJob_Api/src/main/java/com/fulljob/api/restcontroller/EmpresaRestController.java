@@ -188,5 +188,25 @@ public class EmpresaRestController {
 
     }
     // PUT    /empresa/eliminar/{id} ............... [ROLE_ADMON]
+    @PutMapping("/empresa/eliminar/{id}")
+    @PreAuthorize("hasRole('ADMON')")
+    public ResponseEntity<EmpresaResponseDto> eliminarEmpresaSinBorrar(@PathVariable Integer id) {
+        Empresa empresa = empresaService.findById(id).orElseThrow(() -> new RuntimeException("Empresa no encontrada"));
 
+        // Desactivar usuario
+        empresa.getUsuario().setEnabled(0);
+
+        // 2. Limpiar campos
+        empresa.setCif("ANON");
+        empresa.setNombreEmpresa("");
+        empresa.setDireccionFiscal("");
+        empresa.setPais("");
+
+        // Guardar cambios
+        empresaService.updateOne(empresa);
+
+        // Devolver respuesta
+        EmpresaResponseDto dto = mapper.map(empresa, EmpresaResponseDto.class);
+        return ResponseEntity.ok(dto);
+    }
 }
