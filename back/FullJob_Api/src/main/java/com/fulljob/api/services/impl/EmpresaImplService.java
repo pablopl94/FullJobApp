@@ -8,6 +8,8 @@ import com.fulljob.api.models.entities.Empresa;
 import com.fulljob.api.repository.IEmpresaRepository;
 import com.fulljob.api.services.IEmpresaService;
 
+import java.util.List;
+
 @Service
 public class EmpresaImplService extends GenericCrudServiceImpl<Empresa, Integer> implements IEmpresaService {
 
@@ -20,4 +22,12 @@ public class EmpresaImplService extends GenericCrudServiceImpl<Empresa, Integer>
 		return empresaRepository;
 	}
 
+	@Override
+	public List<Empresa> buscarPorNombre(String nombre) {
+		return empresaRepository.findByNombreEmpresaContainingIgnoreCase(nombre);
+	}
+
+	public Empresa buscarPorEmail(String email) {
+		return empresaRepository.findByUsuarioEmail(email).orElseThrow(() -> new RuntimeException("La empresa no existe"));
+	}
 }

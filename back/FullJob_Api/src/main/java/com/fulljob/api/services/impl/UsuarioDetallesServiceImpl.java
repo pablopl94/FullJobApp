@@ -1,7 +1,10 @@
 package com.fulljob.api.services.impl;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
+import com.fulljob.api.services.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,7 +35,7 @@ import com.fulljob.api.repository.IUsuarioRepository;
  * acceso.
  */
 @Service
-public class UsuarioDetallesServiceImpl implements UserDetailsService {
+public class UsuarioDetallesServiceImpl implements UserDetailsService, IUsuarioService {
 
 	@Autowired
 	private IUsuarioRepository usuarioRepository;
@@ -58,5 +61,34 @@ public class UsuarioDetallesServiceImpl implements UserDetailsService {
 	    // Devolvemos el propio objeto Usuario, que implementa UserDetails
 	    return usuario;
 	}
+
+	@Override
+	public List<Usuario> findAll() {
+		return usuarioRepository.findAll();
+	}
+
+	@Override
+	public Optional<Usuario> findById(String email) {
+		return usuarioRepository.findById(email);
+	}
+
+
+
+	@Override
+	public Usuario insertOne(Usuario usuario) {
+		return usuarioRepository.save(usuario);
+	}
+
+
+	@Override
+	public Usuario updateOne(Usuario usuario) {
+		return usuarioRepository.save(usuario);
+	}
+
+	@Override
+	public void deleteOne(String email) {
+		usuarioRepository.deleteById(email);
+	}
+
 
 }

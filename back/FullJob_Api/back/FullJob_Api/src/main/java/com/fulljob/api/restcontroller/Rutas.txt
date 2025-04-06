@@ -1,0 +1,62 @@
+══════════════════════════════════════════════════════════════
+📘 Listado de Rutas API - Sistema de Gestión de Vacantes de Empleo
+══════════════════════════════════════════════════════════════
+
+--------------------------------------------------------------
+🔐 AuthenticationController
+--------------------------------------------------------------
+🔹 POST /auth/login ............................. [permitAll]
+🔹 POST /auth/alta/cliente ...................... [permitAll]
+🔹 POST /auth/alta/empresa ...................... [ROLE_ADMON]     ← alta de empresa + usuario asociado con rol EMPRESA y password aleatoria
+🔹 GET  /auth/obtenerusuario .................... [authenticated]
+
+--------------------------------------------------------------
+📂 CategoriasController
+--------------------------------------------------------------
+🔹 GET    /categorias ........................... [permitAll]
+🔹 POST   /categorias ........................... [ROLE_ADMON]
+🔹 PUT    /categorias/{id} ...................... [ROLE_ADMON]
+🔹 DELETE /categorias/{id} ...................... [ROLE_ADMON]
+
+--------------------------------------------------------------
+📄 VacantesController
+--------------------------------------------------------------
+🔹 GET    /vacantes ............................. [permitAll]
+🔹 GET    /vacantes/{id} ........................ [permitAll]
+🔹 GET    /vacantes/filtrar?nombre=&categoria=&contrato= ...... [permitAll]   ← búsqueda avanzada con filtros combinados
+🔹 GET    /vacantes/misvacantes ................ [ROLE_EMPRESA]   ← solo vacantes creadas por la empresa logueada
+🔹 POST   /vacantes/publicar .................... [ROLE_EMPRESA]
+🔹 PUT    /vacantes/editar/{id} ................. [ROLE_EMPRESA]
+🔹 DELETE /vacantes/cancelar/{id} ............... [ROLE_EMPRESA]   ← no elimina la vacante, cambia su estado a CANCELADA
+
+--------------------------------------------------------------
+🏢 EmpresasController
+--------------------------------------------------------------
+🔹 GET    /empresas ............................. [ROLE_ADMON]
+🔹 GET    /empresas/{id} ........................ [ROLE_ADMON]
+🔹 GET    /empresas/buscar/{nombre} ............. [ROLE_ADMON]
+🔹 GET    /empresas/miperfil .................... [ROLE_EMPRESA]   ← datos de la empresa logueada
+🔹 POST   /empresas/register .................... [ROLE_ADMON]
+🔹 PUT    /empresas/{id} ........................ [ROLE_ADMON]
+🔹 PUT    /desactivar/{id} ...................... [ROLE_ADMON]
+🔹 PUT    /activar/{id} ......................... [ROLE_ADMON]
+🔹 PUT    /empresas/update ...................... [ROLE_EMPRESA]
+🔹 DELETE /empresas/{id} ........................ [ROLE_ADMON]
+🔹 PUT    /empresa/eliminar/{id} ............... [ROLE_ADMON]   ← elimina datos empresa y desactiva al usuario vinculado
+
+--------------------------------------------------------------
+📨 SolicitudesController
+--------------------------------------------------------------
+🔹 POST   /solicitudes .......................... [ROLE_CLIENTE]
+🔹 GET    /solicitudes/mis-solicitudes ..........[ROLE_CLIENTE]   ← seguimiento de solicitudes del usuario
+🔹 DELETE /solicitudes/{id} ..................... [ROLE_CLIENTE]
+🔹 GET    /solicitudes/vacante/{idVacante} ...... [ROLE_EMPRESA]
+🔹 PUT    /solicitudes/asignar/{id} ............. [ROLE_EMPRESA]   ← adjudica vacante a candidato y cambia estado de la solicitud
+
+--------------------------------------------------------------
+👤 ClienteController
+--------------------------------------------------------------
+🔹 PUT    /cliente/desactivar/{id} .............. [ROLE_ADMON]   ← desactiva al usuario (enabled = 0)
+🔹 POST   /cliente/admin ........................ [ROLE_ADMON]
+🔹 PUT    /cliente/admin/{id} ................... [ROLE_ADMON]
+🔹 DELETE /cliente/admin/{id} ................... [ROLE_ADMON]

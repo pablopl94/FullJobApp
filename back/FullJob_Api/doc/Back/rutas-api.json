@@ -1,0 +1,56 @@
+{
+    "com.fulljob.controller.auth.AuthController": [
+      { "method": "POST", "path": "/auth/login", "description": "Autenticación de usuarios (login)" },
+      { "method": "POST", "path": "/auth/register", "description": "Registro de nuevos candidatos" }
+    ],
+
+    "com.fulljob.controller.empresa.VacanteEmpresaController": [
+      { "method": "POST", "path": "/empresa/vacantes", "description": "Crear una nueva vacante (estado CREADA)" },
+      { "method": "GET", "path": "/empresa/vacantes", "description": "Listar vacantes publicadas por la empresa actual" },
+      { "method": "PUT", "path": "/empresa/vacantes/{id}", "description": "Editar una vacante existente" },
+      { "method": "PUT", "path": "/empresa/vacantes/{id}/cancelar", "description": "Cancelar una vacante (estado CANCELADA)" },
+      { "method": "PUT", "path": "/empresa/vacantes/{id}/asignar/{email}", "description": "Asignar vacante a un candidato (estado ASIGNADA)" },
+      { "method": "GET", "path": "/empresa/vacantes/{id}/solicitudes", "description": "Ver solicitudes recibidas para una vacante" },
+      { "method": "PUT", "path": "/empresa/solicitudes/{id}", "description": "Actualizar estado de una solicitud (aceptar o rechazar)" }
+    ],
+
+    "com.fulljob.controller.empresa.EmpresaPerfilController": [
+      { "method": "GET", "path": "/empresa", "description": "Ver los datos de la empresa actual" },
+      { "method": "PUT", "path": "/empresa", "description": "Editar los datos de la empresa actual" }
+    ],
+
+    "com.fulljob.controller.admin.EmpresaAdminController": [
+      { "method": "POST", "path": "/admin/empresas", "description": "Dar de alta una nueva empresa con su usuario EMPRESA" },
+      { "method": "GET", "path": "/admin/empresas", "description": "Listar todas las empresas registradas" },
+      { "method": "GET", "path": "/admin/empresas/{id}", "description": "Ver detalles de una empresa por ID" },
+      { "method": "PUT", "path": "/admin/empresas/{id}", "description": "Editar datos de una empresa" },
+      { "method": "DELETE", "path": "/admin/empresas/{id}", "description": "Eliminar una empresa del sistema" }
+    ],
+
+    "com.fulljob.controller.admin.CategoriaAdminController": [
+      { "method": "GET", "path": "/admin/categorias", "description": "Listar todas las categorías" },
+      { "method": "POST", "path": "/admin/categorias", "description": "Crear una nueva categoría" },
+      { "method": "PUT", "path": "/admin/categorias/{id}", "description": "Editar una categoría existente" },
+      { "method": "DELETE", "path": "/admin/categorias/{id}", "description": "Eliminar una categoría" }
+    ],
+
+    "com.fulljob.controller.admin.UsuarioAdminController": [
+      { "method": "PUT", "path": "/admin/usuarios/{email}/desactivar", "description": "Desactivar un usuario (enabled = 0)" },
+      { "method": "GET", "path": "/admin/usuarios/admins", "description": "Listar usuarios con rol ADMIN" },
+      { "method": "POST", "path": "/admin/usuarios/admins", "description": "Crear nuevo usuario con rol ADMIN" },
+      { "method": "PUT", "path": "/admin/usuarios/admins/{email}", "description": "Editar datos de un ADMIN" },
+      { "method": "DELETE", "path": "/admin/usuarios/admins/{email}", "description": "Eliminar un ADMIN del sistema" }
+    ],
+
+    "com.fulljob.controller.usuario.VacanteUsuarioController": [
+      { "method": "GET", "path": "/vacantes", "description": "Buscar vacantes (solo estado CREADA) con filtros" },
+      { "method": "GET", "path": "/vacantes/{id}", "description": "Ver detalle de una vacante" }
+    ],
+    
+    "com.fulljob.controller.usuario.SolicitudUsuarioController": [
+      { "method": "POST", "path": "/solicitudes", "description": "Enviar solicitud a una vacante" },
+      { "method": "GET", "path": "/solicitudes/mis-solicitudes", "description": "Ver todas las solicitudes del usuario actual" },
+      { "method": "DELETE", "path": "/solicitudes/{id}", "description": "Cancelar una solicitud" }
+    ]
+  }
+  
