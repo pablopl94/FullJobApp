@@ -3,6 +3,7 @@ package com.fulljob.api.restcontroller;
 import com.fulljob.api.models.dto.EmpresaResponseDto;
 import com.fulljob.api.models.entities.Empresa;
 import com.fulljob.api.services.IEmpresaService;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.ModelMapper;
@@ -64,16 +65,13 @@ public class EmpresaRestController {
     //GET    /empresas/miperfil .................... [ROLE_EMPRESA]
     @GetMapping("/empresas/miperfil")
     @PreAuthorize("hasRole('EMPRESA')")
-    public ResponseEntity<EmpresaResponseDto> perfilEmpresa() {
+    public ResponseEntity<EmpresaResponseDto> perfilEmpresa( Authentication auth) {
 
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
-
         Empresa empresa = empresaService.buscarPorEmail(email);
         EmpresaResponseDto dto = mapper.map(empresa, EmpresaResponseDto.class);
-
         return ResponseEntity.ok(dto);
+
     }
 
 }

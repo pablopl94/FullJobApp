@@ -27,8 +27,8 @@ public class EmpresaImplService extends GenericCrudServiceImpl<Empresa, Integer>
 		return empresaRepository.findByNombreEmpresaContainingIgnoreCase(nombre);
 	}
 
-	public Empresa buscarPorPerfil(String email) {
+	public Empresa buscarPorEmail(String email) {
 		return empresaRepository.findByUsuarioEmail(email)
-				.orElseThrow(() -> new RuntimeException("Empresa no encontrada"));
+				.orElseThrow(() -> new RuntimeException("La empresa no existe"));
 	}
 }
