@@ -1,0 +1,7 @@
+.bg-warning:hover {
+  background-color: #e0a800; /* un poco más oscuro que el original */
+}
+
+a.bg-warning:hover {
+  background-color: #e0a800 !important; /* un amarillo un poco más oscuro */
+}
