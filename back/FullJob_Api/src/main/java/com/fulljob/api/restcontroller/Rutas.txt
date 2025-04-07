@@ -45,8 +45,9 @@
 📨 SolicitudesController
 --------------------------------------------------------------
 🔹 GET    /solicitudes/mis-solicitudes .......... [ROLE_CLIENTE]   ← seguimiento de solicitudes del usuario
-🔹 PUT    /solicitudes/cancelar/{id} ............ [ROLE_CLIENTE]
-🔹 GET    /solicitudes/vacante/{idVacante} ...... [ROLE_EMPRESA]
+🔹 PUT    /solicitudes/eliminar/{id} ............ [ROLE_CLIENTE]   ← cliente puede cancelar solicitud "ELIMINARLA"
+🔹 GET    /solicitudes/vacante/{id} ............. [ROLE_EMPRESA]   ← ver todas las solicitudes de una vacante
+🔹 GET    /solicitudes/{id} ..................... [ROLE_EMPRESA]   ← ver detalles solicitud
 🔹 PUT    /solicitudes/asignar/{id} ............. [ROLE_EMPRESA]   ← adjudica vacante a candidato y cambia estado de la solicitud
 
 --------------------------------------------------------------

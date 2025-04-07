@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,13 +33,9 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/solicitudes")
+@EnableMethodSecurity(prePostEnabled = true)
 public class SolicitudRestController {
 
-
-//GET    /solicitudes/ ..........[ROLE_CLIENTE]   ← seguimiento de solicitudes del usuario
-//DELETE /solicitudes/{id} ..................... [ROLE_CLIENTE]
-//GET    /solicitudes/vacante/{idVacante} ...... [ROLE_EMPRESA]
-//PUT    /solicitudes/asignar/{id} ............. [ROLE_EMPRESA]   ← adjudica vacante a candidato y cambia estado de la solicitud
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -49,8 +46,8 @@ public class SolicitudRestController {
 	@Autowired
 	private IVacanteService vacanteService;
 	
-	//ENDPOINT PARA OBTENER LAS SOLICITUDES DEL USUARIO AUTENTICADO
-	//POST   /solicitudes .......................... [ROLE_CLIENTE]
+	//ENDPOINT PARA OBTENER TODAS LAS SOLICITUDES DEL USUARIO AUTENTICADO
+	//GET    /solicitudes/missolicitudes .......... [ROLE_CLIENTE]
 	@GetMapping("/missolicitudes")
 	@PreAuthorize("hasRole('CLIENTE')")
 	public ResponseEntity<List<SolicitudResponseDto>> listaSolicitudesUsuario(@AuthenticationPrincipal Usuario usuario) {
@@ -66,30 +63,24 @@ public class SolicitudRestController {
 	}
 
 
-//	//ENDPOINT PARA CANCELAR LA SOLICITUD
-//	//PUT    /solicitudes/cancelar/{id} ............ [ROLE_CLIENTE]
-//	@PutMapping("/{id}")
-//	@PreAuthorize("hasRole('CLIENTE')")
-//	public ResponseEntity<Map<String, String>> eliminarSolicitud(@PathVariable Integer id) {
-//		
-//		// Verificar si la solicitud existe
-//		Optional<Solicitud> solicitudOpt = solicitudService.findById(id);
-//		if (solicitudOpt.isEmpty()) {
-//			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Solicitud no encontrada");
-//		}
-//
-//		// Eliminar la solicitud
-//		solicitudService.updateOne(solicitudOpt);
-//		return ResponseEntity.ok(Map.of("message", "Solicitud eliminada correctamente"));
-//	}
-//
-//	//ENDPOINT PARA VER DETALLES DE VACANTE
+	//ENDPOINT PARA QUE EL CLIENTE CANCELE SU SOLICITUD
 	//PUT    /solicitudes/cancelar/{id} ............ [ROLE_CLIENTE]
-	@GetMapping("/vacante/{idVacante}")
-	@PreAuthorize("hasRole('EMPRESA')")
-	public ResponseEntity<List<SolicitudResponseDto>> obtenerSolicitudesPorVacante(@PathVariable Integer idVacante) {
+	@PutMapping("/cancelar/{id}")
+	@PreAuthorize("hasRole('CLIENTE')")
+	public ResponseEntity<SolicitudResponseDto> eliminarSolicitud(@PathVariable Integer id) {
+
+		SolicitudResponseDto respuestaDto = solicitudService.eliminarSolicitud(id);
 		
-		Vacante vacante = vacanteService.findById(idVacante)
+		return ResponseEntity.ok(respuestaDto);
+	}
+
+	//ENDPOINT PARA VER TODAS LAS SOLITUDES DE UNA VACANTE
+	//PUT    /solicitudes/cancelar/{id} ............ [ROLE_EMPRESA]
+	@GetMapping("/vacante/{id}")
+	@PreAuthorize("hasRole('EMPRESA')")
+	public ResponseEntity<List<SolicitudResponseDto>> obtenerSolicitudesPorVacante(@PathVariable Integer id) {
+		
+		Vacante vacante = vacanteService.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vacante no encontrada"));
 
 		// Obtener todas las solicitudes relacionadas con la vacante

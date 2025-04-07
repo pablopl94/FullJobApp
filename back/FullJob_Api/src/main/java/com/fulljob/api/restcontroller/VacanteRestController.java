@@ -37,17 +37,6 @@ public class VacanteRestController {
 	private ModelMapper mapper;
 	
 	
-//🔹 GET    /vacantes ............................. [permitAll]
-//🔹 GET    /vacantes/{id} ........................ [permitAll]
-//🔹 GET    /vacantes/filtrar/nombr................ [permitAll]
-//🔹 GET    /vacantes/filtrar/categoria ........... [permitAll]
-//🔹 GET    /vacantes/filtrar/tipocontrato .  ..... [permitAll]
-//🔹 GET    /vacantes/misvacantes ................  [ROLE_EMPRESA]   ← solo vacantes creadas por la empresa logueada
-//🔹 POST   /vacantes/publicar .................... [ROLE_EMPRESA]
-//🔹 PUT    /vacantes/editar/{id} ................. [ROLE_EMPRESA]
-//🔹 DELETE /vacantes/cancelar/{id} ............... [ROLE_EMPRESA]   ← no elimina la vacante, cambia su estado a CANCELADA
-	
-	
 	//METODO CON RUTA PARA VER TODAS LAS VACANTES ACTIVAS
 	@GetMapping("")
 	public ResponseEntity<List<VacanteResponseDto>> vacantesActivas() {
