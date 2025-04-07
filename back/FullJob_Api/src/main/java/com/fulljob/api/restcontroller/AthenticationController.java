@@ -3,6 +3,7 @@ package com.fulljob.api.restcontroller;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import com.fulljob.api.models.dto.*;
@@ -24,7 +25,8 @@ public class AthenticationController {
     private IAuthService authService;
 
 
-    //METODO CON RUTA PARA INICIAR SESION
+    //ENDPOINT PARA INICIAR SESION
+    //POST /auth/login ............................. [permitAll]
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> loginSesion(@RequestBody @Valid LoginRequestDto loginDto) {
     	
@@ -35,7 +37,8 @@ public class AthenticationController {
     }
     
     
-    //METODO CON RUTA PARA CERRAR SESION
+    //ENDPOINT PARA CERRAR SESION
+    //POST /auth/logout ...................... [permitAll]
     @PostMapping("/logout")
     public ResponseEntity<Map<String, Object>> cerrarSesion() {
     	
@@ -49,7 +52,8 @@ public class AthenticationController {
     }
 
     
-    //METODO CON RUTA PARA REGISTRAR UN CLIENTE
+    //ENDPOINT PARA DAR DE ALTA UN CLIENTE
+    //POST /auth/alta/cliente ...................... [permitAll]
     @PostMapping("/alta/cliente")
     public ResponseEntity<AltaClienteResponseDto> altaCliente(@RequestBody @Valid AltaClienteRequestDto clienteDto) {
     	
@@ -61,8 +65,10 @@ public class AthenticationController {
     }
     
     
-    //METODO CON RUTA PARA REGISTRAR UNA EMPRESA + USUARIO
+    //ENDOPOINT PARA REGISTRAR UNA EMPRESA + USUARIO
+    //POST /auth/alta/empresa ...................... [ROLE_ADMON] 
     @PostMapping("/alta/empresa")
+    @PreAuthorize("hasRole('ADMON')")
     public ResponseEntity<AltaEmpresaResponseDto> altaEmpresa(@RequestBody @Valid AltaEmpresaRequestDto empresaDto) {
     	
     	AltaEmpresaResponseDto respuesta = authService.altaEmpresa(empresaDto);

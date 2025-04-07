@@ -15,17 +15,14 @@ public class CategoriaServiceImpl extends GenericCrudServiceImpl<Categoria, Inte
 
 	@Autowired
 	private ICategoriaRepository categoriaRepository;
-
-	@Override
-	public List<Categoria> findByName(String name) {
-
-		return categoriaRepository.findByNombreContainingIgnoreCase(name);
-	}
-
+	
 	@Override
 	protected JpaRepository<Categoria, Integer> getRepository() {
 
 		return categoriaRepository;
 	}
 
+
+	
+	
 }

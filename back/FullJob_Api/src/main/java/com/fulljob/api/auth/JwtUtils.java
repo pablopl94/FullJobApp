@@ -39,7 +39,10 @@ public class JwtUtils {
 
 	
     // Genera una clave segura (256 bits o más) para el algoritmo HS256
-    private final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+	   private static final String SECRET = "mi_clave_super_segura_para_firmar_tokens_1234!@#$";
+	   
+	// Usamos la clave fija para firmar y verificar
+	   private final SecretKey key = Keys.hmacShaKeyFor(SECRET.getBytes());
 
     // Extrae el username (subject) del token
     public String extractUsername(String token) {

@@ -3,25 +3,22 @@ package com.fulljob.api.restcontroller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.fulljob.api.models.dto.SolicitudRequestDto;
 import com.fulljob.api.models.dto.SolicitudResponseDto;
 import com.fulljob.api.models.entities.EstadoSolicitud;
 import com.fulljob.api.models.entities.Solicitud;
@@ -31,14 +28,13 @@ import com.fulljob.api.services.ISolicitudService;
 import com.fulljob.api.services.IVacanteService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/solicitudes")
 public class SolicitudRestController {
 
-//POST   /solicitudes .......................... [ROLE_CLIENTE]
+
 //GET    /solicitudes/ ..........[ROLE_CLIENTE]   ← seguimiento de solicitudes del usuario
 //DELETE /solicitudes/{id} ..................... [ROLE_CLIENTE]
 //GET    /solicitudes/vacante/{idVacante} ...... [ROLE_EMPRESA]
@@ -52,15 +48,13 @@ public class SolicitudRestController {
 
 	@Autowired
 	private IVacanteService vacanteService;
-
-	/**
-	 * Endpoint para obtener las solicitudes del usuario autenticado.
-	 */
-	@GetMapping
-	public ResponseEntity<List<SolicitudResponseDto>> listaSolicitudesUsuario() {
-		// Obtener el usuario autenticado desde el contexto de seguridad
-		Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+	
+	//ENDPOINT PARA OBTENER LAS SOLICITUDES DEL USUARIO AUTENTICADO
+	//POST   /solicitudes .......................... [ROLE_CLIENTE]
+	@GetMapping("/missolicitudes")
+	@PreAuthorize("hasRole('CLIENTE')")
+	public ResponseEntity<List<SolicitudResponseDto>> listaSolicitudesUsuario(@AuthenticationPrincipal Usuario usuario) {
+		
 		// Buscar todas las solicitudes del usuario
 		List<Solicitud> solicitudes = solicitudService.findByUsuarioEmail(usuario.getEmail());
 
@@ -71,49 +65,30 @@ public class SolicitudRestController {
 		return ResponseEntity.ok(response);
 	}
 
-	/**
-	 * Endpoint para crear una nueva solicitud.
-	 */
-	@PostMapping
-	public ResponseEntity<SolicitudResponseDto> crearSolicitud(
-			@RequestBody @Valid SolicitudRequestDto solicitudRequestDto) {
-		// Obtener el usuario autenticado desde el contexto de seguridad
-		Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		// Crear un nuevo objeto Solicitud a partir del DTO recibido
-		Solicitud solicitud = modelMapper.map(solicitudRequestDto, Solicitud.class);
-		solicitud.setUsuario(usuario); // Asignar el usuario autenticado a la solicitud
-
-		// Llamar al servicio para guardar la solicitud
-		Solicitud solicitudGuardada = solicitudService.insertOne(solicitud);
-
-		// Mapear la solicitud guardada a un DTO y devolverla en la respuesta
-		SolicitudResponseDto response = modelMapper.map(solicitudGuardada, SolicitudResponseDto.class);
-		return ResponseEntity.status(HttpStatus.CREATED).body(response);
-	}
-
-	/**
-	 * Endpoint para eliminar una solicitud.
-	 */
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Map<String, String>> eliminarSolicitud(@PathVariable Integer id) {
-		// Verificar si la solicitud existe
-		Optional<Solicitud> solicitudOpt = solicitudService.findById(id);
-		if (solicitudOpt.isEmpty()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Solicitud no encontrada");
-		}
-
-		// Eliminar la solicitud
-		solicitudService.deleteOne(id);
-		return ResponseEntity.ok(Map.of("message", "Solicitud eliminada correctamente"));
-	}
-
-	/**
-	 * Endpoint para obtener las solicitudes de una vacante específica (para
-	 * empresas).
-	 */
+//	//ENDPOINT PARA CANCELAR LA SOLICITUD
+//	//PUT    /solicitudes/cancelar/{id} ............ [ROLE_CLIENTE]
+//	@PutMapping("/{id}")
+//	@PreAuthorize("hasRole('CLIENTE')")
+//	public ResponseEntity<Map<String, String>> eliminarSolicitud(@PathVariable Integer id) {
+//		
+//		// Verificar si la solicitud existe
+//		Optional<Solicitud> solicitudOpt = solicitudService.findById(id);
+//		if (solicitudOpt.isEmpty()) {
+//			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Solicitud no encontrada");
+//		}
+//
+//		// Eliminar la solicitud
+//		solicitudService.updateOne(solicitudOpt);
+//		return ResponseEntity.ok(Map.of("message", "Solicitud eliminada correctamente"));
+//	}
+//
+//	//ENDPOINT PARA VER DETALLES DE VACANTE
+	//PUT    /solicitudes/cancelar/{id} ............ [ROLE_CLIENTE]
 	@GetMapping("/vacante/{idVacante}")
+	@PreAuthorize("hasRole('EMPRESA')")
 	public ResponseEntity<List<SolicitudResponseDto>> obtenerSolicitudesPorVacante(@PathVariable Integer idVacante) {
+		
 		Vacante vacante = vacanteService.findById(idVacante)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vacante no encontrada"));
 
@@ -127,7 +102,10 @@ public class SolicitudRestController {
 		return ResponseEntity.ok(response);
 	}
 
+	//ENDPOINT PARA ASIGNAR UNA VACANTE A UN USUARIO, CAMBIA EL ESTADO DE LA SOLICITUD
+	//PUT    /solicitudes/asignar/{id} ............. [ROLE_EMPRESA] 
 	@PutMapping("/asignar/{id}")
+	@PreAuthorize("hasRole('EMPRESA')")
 	public ResponseEntity<Map<String, String>> asignarVacanteACandidato(@PathVariable Integer id,
 			@RequestBody Map<String, Integer> vacanteRequest) {
 

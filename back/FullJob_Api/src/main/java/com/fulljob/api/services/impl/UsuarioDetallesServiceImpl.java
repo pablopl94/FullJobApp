@@ -35,7 +35,7 @@ import com.fulljob.api.repository.IUsuarioRepository;
  * acceso.
  */
 @Service
-public class UsuarioDetallesServiceImpl implements UserDetailsService, IUsuarioService {
+public class UsuarioDetallesServiceImpl implements UserDetailsService{
 
 	@Autowired
 	private IUsuarioRepository usuarioRepository;
@@ -53,7 +53,8 @@ public class UsuarioDetallesServiceImpl implements UserDetailsService, IUsuarioS
 	    }
 
 	    // Creamos una autoridad con el rol del usuario 
-	    SimpleGrantedAuthority authority = new SimpleGrantedAuthority(usuario.getRol().toUpperCase());
+	    SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toUpperCase());
+
 
 	    // Asignamos las authorities manualmente al objeto Usuario
 	    usuario.setAuthorities(Collections.singletonList(authority));
@@ -61,34 +62,5 @@ public class UsuarioDetallesServiceImpl implements UserDetailsService, IUsuarioS
 	    // Devolvemos el propio objeto Usuario, que implementa UserDetails
 	    return usuario;
 	}
-
-	@Override
-	public List<Usuario> findAll() {
-		return usuarioRepository.findAll();
-	}
-
-	@Override
-	public Optional<Usuario> findById(String email) {
-		return usuarioRepository.findById(email);
-	}
-
-
-
-	@Override
-	public Usuario insertOne(Usuario usuario) {
-		return usuarioRepository.save(usuario);
-	}
-
-
-	@Override
-	public Usuario updateOne(Usuario usuario) {
-		return usuarioRepository.save(usuario);
-	}
-
-	@Override
-	public void deleteOne(String email) {
-		usuarioRepository.deleteById(email);
-	}
-
 
 }

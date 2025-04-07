@@ -63,13 +63,12 @@ public class Usuario implements Serializable, UserDetails {
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-	    return Collections.singletonList(new SimpleGrantedAuthority(rol));
+	    return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + rol));
 	}
 
 	public void setAuthorities(List<SimpleGrantedAuthority> authorities) {
 	    this.authorities = authorities;
 	}
-
 
 	@Override
 	public String getUsername() {

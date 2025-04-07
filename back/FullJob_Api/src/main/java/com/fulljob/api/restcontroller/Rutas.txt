@@ -7,8 +7,8 @@
 --------------------------------------------------------------
 🔹 POST /auth/login ............................. [permitAll]
 🔹 POST /auth/alta/cliente ...................... [permitAll]
+🔹 POST /auth/logout ...................... [permitAll]
 🔹 POST /auth/alta/empresa ...................... [ROLE_ADMON]     ← alta de empresa + usuario asociado con rol EMPRESA y password aleatoria
-🔹 GET  /auth/obtenerusuario .................... [authenticated]
 
 --------------------------------------------------------------
 📂 CategoriasController
@@ -36,20 +36,16 @@
 🔹 GET    /empresas/{id} ........................ [ROLE_ADMON]
 🔹 GET    /empresas/buscar/{nombre} ............. [ROLE_ADMON]
 🔹 GET    /empresas/miperfil .................... [ROLE_EMPRESA]   ← datos de la empresa logueada
-🔹 POST   /empresas/register .................... [ROLE_ADMON]
 🔹 PUT    /empresas/{id} ........................ [ROLE_ADMON]
-🔹 PUT    /desactivar/{id} ...................... [ROLE_ADMON]
-🔹 PUT    /activar/{id} ......................... [ROLE_ADMON]
-🔹 PUT    /empresas/update ...................... [ROLE_EMPRESA]
 🔹 DELETE /empresas/{id} ........................ [ROLE_ADMON]
-🔹 PUT    /empresa/eliminar/{id} ............... [ROLE_ADMON]   ← elimina datos empresa y desactiva al usuario vinculado
+🔹 PUT    /empresas/update ...................... [ROLE_EMPRESA y ROLE_ADMON]
+
 
 --------------------------------------------------------------
 📨 SolicitudesController
 --------------------------------------------------------------
-🔹 POST   /solicitudes .......................... [ROLE_CLIENTE]
-🔹 GET    /solicitudes/mis-solicitudes ..........[ROLE_CLIENTE]   ← seguimiento de solicitudes del usuario
-🔹 DELETE /solicitudes/{id} ..................... [ROLE_CLIENTE]
+🔹 GET    /solicitudes/mis-solicitudes .......... [ROLE_CLIENTE]   ← seguimiento de solicitudes del usuario
+🔹 PUT    /solicitudes/cancelar/{id} ............ [ROLE_CLIENTE]
 🔹 GET    /solicitudes/vacante/{idVacante} ...... [ROLE_EMPRESA]
 🔹 PUT    /solicitudes/asignar/{id} ............. [ROLE_EMPRESA]   ← adjudica vacante a candidato y cambia estado de la solicitud
 

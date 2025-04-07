@@ -40,7 +40,7 @@ public class SolicitudServiceImpl extends GenericCrudServiceImpl<Solicitud, Inte
 
     @Override
     public List<Solicitud> findByVacante(Vacante vacante) {
-        return solicitudRepo.findByVacante(vacante);
+        return solicitudRepo.findByVacante_IdVacante(vacante.getIdVacante());
     }
 
 

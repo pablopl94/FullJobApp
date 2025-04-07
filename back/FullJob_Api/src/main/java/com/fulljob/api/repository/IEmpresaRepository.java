@@ -13,6 +13,8 @@ import java.util.Optional;
 public interface IEmpresaRepository extends JpaRepository<Empresa, Integer> {
 
 	Empresa findByUsuario_email(String email);
+	
 	List<Empresa> findByNombreEmpresaContainingIgnoreCase(String nombreEmpresa);
+	
 	Optional<Empresa> findByUsuarioEmail(String email);
 }

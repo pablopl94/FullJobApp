@@ -6,21 +6,21 @@ import java.util.Map;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fulljob.api.models.dto.CategoriaRequestDTO;
-import com.fulljob.api.models.dto.CategoriaResponseDTO;
+import com.fulljob.api.models.dto.CategoriaRequestDto;
+import com.fulljob.api.models.dto.CategoriaResponseDto;
 import com.fulljob.api.models.entities.Categoria;
 import com.fulljob.api.services.ICategoriaService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 @RestController
@@ -34,76 +34,61 @@ public class CategoriaRestController {
 	@Autowired
 	private ICategoriaService categoriaService;
 
+	//ENDOPINT PARA VER TODAS LAS CATEGORIAS
+	//GET    /categorias ........................... [permitAll]
 	@GetMapping
-	public ResponseEntity<List<CategoriaResponseDTO>> findAllCategories() {
+	public ResponseEntity<List<CategoriaResponseDto>> findAllCategories() {
 
 		List<Categoria> categorias = categoriaService.findAll();
 
-		List<CategoriaResponseDTO> response = categorias.stream()
-				.map(categoria -> modelMapper.map(categoria, CategoriaResponseDTO.class)).toList();
+		List<CategoriaResponseDto> response = categorias.stream()
+				.map(categoria -> modelMapper.map(categoria, CategoriaResponseDto.class)).toList();
 
 		return ResponseEntity.ok(response);
 	}
-
-	@GetMapping("/{nombre}")
-	public ResponseEntity<List<CategoriaResponseDTO>> findByCategoryName(@PathVariable String nombre) {
-
-		List<Categoria> categorias = categoriaService.findByName(nombre);
-
-		if (categorias.isEmpty()) {
-			throw new RuntimeException("No se han encontrado categorías con el nombre " + nombre);
-		}
-
-		List<CategoriaResponseDTO> response = categorias.stream()
-				.map(categoria -> modelMapper.map(categoria, CategoriaResponseDTO.class)).toList();
-
-		return ResponseEntity.ok(response);
-	}
-
-	@GetMapping("/{id}")
-	public ResponseEntity<CategoriaResponseDTO> findByCategoryId(@PathVariable Integer id) {
-
-		Categoria categoria = categoriaService.findById(id)
-				.orElseThrow(() -> new RuntimeException("Categoria con id " + id + " no encontrada"));
-
-		CategoriaResponseDTO response = modelMapper.map(categoria, CategoriaResponseDTO.class);
-
-		return ResponseEntity.ok(response);
-	}
-
+	
+	
+	
+	//ENDPOINT PARA CREAR CATEGORIAS
+    //POST   /categorias ........................... [ROLE_ADMON]
 	@PostMapping
-	public ResponseEntity<CategoriaResponseDTO> createCategory(
-			@RequestBody @Valid CategoriaRequestDTO categoriaRequestDTO) {
+	@PreAuthorize("hasRole('ADMON')")
+	public ResponseEntity<CategoriaResponseDto> createCategory(@RequestBody @Valid CategoriaRequestDto categoriaDto) {
 
-		Categoria nuevaCategoria = Categoria.builder().nombre(categoriaRequestDTO.getNombre())
-				.descripcion(categoriaRequestDTO.getDescripcion()).build();
+		Categoria nuevaCategoria = modelMapper.map(categoriaDto,Categoria.class);
 
 		Categoria categoriaCreada = categoriaService.insertOne(nuevaCategoria);
 
-		CategoriaResponseDTO response = modelMapper.map(categoriaCreada, CategoriaResponseDTO.class);
+		CategoriaResponseDto response = modelMapper.map(categoriaCreada, CategoriaResponseDto.class);
 
 		return ResponseEntity.ok(response);
 	}
 
+	
+	//ENDPOINT PARA MODIFICAR CATEGORIAS
+	//PUT    /categorias/{id} ...................... [ROLE_ADMON]
 	@PutMapping("/{id}")
-	public ResponseEntity<CategoriaResponseDTO> update(@PathVariable Integer id,
-			@RequestBody @Valid CategoriaRequestDTO categoriaRequestDTO) {
+	@PreAuthorize("hasRole('ADMON')")
+	public ResponseEntity<CategoriaResponseDto> update(@PathVariable Integer id, @RequestBody @Valid CategoriaRequestDto categoriaDto) {
 
 		Categoria categoria = categoriaService.findById(id)
 				.orElseThrow(() -> new RuntimeException("Categoria con id " + id + " no encontrada"));
 
-		categoria.setNombre(categoriaRequestDTO.getNombre());
-		categoria.setDescripcion(categoriaRequestDTO.getDescripcion());
+		categoria.setNombre(categoriaDto.getNombre());
+		categoria.setDescripcion(categoriaDto.getDescripcion());
 
 		Categoria categoriaActualizada = categoriaService.updateOne(categoria);
 
-		CategoriaResponseDTO response = modelMapper.map(categoriaActualizada, CategoriaResponseDTO.class);
+		CategoriaResponseDto response = modelMapper.map(categoriaActualizada, CategoriaResponseDto.class);
 
 		return ResponseEntity.ok(response);
 
 	}
 
+	//ENDPOINT PARA ELIMINAR CATEGORIA
+	////PUT    /categorias/{id} ...................... [ROLE_ADMON]
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasRole('ADMON')")
 	public ResponseEntity<Map<String, String>> deleteCategoria(@PathVariable Integer id) {
 
 		categoriaService.deleteOne(id);
