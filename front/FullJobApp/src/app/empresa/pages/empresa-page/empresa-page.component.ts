@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
+
 import { RouterModule } from '@angular/router';
+import { NavbarComponent } from '../../../components/navbar/navbar.component';
 
 @Component({
   selector: 'app-empresa-page',
