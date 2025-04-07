@@ -75,7 +75,7 @@ public class EmpresaImplService extends GenericCrudServiceImpl<Empresa, Integer>
 	    try {
 	        // Recorremos cada vacante y eliminamos primero sus solicitudes asociadas
 	        for (Vacante vacante : listaVacantes) {
-	            solicitudRepository.deleteAll(solicitudRepository.findByVacante_IdVacante(vacante.getIdVacante()));
+	            solicitudRepository.deleteAll(solicitudRepository.findByVacante_idVacante(vacante.getIdVacante()));
 	        }
 
 	        // Luego eliminamos las vacantes

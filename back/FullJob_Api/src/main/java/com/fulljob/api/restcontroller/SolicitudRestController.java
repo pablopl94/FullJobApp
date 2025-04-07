@@ -1,8 +1,6 @@
 package com.fulljob.api.restcontroller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -21,14 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.fulljob.api.models.dto.SolicitudResponseDto;
-import com.fulljob.api.models.entities.EstadoSolicitud;
 import com.fulljob.api.models.entities.Solicitud;
 import com.fulljob.api.models.entities.Usuario;
-import com.fulljob.api.models.entities.Vacante;
 import com.fulljob.api.services.ISolicitudService;
-import com.fulljob.api.services.IVacanteService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -43,8 +37,7 @@ public class SolicitudRestController {
 	@Autowired
 	private ISolicitudService solicitudService;
 
-	@Autowired
-	private IVacanteService vacanteService;
+	
 	
 	//ENDPOINT PARA OBTENER TODAS LAS SOLICITUDES DEL USUARIO AUTENTICADO
 	//GET    /solicitudes/missolicitudes .......... [ROLE_CLIENTE]
@@ -73,57 +66,45 @@ public class SolicitudRestController {
 		
 		return ResponseEntity.ok(respuestaDto);
 	}
+	
 
 	//ENDPOINT PARA VER TODAS LAS SOLITUDES DE UNA VACANTE
-	//PUT    /solicitudes/cancelar/{id} ............ [ROLE_EMPRESA]
+	//GET    /solicitudes/vacante/{id} ............. [ROLE_EMPRESA] 
 	@GetMapping("/vacante/{id}")
 	@PreAuthorize("hasRole('EMPRESA')")
 	public ResponseEntity<List<SolicitudResponseDto>> obtenerSolicitudesPorVacante(@PathVariable Integer id) {
-		
-		Vacante vacante = vacanteService.findById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vacante no encontrada"));
 
-		// Obtener todas las solicitudes relacionadas con la vacante
-		List<Solicitud> solicitudes = solicitudService.findByVacante(vacante);
+		List<SolicitudResponseDto> listaDto = solicitudService.findByVacante(id);
 
-		// Convertir las entidades a DTOs
-		List<SolicitudResponseDto> response = solicitudes.stream()
-				.map(solicitud -> modelMapper.map(solicitud, SolicitudResponseDto.class)).collect(Collectors.toList());
-
-		return ResponseEntity.ok(response);
+		return ResponseEntity.ok(listaDto);
 	}
 
+	
+	//ENDPOINT PARA VER DETALLES DE UNA SOLICITUD
+	//GET    /solicitudes/vacante/{id} ............. [ROLE_EMPRESA]
+	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('EMPRESA')")
+	public ResponseEntity<SolicitudResponseDto> detallesSolicitud(@PathVariable Integer id) {
+		
+		Solicitud solicitud = solicitudService.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Solicitud no encontrada"));
+
+		SolicitudResponseDto respuestaDto = modelMapper.map(solicitud, SolicitudResponseDto.class);
+		
+		return ResponseEntity.ok(respuestaDto);
+	}
+	
+	
 	//ENDPOINT PARA ASIGNAR UNA VACANTE A UN USUARIO, CAMBIA EL ESTADO DE LA SOLICITUD
 	//PUT    /solicitudes/asignar/{id} ............. [ROLE_EMPRESA] 
 	@PutMapping("/asignar/{id}")
 	@PreAuthorize("hasRole('EMPRESA')")
-	public ResponseEntity<Map<String, String>> asignarVacanteACandidato(@PathVariable Integer id,
-			@RequestBody Map<String, Integer> vacanteRequest) {
+	public ResponseEntity<String> asignarVacanteACandidato(@PathVariable Integer id) {
 
-		// Buscar la solicitud por ID
-		Solicitud solicitud = solicitudService.findById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Solicitud no encontrada"));
-
-		// Obtener el ID de la vacante desde el cuerpo de la solicitud
-		Integer vacanteId = vacanteRequest.get("vacanteId");
-
-		// Buscar la vacante por ID
-		Vacante vacante = vacanteService.findById(vacanteId)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vacante no encontrada"));
-
-		// Asignar la vacante a la solicitud y cambiar el estado
-		solicitud.setVacante(vacante);
-		solicitud.setEstado(EstadoSolicitud.ADJUDICADA); // Asumimos que el estado cambia a "ADJUDICADA"
-
-		// Guardar la solicitud actualizada
-		solicitudService.updateOne(solicitud);
-
-		// Crear un mensaje de éxito
-		Map<String, String> response = new HashMap<>();
-		response.put("message", "Vacante asignada correctamente");
+		 solicitudService.asignarVacante(id);
 
 		// Devolver un código de estado 200 con el mensaje
-		return ResponseEntity.status(HttpStatus.OK).body(response);
+		return ResponseEntity.ok("Solicitud asignada");
 	}
 
 }

@@ -1,10 +1,6 @@
 package com.fulljob.api.services.impl;
 
 import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-import com.fulljob.api.services.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

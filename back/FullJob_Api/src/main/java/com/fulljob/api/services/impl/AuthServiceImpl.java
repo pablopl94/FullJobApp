@@ -136,7 +136,7 @@ public class AuthServiceImpl extends GenericCrudServiceImpl<Usuario, String> imp
             usuarioRepository.save(nuevoUsuario);
             
             //Le agregamos la autoridad rol
-            nuevoUsuario.setAuthorities(List.of(new SimpleGrantedAuthority("ROLE_EMPRESA")));
+            nuevoUsuario.setAuthorities(List.of(new SimpleGrantedAuthority("ROLE_CLIENTE")));
             
             //Generamos el token con el usuario que hemos creado
             //Aqui generamos el token por si nada mas regisrarnos queremos
@@ -205,6 +205,10 @@ public class AuthServiceImpl extends GenericCrudServiceImpl<Usuario, String> imp
                     .build();
 
             empresaRepository.save(nuevaEmpresa);     
+            
+            //Le añadimos la autoridad del rol
+            nuevoUsuario.setAuthorities(List.of(new SimpleGrantedAuthority("ROLE_EMPRESA")));
+
             
             //Generamos el token con el usuario que hemos creado
             //Aqui generamos el token por si nada mas regisrarnos queremos

@@ -1,0 +1,1030 @@
+{
+	"info": {
+		"_postman_id": "2dd3c400-6411-4f17-9ccf-94197c35e369",
+		"name": "API RUTAS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43800075",
+		"_collection_link": "https://reto-unir.postman.co/workspace/Reto-Unir~1ebc8c83-f687-44a6-8085-c5465506c7be/collection/43800075-2dd3c400-6411-4f17-9ccf-94197c35e369?action=share&source=collection_link&creator=43800075"
+	},
+	"item": [
+		{
+			"name": "AuthController",
+			"item": [
+				{
+					"name": "Login - rol admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"admin@admin.com\",\r\n  \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login - rol empresa",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"empresa@empresa.com\",\r\n  \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login - rol cliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"cliente@cliente.com\",\r\n  \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "alta cliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"cliente@example.com\",\r\n  \"nombre\": \"María\",\r\n  \"apellidos\": \"López García\",\r\n  \"password\": \"contraseñaSegura123\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/auth/alta/cliente",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"auth",
+								"alta",
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "alta empresa",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3NDM5Nzc0NTIsImV4cCI6MTc0NDAxMzQ1Mn0.6Nfra3gGhN6Zq2w0WrmNsax_Q-JOsza6hKxZCu142l0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"usuario@example.com\",\r\n  \"nombre\": \"Juan\",\r\n  \"apellidos\": \"Pérez Gómez\",\r\n  \"password\": \"contraseña123\",\r\n  \"cif\": \"B12345678\",\r\n  \"nombreEmpresa\": \"Empresa SA\",\r\n  \"direccionFiscal\": \"Calle Falsa 123\",\r\n  \"pais\": \"España\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/auth/alta/empresa",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"auth",
+								"alta",
+								"empresa"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "VacantesController",
+			"item": [
+				{
+					"name": "vacantes activas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9007/vacantes",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"vacantes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filtro vacante - empresa",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9007/vacantes/filtrar/empresa/InnovApps",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"vacantes",
+								"filtrar",
+								"empresa",
+								"InnovApps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filtro vacante - categoria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9007/vacantes/filtrar/categoria/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"vacantes",
+								"filtrar",
+								"categoria",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filtro vacante - contrato",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9007/vacantes/filtrar/contrato/INDEFINIDO",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"vacantes",
+								"filtrar",
+								"contrato",
+								"INDEFINIDO"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByIdCategoria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9007/vacantes/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"vacantes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publicar vacante",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbXByZXNhQGVtcHJlc2EuY29tIiwiaWF0IjoxNzQ0MDEzMzUyLCJleHAiOjE3NDQwNDkzNTJ9.rzLXU_D7xiG-N46tcpNKyZXSBqUP4v8LyTJIjLZAsjg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"idCategoria\": \"2\",\r\n  \"nombre\": \"Fontaneraaaaaaaaaaaaaaaaa\",\r\n  \"descripcion\": \"Nolose\",\r\n  \"salario\": 28000,\r\n  \"destacado\": 0,\r\n  \"detalles\": \"TEMPORAL\",\r\n  \"imagen\": \"java.jpg\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/vacantes/publicar",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"vacantes",
+								"publicar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar vacante",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbXByZXNhQGVtcHJlc2EuY29tIiwiaWF0IjoxNzQzNzMxMjY2LCJleHAiOjE3NDM3NjcyNjZ9.Yfmgs8h7j_K46m5TbJXIQnzXGdyWHarVsjpF8BgMns0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"idCategoria\": \"1\",\r\n  \"nombre\": \"Prostituta en onlyfans\",\r\n  \"descripcion\": \"Ser una pedazo de guarra\",\r\n  \"salario\": 38000,\r\n  \"destacado\": 0,\r\n  \"detalles\": \"TEMPORAL\",\r\n  \"imagen\": \"java.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/vacantes/editar/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"vacantes",
+								"editar",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Misvacantes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer     eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbXByZXNhQGVtcHJlc2EuY29tIiwiaWF0IjoxNzQzNzMxMjY2LCJleHAiOjE3NDM3NjcyNjZ9.Yfmgs8h7j_K46m5TbJXIQnzXGdyWHarVsjpF8BgMns0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombreCategoria\": \"Desarrollo Web\",\r\n  \"nombre\": \"Desarrollador Backend\",\r\n  \"descripcion\": \"Se busca programador con experiencia en Java y Spring Boot. Trabajo híbrido y buen ambiente de equipo.\",\r\n  \"salario\": 32000,\r\n  \"destacado\": true,\r\n  \"detalles\": \"INDEFINIDO\",\r\n  \"imagen\": \"https://empresa.com/ofertas/java-backend.png\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/vacantes/misvacantes",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"vacantes",
+								"misvacantes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelar vacante",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbXByZXNhQGVtcHJlc2EuY29tIiwiaWF0IjoxNzQzNzMxMjY2LCJleHAiOjE3NDM3NjcyNjZ9.Yfmgs8h7j_K46m5TbJXIQnzXGdyWHarVsjpF8BgMns0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:9007/vacantes/cancelar/2",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"vacantes",
+								"cancelar",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SolicitudesController",
+			"item": [
+				{
+					"name": "solicitudes cliente - CLIENTE",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjbGllbnRlQGNsaWVudGUuY29tIiwiaWF0IjoxNzQzNzMxOTEzLCJleHAiOjE3NDM3Njc5MTN9.aVKlO2BZ3p0GPRJuzLbYme-CT0DIBpBohU5w2RcPiPs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:9007/solicitudes",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"solicitudes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancelar solicitud - CLIENTE",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjbGllbnRlQGNsaWVudGUuY29tIiwiaWF0IjoxNzQ0MDUxMTEwLCJleHAiOjE3NDQwODcxMTB9.J3Tpt3DX28QGooWdCXvcTbvKK9LtHbJZ7yYQ7Cfg9Co",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:9007/solicitudes/cancelar/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"solicitudes",
+								"cancelar",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lista solicitudes vacante - EMPRESA",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "detalles solicitud -EMPRESA",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9007/solicitudes/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"solicitudes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "asginar solicitud -EMPRESA",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbXByZXNhQGVtcHJlc2EuY29tIiwiaWF0IjoxNzQ0MDU3NjMwLCJleHAiOjE3NDQwOTM2MzB9.2YOAsJuks_jHZ6k_ue-68DId6mkfX05ih7WvCkF_Fx0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:9007/solicitudes/asignar/4",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"solicitudes",
+								"asignar",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CategoriaController",
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9007/categorias",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"categorias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modificar categoria",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3NDM5Nzg3OTAsImV4cCI6MTc0NDAxNDc5MH0.Tf62Qt7i1IUT21WMcu7wMFgdJPos15kyRGD3cy2MaqQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Tecnología\",\r\n  \"descripcion\": \"Categoría para productos tecnológicos y gadgets.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/categorias/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"categorias",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear categoria",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3NDM5NzkyMDcsImV4cCI6MTc0NDAxNTIwN30.C4_NkaOimGZWClfysa2R2BEI6qvNKR-a4TdvyV1aBIg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Tecnología\",\r\n  \"descripcion\": \"Categoría para productos tecnológicos y gadgets.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/categorias",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"categorias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar categoria",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3NDM5NzkyMDcsImV4cCI6MTc0NDAxNTIwN30.C4_NkaOimGZWClfysa2R2BEI6qvNKR-a4TdvyV1aBIg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:9007/categorias/3",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"categorias",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EmpresasController",
+			"item": [
+				{
+					"name": "modificar empresa - ADMIN",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3NDQwMjY0NzYsImV4cCI6MTc0NDA2MjQ3Nn0.RVxxOTQYiQuI4Wa1VyHDUJ-usfquN6dGim6PO99UcI4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cif\": \"A12345678\",\r\n  \"nombreEmpresa\": \"Tesla S.A.\",\r\n  \"direccionFiscal\": \"Calle Ficticia 123, Madrid\",\r\n  \"pais\": \"España\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/empresas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"empresas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar empresa - ADMIN",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3NDQwMjc3MDEsImV4cCI6MTc0NDA2MzcwMX0.bj1WOHsI_NAODXy7cTUQy5ukIyngytkcqthT9bAGPZY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/empresas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"empresas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll -ADMIN",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3NDQwMTMzMzIsImV4cCI6MTc0NDA0OTMzMn0.neCx9wCRQuEtQykf_Pfob_5SKfLp38z3NzxYS7hjM1o",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:9007/empresas",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"empresas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById -ADMIN",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3NDQwMDkzMjMsImV4cCI6MTc0NDA0NTMyM30.Jl4xvNtyUSWFK7AQeEnrSrrztx6gbBUagTM7PszVMuc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/empresas/2",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"empresas",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByName - ADMIN",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3NDQwMDkzMjMsImV4cCI6MTc0NDA0NTMyM30.Jl4xvNtyUSWFK7AQeEnrSrrztx6gbBUagTM7PszVMuc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:9007/empresas/buscar/Empresa SA",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"empresas",
+								"buscar",
+								"Empresa SA"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "perfilEmpresa - EMPRESA",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbXByZXNhQGVtcHJlc2EuY29tIiwiaWF0IjoxNzQ0MDI1Nzk3LCJleHAiOjE3NDQwNjE3OTd9.j1I18O-hM_HRUv_Hcx8-qOXVW5VxKzQf86KKL9Fb6iQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:9007/empresas/perfil",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"empresas",
+								"perfil"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modificar empresa - EMPRESA",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbXByZXNhQGVtcHJlc2EuY29tIiwiaWF0IjoxNzQ0MDI4NDY5LCJleHAiOjE3NDQwNjQ0Njl9.Mh0Fi0OCJvd6yNv_lAeBv_toqVOpMq1K_qYUFlO7GrQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cif\": \"A12345678\",\r\n  \"nombreEmpresa\": \"InnovApps S.A.\",\r\n  \"direccionFiscal\": \"Calle Ficticia 123, Madrid\",\r\n  \"pais\": \"España\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/empresas/update",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"empresas",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ClienteController",
+			"item": [
+				{
+					"name": "findAll - ADMON",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3NDQwNTg1MDQsImV4cCI6MTc0NDA5NDUwNH0.P29WwOl9qGXEjYXNOik1lYAm7p4PZNpIReavMrxjOxw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:9007/clientes",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById - ADMON",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9007/clientes/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "alta con rol -ADMON",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3NDQwNjAyMDEsImV4cCI6MTc0NDA5NjIwMX0.I1cGCx7968FdTaOIJZur6aIRsF3JjzSxw3ogEHcA8Vo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"nuevo.cliente@ejemplo.com\",\r\n  \"nombre\": \"Laura\",\r\n  \"apellidos\": \"Gómez Fernández\",\r\n  \"rol\": \"CLIENTE\",\r\n  \"password\": \"123456\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/clientes/alta",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"clientes",
+								"alta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modificar cliente -ADMON",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3NDQwNjAyMDEsImV4cCI6MTc0NDA5NjIwMX0.I1cGCx7968FdTaOIJZur6aIRsF3JjzSxw3ogEHcA8Vo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"nuevo.cliente@ejemplo.com\",\r\n  \"nombre\": \"Laura\",\r\n  \"apellidos\": \"Juana Fernández\",\r\n  \"rol\": \"CLIENTE\",\r\n  \"password\": \"123456\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/clientes/modificar/nuevo.cliente@ejemplo.com",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"clientes",
+								"modificar",
+								"nuevo.cliente@ejemplo.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "desactivar cliente - ADMIN",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3NDQwNjIzMTQsImV4cCI6MTc0NDA5ODMxNH0.xLUnoLI09pvuOT4wStCcuukqYVeHchVP2PKwJ6KBcr0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/clientes/desactivar/empresa@empresa.com",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"clientes",
+								"desactivar",
+								"empresa@empresa.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "desactivar cliente - ADMIN Copy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3NDQwNjIzMTQsImV4cCI6MTc0NDA5ODMxNH0.xLUnoLI09pvuOT4wStCcuukqYVeHchVP2PKwJ6KBcr0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9007/clientes/activar/empresa@empresa.com",
+							"host": [
+								"localhost"
+							],
+							"port": "9007",
+							"path": [
+								"clientes",
+								"activar",
+								"empresa@empresa.com"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

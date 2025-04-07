@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fulljob.api.models.dto.AltaClienteAdminRequestDto;
+import com.fulljob.api.models.dto.AltaClienteAdminResponseDto;
 import com.fulljob.api.models.dto.AltaClienteRequestDto;
 import com.fulljob.api.models.dto.AltaClienteResponseDto;
 import com.fulljob.api.models.entities.Usuario;
@@ -35,8 +37,9 @@ public class ClienteRestController {
 	private ModelMapper modelMapper;
 
 	// ENDPOINT PARA BUSCAR TODOS LOS USUARIOS
+	//GET    /clientes/.............. [ROLE_ADMON] 
 	@GetMapping
-	@PreAuthorize("hasAuthority('ROLE_ADMON')")
+	@PreAuthorize("hasRole('ADMON')")
 	public ResponseEntity<List<AltaClienteResponseDto>> findAllUsuarios() {
 
 		List<Usuario> usuarios = iUsuarioService.findAll();
@@ -46,71 +49,60 @@ public class ClienteRestController {
 
 		return ResponseEntity.ok(response);
 	}
+	
 
-	// ENDPOINT PARA BUSCAR UN USUARIO POR ID
-	@GetMapping("/{email}")
-	public ResponseEntity<AltaClienteResponseDto> findById(@PathVariable String email) {
-		Usuario usuario = iUsuarioService.findById(email)
-				.orElseThrow(() -> new RuntimeException("Usuario con email " + email + " no encontrado"));
+	// ENDPOINT PARA VER DETALLES DE UN USUARIO POR ID
+	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ADMON')")
+	public ResponseEntity<AltaClienteAdminResponseDto> findById(@PathVariable String id) {
+		
+		Usuario usuario = iUsuarioService.findById(id)
+				.orElseThrow(() -> new RuntimeException("Usuario con email " + id + " no encontrado"));
 
-		AltaClienteResponseDto response = modelMapper.map(usuario, AltaClienteResponseDto.class);
+		AltaClienteAdminResponseDto response = modelMapper.map(usuario, AltaClienteAdminResponseDto.class);
 
 		return ResponseEntity.status(200).body(response);
 	}
 
-	// ENDPOINT PARA CREAR USUARIOS
-	@PostMapping
+	// ENDPOINT PARA CREAR USUARIOS CON ROL "CLIENTE O ADMON "
+	@PostMapping("/alta")
 	@PreAuthorize("hasRole('ADMON')")
-	public ResponseEntity<AltaClienteResponseDto> createUsuario(
-			@RequestBody @Valid AltaClienteRequestDto altaClienteRequestDto) {
+	public ResponseEntity<AltaClienteAdminResponseDto> createUsuario(@RequestBody @Valid AltaClienteAdminRequestDto clienteDto) {
 
-		Usuario nuevoUsuario = modelMapper.map(altaClienteRequestDto, Usuario.class);
+		AltaClienteAdminResponseDto respuestaDto = iUsuarioService.altaCandidatoConRol(clienteDto);
 
-		Usuario usuarioCreado = iUsuarioService.insertOne(nuevoUsuario);
-
-		AltaClienteResponseDto response = modelMapper.map(usuarioCreado, AltaClienteResponseDto.class);
-
-		return ResponseEntity.ok(response);
+		return ResponseEntity.ok(respuestaDto);
 	}
 
 	// ENDPOINT PARA MODIFICAR USUARIOS
 	// PUT /categorias/{id} ...................... [ROLE_ADMON]
-	@PutMapping("/{id}")
+	@PutMapping("modificar/{id}")
 	@PreAuthorize("hasRole('ADMON')")
-	public ResponseEntity<AltaClienteResponseDto> updateUsuario(@PathVariable String email,
-			@RequestBody @Valid AltaClienteRequestDto altaClienteRequestDto) {
+	public ResponseEntity<AltaClienteAdminResponseDto> updateUsuario(@PathVariable String id ,@RequestBody @Valid AltaClienteAdminRequestDto clienteDto) {
 
-		Usuario usuario = iUsuarioService.findById(email)
-				.orElseThrow(() -> new RuntimeException("UsUario con email " + email + " no encontrado"));
+		AltaClienteAdminResponseDto respuestaDto =  iUsuarioService.actualizarDatosCliente(id, clienteDto);
 
-		Usuario.UsuarioBuilder builder = usuario.toBuilder()
-                .nombre(altaClienteRequestDto.getNombre())
-                .apellidos(altaClienteRequestDto.getApellidos());               
-                //.rol(altaClienteRequestDto.getRol()); //Podemos añadir tambien el rol
-		
-		Usuario usuarioActualizado = builder.build();
-
-		iUsuarioService.updateOne(usuarioActualizado);
-
-		AltaClienteResponseDto response = modelMapper.map(usuarioActualizado, AltaClienteResponseDto.class);
-
-		return ResponseEntity.ok(response);
+		return ResponseEntity.ok(respuestaDto);
 
 	}
 
 	// ENDPOINT PARA DESACTIVAR USUARIOS (NO BORRA AL USUARIO)
-	@PutMapping("/desactivar_usuario/{email}")
-	@PreAuthorize("hasAuthority('ROLE_ADMON')")
+	@PutMapping("/desactivar/{email}")
+	@PreAuthorize("hasRole('ADMON')")
 	public ResponseEntity<Map<String, String>> desactivarUsuario(@PathVariable String email) {
-		iUsuarioService.darBajaUsuario(email, 0);
+		
+		iUsuarioService.cambiarEstadoUsuario(email, 0);
+		
 		return ResponseEntity.ok(Map.of("message", "Usuario desactivado por mal uso", "email", email));
 	}
 
 	// ENDPOINT PARA ACTIVAR USUARIOS
-	@PutMapping("/activar_usuario/{email}")
-	@PreAuthorize("hasAuthority('ROLE_ADMON')")
+	@PutMapping("/activar/{email}")
+	@PreAuthorize("hasRole('ADMON')")
 	public ResponseEntity<Map<String, String>> activarUsuario(@PathVariable String email) {
-		iUsuarioService.darBajaUsuario(email, 1);
+		
+		iUsuarioService.cambiarEstadoUsuario(email, 1);
+		
 		return ResponseEntity.ok(Map.of("message", "Usuario activado correctamente", "email", email));
 	}
 
