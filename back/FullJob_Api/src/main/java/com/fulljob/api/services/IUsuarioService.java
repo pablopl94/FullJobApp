@@ -4,4 +4,6 @@ import com.fulljob.api.models.entities.Usuario;
 
 public interface IUsuarioService extends IGenericCrud<Usuario, String>{
 
+	void darBajaUsuario(String email, Integer estadoBaja);
 }
+

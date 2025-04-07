@@ -8,14 +8,24 @@ import com.fulljob.api.repository.IUsuarioRepository;
 import com.fulljob.api.services.IUsuarioService;
 
 @Service
-public class IUsuarioServiceImpl extends GenericCrudServiceImpl<Usuario, String> implements IUsuarioService{
+public class IUsuarioServiceImpl extends GenericCrudServiceImpl<Usuario, String> implements IUsuarioService {
 
-	@Autowired 
-	private IUsuarioRepository usuarioRepo;
-	
+	@Autowired
+	private IUsuarioRepository usuarioRepository;
+
 	@Override
 	protected IUsuarioRepository getRepository() {
-		return usuarioRepo;
+		return usuarioRepository;
+	}
+
+	@Override
+	public void darBajaUsuario(String email, Integer estadoBaja) {
+
+		Usuario usuario = usuarioRepository.findById(email)
+				.orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+		
+		usuario.setEnabled(estadoBaja);
+        usuarioRepository.save(usuario);
 	}
 
 }
