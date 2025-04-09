@@ -1,6 +1,3 @@
-:host {
-  display: block;
-  background-color: #FFCE20;
-  min-height: 100vh;
-  padding: 1rem;
+main{
+  background-color: #f4c542; /* Mostaza */
 }

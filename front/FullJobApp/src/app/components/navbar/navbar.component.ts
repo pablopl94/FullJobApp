@@ -12,10 +12,16 @@ import { AuthService } from '../../core/services/auth.service';
   imports: [CommonModule, RouterModule]
 })
 export class NavbarComponent {
+
+
   private readonly authService: AuthService = inject(AuthService);
 
   get role(): string | null {
     return this.authService.obtenerRol();
+  }
+
+  logOut() {
+    this.authService.logout();
   }
 }
 
