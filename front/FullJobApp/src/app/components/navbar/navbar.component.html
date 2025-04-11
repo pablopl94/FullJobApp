@@ -2,9 +2,13 @@
 
   <div>
     <div class="d-flex align-items-center gap-3 mb-5">
-      <img src="assets/avatar.svg" alt="Avatar" class="rounded-circle" style="width: 48px; height: 48px;" />
+      <img
+        [src]="usuario?.profile_image || 'assets/img/avatar.svg'"
+        alt="Avatar"
+        class="rounded-circle"
+      />
       <div>
-        <p class="fw-semibold small mb-0">Agnur S.L</p>
+        <p class="fw-semibold small mb-0">{{ usuario?.nombre || 'Usuario' }}</p>
         <p class="text-uppercase text-muted text-xs mb-0" style="letter-spacing: 0.05em;">
           {{ role }}
         </p>
