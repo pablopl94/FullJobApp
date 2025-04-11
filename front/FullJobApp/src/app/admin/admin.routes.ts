@@ -5,10 +5,9 @@ export const adminRoutes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./pages/admin-page/admin-page.component').then(m => m.AdminPageComponent),
-    canActivate: [adminGuard],
+      import('./pages/admin-page/admin-page.component').then(m => m.AdminPageComponent),    
     children: [
-      { path: '', redirectTo: 'empresas', pathMatch: 'full' },
+      
       {
         path: 'empresas',
         loadComponent: () =>
