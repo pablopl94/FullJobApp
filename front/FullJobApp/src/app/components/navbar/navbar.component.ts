@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
@@ -11,16 +11,18 @@ import { AuthService } from '../../core/services/auth.service';
   styleUrls: ['./navbar.component.css'],
   imports: [CommonModule, RouterModule]
 })
-export class NavbarComponent {
-
+export class NavbarComponent implements OnInit {
 
   private readonly authService: AuthService = inject(AuthService);
+  role: string = '';
 
-  get role(): string | null {
-    return this.authService.obtenerRol();
+  ngOnInit(): void {
+    this.role = this.authService.obtenerRol();
+    // Para depuración
+    console.log('[Navbar] Rol detectado:', this.role);
   }
 
-  logOut() {
+  logOut(): void {
     this.authService.logout();
   }
 }

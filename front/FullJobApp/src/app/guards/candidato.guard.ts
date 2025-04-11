@@ -8,7 +8,7 @@ export const candidatoGuard: CanActivateFn = () => {
 
   if (authService.estaLogueado() && authService.obtenerRol() === 'CLIENTE') return true;
 
-  router.navigate(['/auth/login']);
+  router.navigate(['/']);
   return false;
 };
 

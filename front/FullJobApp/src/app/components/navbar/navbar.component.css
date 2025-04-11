@@ -1,9 +1,18 @@
-.logout-btn {
-    transition: all 0.2s ease-in-out;
-  }
-
-.logout-btn:hover {
-  background-color: #FFC107;
-  color: white;
-  border-color: #FFC107;
+.nav-link-candidato {
+  color: #000;
+  font-weight: normal;
+  text-decoration: none;
+  transition: transform 0.2s ease, font-size 0.2s ease;
+  display: inline-block;
 }
+
+.nav-link-candidato:hover {
+  transform: scale(1.05);
+}
+
+.activo {
+  color: #FAC402;
+  font-weight: bold;
+}
+
+

@@ -8,7 +8,7 @@ export const empresaGuard: CanActivateFn = () => {
 
   if (authService.estaLogueado() && authService.obtenerRol() === 'EMPRESA') return true;
 
-  router.navigate(['/auth/login']);
+  router.navigate(['/']);
   return false;
 };
 

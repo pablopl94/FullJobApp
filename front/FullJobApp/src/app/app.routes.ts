@@ -1,13 +1,21 @@
 import { Routes } from '@angular/router';
-import { adminRoutes } from './admin/admin.routes';
-import { empresaRoutes } from './empresa/empresa.routes';
-import { candidatoRoutes } from './candidato/candidato.routes';
-import { publicRoutes } from './public/public.routes';
 
 export const routes: Routes = [
-  { path: 'admin', children: adminRoutes },
-  { path: 'empresa', children: empresaRoutes },
-  { path: 'candidato', children: candidatoRoutes },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/admin.routes').then(m => m.adminRoutes)
+  },
+  {
+    path: 'empresa',
+    loadChildren: () =>
+      import('./empresa/empresa.routes').then(m => m.empresaRoutes)
+  },
+  {
+    path: 'candidato',
+    loadChildren: () =>
+      import('./candidato/candidato.routes').then(m => m.candidatoRoutes)
+  },
 
   {
     path: 'access/candidato',
@@ -24,7 +32,9 @@ export const routes: Routes = [
       )
   },
 
-  { path: '', loadComponent: () =>
+  {
+    path: '',
+    loadComponent: () =>
       import('./public/pages/landing-page/landing-page.component').then(
         m => m.LandingPageComponent
       )

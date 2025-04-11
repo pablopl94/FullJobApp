@@ -1,40 +1,36 @@
 <aside class="d-flex flex-column justify-content-between bg-white p-4 shadow-sm min-vh-100" style="width: 16rem;">
-  
-  <!-- Parte superior: Avatar + Info + Menú -->
+
   <div>
-    <!-- Avatar + nombre -->
     <div class="d-flex align-items-center gap-3 mb-5">
       <img src="assets/avatar.svg" alt="Avatar" class="rounded-circle" style="width: 48px; height: 48px;" />
       <div>
         <p class="fw-semibold small mb-0">Agnur S.L</p>
-        <p class="text-uppercase text-muted text-xs mb-0" style="letter-spacing: 0.05em;">Empresa</p>
+        <p class="text-uppercase text-muted text-xs mb-0" style="letter-spacing: 0.05em;">
+          {{ role }}
+        </p>
       </div>
     </div>
 
-    <!-- Menú -->
     <nav class="d-flex flex-column gap-4 ps-1">
       @if (role === 'ADMON') {
-        <a routerLink="/empresa/vacantes" routerLinkActive="fw-bold text-warning" class="text-decoration-none text-dark">HOME</a>
-        <a routerLink="/admin/empresas" routerLinkActive="fw-bold text-warning" class="text-decoration-none text-dark">GESTIÓN EMPRESAS</a>
-        <a routerLink="/admin/candidatos" routerLinkActive="fw-bold text-warning" class="text-decoration-none text-dark">GESTIÓN CANDIDATOS</a>
-        <a routerLink="/admin/administradores" routerLinkActive="fw-bold text-warning" class="text-decoration-none text-dark">GESTIÓN ADMINISTRADOR</a>
-        <a routerLink="/admin/categorias" routerLinkActive="fw-bold text-warning" class="text-decoration-none text-dark">GESTIÓN CATEGORÍAS</a>
+        <a routerLink="/admin/empresas" routerLinkActive="activo" class="nav-link-candidato">GESTIÓN EMPRESAS</a>
+        <a routerLink="/admin/candidatos" routerLinkActive="activo" class="nav-link-candidato">GESTIÓN CANDIDATOS</a>
+        <a routerLink="/admin/administradores" routerLinkActive="activo" class="nav-link-candidato">GESTIÓN ADMIN</a>
+        <a routerLink="/admin/categorias" routerLinkActive="activo" class="nav-link-candidato">GESTIÓN CATEGORÍAS</a>
       }
       @else if (role === 'EMPRESA') {
-        <a routerLink="/empresa/vacantes" routerLinkActive="fw-bold text-warning" class="text-decoration-none text-dark">HOME</a>
-        <a routerLink="/empresa/vacantes" routerLinkActive="fw-bold text-warning" class="text-decoration-none text-dark">MIS VACANTES</a>
-        <a routerLink="/empresa/solicitudes" routerLinkActive="fw-bold text-warning" class="text-decoration-none text-dark">SOLICITUDES</a>
-        <a routerLink="/empresa/perfil" routerLinkActive="fw-bold text-warning" class="text-decoration-none text-dark">PERFIL</a>
+        <a routerLink="/empresa/home" routerLinkActive="activo" class="nav-link-candidato">HOME</a>
+        <a routerLink="/empresa/vacantes" routerLinkActive="activo" class="nav-link-candidato">MIS VACANTES</a>
+        <a routerLink="/empresa/solicitudes" routerLinkActive="activo" class="nav-link-candidato">SOLICITUDES</a>
+        <a routerLink="/empresa/perfil" routerLinkActive="activo" class="nav-link-candidato">PERFIL</a>
       }
       @else if (role === 'CLIENTE') {
-        <a routerLink="/empresa/vacantes" routerLinkActive="fw-bold text-warning" class="text-decoration-none text-dark">HOME</a>
-        <a routerLink="/candidato/vacantes" routerLinkActive="fw-bold text-warning" class="text-decoration-none text-dark">BUSCAR VACANTES</a>
-        <a routerLink="/candidato/solicitudes" routerLinkActive="fw-bold text-warning" class="text-decoration-none text-dark">MIS SOLICITUDES</a>
-        <a routerLink="/candidato/perfil" routerLinkActive="fw-bold text-warning" class="text-decoration-none text-dark">PERFIL</a>
+        <a routerLink="/candidato/home" routerLinkActive="activo" class="nav-link-candidato">HOME</a>
+        <a routerLink="/candidato/vacantes" routerLinkActive="activo" class="nav-link-candidato">BUSCAR VACANTES</a>
+        <a routerLink="/candidato/solicitudes" routerLinkActive="activo" class="nav-link-candidato">MIS SOLICITUDES</a>
       }
     </nav>
   </div>
 
-  <!-- Botón de logout -->
   <button class="btn btn-outline-dark w-100 mt-4 logout-btn" (click)="logOut()">Cerrar sesión</button>
 </aside>

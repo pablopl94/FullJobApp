@@ -12,8 +12,15 @@ export const empresaRoutes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'vacantes',
+        redirectTo: 'home',
         pathMatch: 'full',
+      },
+      {
+        path: 'home',
+        loadComponent: () =>
+          import('./pages/home-page/home-page.component').then(
+            m => m.HomePageComponent
+          ),
       },
       {
         path: 'vacantes',
@@ -22,8 +29,20 @@ export const empresaRoutes: Routes = [
             m => m.VacantesPageComponent
           ),
       },
-      // futuras rutas aquí: solicitudes, perfil...
+      {
+        path: 'solicitudes',
+        loadComponent: () =>
+          import('./pages/solicitudes-page/solicitudes-page.component').then(
+            m => m.SolicitudesPageComponent
+          ),
+      },
+      {
+        path: 'perfil',
+        loadComponent: () =>
+          import('./pages/perfil-empresa/perfil-empresa.component').then(
+            m => m.PerfilEmpresaComponent
+          ),
+      },
     ]
   }
 ];
-
