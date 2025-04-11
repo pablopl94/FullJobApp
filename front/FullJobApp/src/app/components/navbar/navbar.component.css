@@ -1,9 +1,9 @@
 .logout-btn {
     transition: all 0.2s ease-in-out;
   }
-  
-  .logout-btn:hover {
-    background-color: #FFC107;
-    color: white;
-    border-color: #FFC107;
-  }
+
+.logout-btn:hover {
+  background-color: #FFC107;
+  color: white;
+  border-color: #FFC107;
+}
