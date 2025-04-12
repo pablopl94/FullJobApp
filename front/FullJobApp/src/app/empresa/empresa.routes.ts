@@ -31,10 +31,16 @@ export const empresaRoutes: Routes = [
       },
       {
         path: 'solicitudes',
-        loadComponent: () =>
-          import('./pages/solicitudes-page/solicitudes-page.component').then(
-            m => m.SolicitudesPageComponent
-          ),
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./pages/solicitudes-page/solicitudes-page.component').then(m => m.SolicitudesPageComponent),
+          },
+          {
+            path: 'detalle/:id',
+            loadComponent: () => import('./pages/solicitud-details/solicitud-details.component').then(m => m.SolicitudDetailsComponent),
+          }
+        ]
       },
       {
         path: 'perfil',

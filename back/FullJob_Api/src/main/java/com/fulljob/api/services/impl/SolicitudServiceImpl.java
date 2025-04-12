@@ -83,6 +83,7 @@ public class SolicitudServiceImpl extends GenericCrudServiceImpl<Solicitud, Inte
                     .orElseThrow(() -> new RuntimeException("La empresa no puede ser null"));
             
             dto.setNombreEmpresa(empresa.getNombreEmpresa());
+            dto.setNombreCategoria(solicitud.getVacante().getCategoria().getNombre());
             return dto;
             
         }).collect(Collectors.toList());
@@ -117,6 +118,8 @@ public class SolicitudServiceImpl extends GenericCrudServiceImpl<Solicitud, Inte
 					SolicitudResponseDto dto = mapper.map(solicitud, SolicitudResponseDto.class);
 				
 					dto.setNombreEmpresa(empresa.getNombreEmpresa());
+					dto.setNombreCategoria(solicitud.getVacante().getCategoria().getNombre());
+					dto.setSalario(solicitud.getVacante().getSalario());
 					
 				return dto;
 				})
@@ -139,6 +142,8 @@ public class SolicitudServiceImpl extends GenericCrudServiceImpl<Solicitud, Inte
 		//Devolvemos la solicitud eliminada como un dto y le añadimos los datos extra de empresa para la respuesta
 		SolicitudResponseDto respuestaDto =  mapper.map(solicitud, SolicitudResponseDto.class);
 		respuestaDto.setNombreEmpresa(solicitud.getVacante().getEmpresa().getNombreEmpresa());
+		respuestaDto.setNombreCategoria(solicitud.getVacante().getCategoria().getNombre());
+		respuestaDto.setSalario(solicitud.getVacante().getSalario());
 		
 		return respuestaDto;
     }
@@ -177,10 +182,46 @@ public class SolicitudServiceImpl extends GenericCrudServiceImpl<Solicitud, Inte
 			vacanteRepo.save(vacante);
 		}else {
 			throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "La solicitud no existe");
-		}
-		
-		
+		}	
 	}
 
+
+	@Override
+	public List<SolicitudResponseDto> buscarUltimasSolicitudes(Usuario usuario) {
+        if (usuario == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El usuario que llega de la sesión no llega correctamente");
+        }
+
+        List<Solicitud> solicitudes;
+
+        if (usuario.getRol().equals("CLIENTE")) {
+            solicitudes = solicitudRepo.findTop5ByUsuarioEmailOrderByFechaDesc(usuario.getEmail());
+
+        } else if (usuario.getRol().equals("EMPRESA")) {
+            Empresa empresa = empresaRepo.findByUsuario_Email(usuario.getEmail())
+                    .orElseThrow(() -> new RuntimeException("No se encontró la empresa del usuario"));
+
+            solicitudes = solicitudRepo.findTop5ByVacante_Empresa_IdEmpresaOrderByFechaDesc(empresa.getIdEmpresa());
+
+        } else {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Rol no autorizado");
+        }
+
+        //Devolvemos la respuesta como dto
+        return solicitudes.stream().map(solicitud -> {
+        	
+            SolicitudResponseDto dto = mapper.map(solicitud, SolicitudResponseDto.class);
+            
+            //Buscamos la empresa de cada solicitud para poder añadirles los datos al dto
+            Empresa empresa = empresaRepo.findByUsuario_Email(solicitud.getVacante().getEmpresa().getUsuario().getEmail())
+                    .orElseThrow(() -> new RuntimeException("La empresa no puede ser null"));
+            
+            dto.setNombreEmpresa(empresa.getNombreEmpresa());
+            dto.setNombreCategoria(solicitud.getVacante().getCategoria().getNombre());
+            dto.setSalario(solicitud.getVacante().getSalario());
+            return dto;
+            
+        }).collect(Collectors.toList());
+    }
 
 }

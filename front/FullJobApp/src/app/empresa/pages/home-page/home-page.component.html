@@ -1,1 +1,8 @@
-<p>home-page works!</p>
+<section>
+  <h2 class="welcome-title mb-5">Bienvenido, {{ usuario.nombre|| 'Usuario' }}!</h2>
+  <h5 class="section-title fw-bold">Estas son tus ultimas solicitudes</h5>
+      @for (solicitud of ultimasSolicitudes; track $index) {
+        <app-solicitud-empresa-card [miSolicitud]="solicitud" ></app-solicitud-empresa-card>  
+      }@empty {
+        <p class="text-center">No hay solicitudes todavia</p>
+      } 

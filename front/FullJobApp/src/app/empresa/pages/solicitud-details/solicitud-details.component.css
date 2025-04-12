@@ -1,0 +1,28 @@
+.detalle-container {
+  margin-top: 2rem;
+  background-color: #fff;
+  padding: 1.5rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
+  font-size: 0.95rem;
+}
+
+.detalle-titulo {
+  text-align: center;
+  font-weight: bold;
+  color: #f4c542; /* Mostaza */
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.seccion-titulo {
+  font-weight: bold;
+  color: #474747;
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+p {
+  margin-bottom: 0.5rem;
+}

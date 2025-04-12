@@ -15,15 +15,11 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SolicitudResponseDto {
 
-	
+	private int idSolicitud;
 	private LocalDate fecha;
-	
 	private String archivo;
-	
 	private String curriculum;
-	
 	private String comentarios;
-	
 	private EstadoSolicitud estado;
 	
 	//Datos de la empresa
@@ -31,11 +27,15 @@ public class SolicitudResponseDto {
 
     //Datos de la vacante
 	private String nombreVacante;
-	
+	private double salario;
+
 	//Daatos del usuario solicitante
 	private String nombreUsuario;
-	
 	private String apellidosUsuario;
+	
+	//Datos de la categoria
+	private String nombreCategoria;
+	
 	
 	
 }

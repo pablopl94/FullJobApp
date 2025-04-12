@@ -15,5 +15,6 @@ public interface ISolicitudService extends IGenericCrud<Solicitud, Integer> {
 
 	List<SolicitudResponseDto> buscarSolicitudes(Usuario usuario);
 
+	List<SolicitudResponseDto> buscarUltimasSolicitudes(Usuario usuario);
 
 }

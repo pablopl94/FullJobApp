@@ -1,0 +1,8 @@
+<div class="d-flex gap-2 justify-content-center">
+  @if(parent == 'card'){
+    <button class="btn btn-sm btn-outline-warning fw-bold" [routerLink]="['/empresa/solicitudes/detalle', solicitudId]">DETALLES</button>
+  }@else if(parent == 'view'){
+    <button class="btn btn-sm btn-outline-warning fw-bold" [routerLink]="['/empresa/solicitudes']">VOLVER</button>
+  }
+  <button class="btn btn-sm btn-outline-danger fw-bold border-2" (click)="asignar()">ASIGNAR</button>
+</div>

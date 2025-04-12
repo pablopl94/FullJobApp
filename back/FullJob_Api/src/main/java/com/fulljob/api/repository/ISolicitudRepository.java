@@ -22,6 +22,8 @@ public interface ISolicitudRepository extends JpaRepository<Solicitud, Integer> 
 	List<Solicitud> findByVacante_Empresa_IdEmpresa(int idEmpresa);
 	
 	boolean existsByVacanteIdVacanteAndUsuarioEmail(Integer idVacante, String email);
+	
+	List<Solicitud> findTop5ByVacante_Empresa_IdEmpresaOrderByFechaDesc (int idEmpresa);
 
-
+	List<Solicitud> findTop5ByUsuarioEmailOrderByFechaDesc(String email);
 }

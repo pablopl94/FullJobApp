@@ -49,6 +49,20 @@ public class SolicitudRestController {
 		return ResponseEntity.ok(respuestaDto);
 	}
 
+	
+	//ENDPOINT PARA OBTENER TODAS LAS ULTIMAS SOLICITUDES DEL USUARIO AUTENTICADO
+	//GET    /solicitudes/missolicitudes .......... [ROLE_CLIENTE]
+	@GetMapping("/top5")
+	@PreAuthorize("hasAnyRole('EMPRESA')")
+	public ResponseEntity<List<SolicitudResponseDto>> listaUltimasSolicitudesUsuario(@AuthenticationPrincipal Usuario usuario) {
+		
+		// Buscar todas las solicitudes del usuario con respuesta Dto 
+		List<SolicitudResponseDto> respuestaDto = solicitudService.buscarUltimasSolicitudes(usuario);
+		
+		return ResponseEntity.ok(respuestaDto);
+	}
+
+	
 
 	//ENDPOINT PARA QUE EL CLIENTE CANCELE SU SOLICITUD
 	//PUT    /solicitudes/cancelar/{id} ............ [ROLE_CLIENTE]

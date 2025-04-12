@@ -1,1 +1,8 @@
-<p>solicitudes-page works!</p>
+<section>
+    <h2 class="welcome-title mb-5">Mis solicitudes</h2>
+        @for (solicitud of arraySolicitudes; track $index) {
+          <app-solicitud-empresa-card [miSolicitud]="solicitud"></app-solicitud-empresa-card>  
+        }@empty {
+          <p class="text-center">No hay solicitudes todavia</p>
+        } 
+</section> 
