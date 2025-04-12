@@ -77,6 +77,7 @@ public class JwtUtils {
     // Genera un token JWT usando los detalles del usuario
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("authorities", userDetails.getAuthorities());
         return createToken(claims, userDetails.getUsername());
     }
 

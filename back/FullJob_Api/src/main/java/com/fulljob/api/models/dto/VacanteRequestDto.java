@@ -3,7 +3,6 @@ package com.fulljob.api.models.dto;
 import com.fulljob.api.models.entities.EstadoVacante;
 import com.fulljob.api.models.entities.TipoDeContrato;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

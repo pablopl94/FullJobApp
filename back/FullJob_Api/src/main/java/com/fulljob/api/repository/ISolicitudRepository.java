@@ -19,5 +19,9 @@ public interface ISolicitudRepository extends JpaRepository<Solicitud, Integer> 
 
 	Optional<Solicitud> findByVacanteAndUsuario(Vacante vacante, Usuario usuario);
 
+	List<Solicitud> findByVacante_Empresa_IdEmpresa(int idEmpresa);
+	
+	boolean existsByVacanteIdVacanteAndUsuarioEmail(Integer idVacante, String email);
+
 
 }

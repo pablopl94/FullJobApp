@@ -1,7 +1,6 @@
 package com.fulljob.api.restcontroller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,23 +35,18 @@ public class SolicitudRestController {
 
 	@Autowired
 	private ISolicitudService solicitudService;
+	
 
-	
-	
 	//ENDPOINT PARA OBTENER TODAS LAS SOLICITUDES DEL USUARIO AUTENTICADO
 	//GET    /solicitudes/missolicitudes .......... [ROLE_CLIENTE]
 	@GetMapping("/missolicitudes")
-	@PreAuthorize("hasRole('CLIENTE')")
+	@PreAuthorize("hasAnyRole('CLIENTE','EMPRESA')")
 	public ResponseEntity<List<SolicitudResponseDto>> listaSolicitudesUsuario(@AuthenticationPrincipal Usuario usuario) {
 		
-		// Buscar todas las solicitudes del usuario
-		List<Solicitud> solicitudes = solicitudService.findByUsuarioEmail(usuario.getEmail());
-
-		// Convertir las entidades en DTOs y devolver la respuesta
-		List<SolicitudResponseDto> response = solicitudes.stream()
-				.map(solicitud -> modelMapper.map(solicitud, SolicitudResponseDto.class)).collect(Collectors.toList());
-
-		return ResponseEntity.ok(response);
+		// Buscar todas las solicitudes del usuario con respuesta Dto 
+		List<SolicitudResponseDto> respuestaDto = solicitudService.buscarSolicitudes(usuario);
+		
+		return ResponseEntity.ok(respuestaDto);
 	}
 
 
@@ -78,7 +72,7 @@ public class SolicitudRestController {
 
 		return ResponseEntity.ok(listaDto);
 	}
-
+	
 	
 	//ENDPOINT PARA VER DETALLES DE UNA SOLICITUD
 	//GET    /solicitudes/vacante/{id} ............. [ROLE_EMPRESA]

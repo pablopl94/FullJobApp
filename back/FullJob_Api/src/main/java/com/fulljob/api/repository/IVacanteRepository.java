@@ -19,6 +19,8 @@ public interface IVacanteRepository extends JpaRepository<Vacante, Integer> {
 	List<Vacante> findByCategoria_idCategoria(int idCategoria);
 	
 	List<Vacante> findByDetalles(TipoDeContrato detalles);
+
+
 	
 	
 	

@@ -1,7 +1,6 @@
 package com.fulljob.api.restcontroller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,11 +90,11 @@ public class CategoriaRestController {
 	////PUT    /categorias/{id} ...................... [ROLE_ADMON]
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasRole('ADMON')")
-	public ResponseEntity<Map<String, String>> deleteCategoria(@PathVariable Integer id) {
+	public ResponseEntity<String> deleteCategoria(@PathVariable Integer id) {
 
-		categoriaService.deleteOne(id);
+		categoriaService.eliminarCategoria(id);
 
-		return ResponseEntity.ok(Map.of("message", "Categoría eliminada correctamente"));
+		return ResponseEntity.ok( "Categoría eliminada correctamente");
 	}
 
 }

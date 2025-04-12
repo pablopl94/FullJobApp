@@ -6,4 +6,6 @@ import com.fulljob.api.models.entities.Categoria;
 
 public interface ICategoriaService extends IGenericCrud<Categoria, Integer> {
 
+	void eliminarCategoria(int idCategoria);
+
 }

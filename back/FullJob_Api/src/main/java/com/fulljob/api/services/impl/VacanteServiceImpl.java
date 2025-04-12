@@ -10,16 +10,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fulljob.api.models.dto.SolicitudRequestDto;
+import com.fulljob.api.models.dto.SolicitudResponseDto;
 import com.fulljob.api.models.dto.VacanteRequestDto;
 import com.fulljob.api.models.dto.VacanteResponseDto;
 import com.fulljob.api.models.entities.Categoria;
 import com.fulljob.api.models.entities.Empresa;
 import com.fulljob.api.models.entities.EstadoVacante;
+import com.fulljob.api.models.entities.Solicitud;
 import com.fulljob.api.models.entities.TipoDeContrato;
 import com.fulljob.api.models.entities.Usuario;
 import com.fulljob.api.models.entities.Vacante;
 import com.fulljob.api.repository.ICategoriaRepository;
 import com.fulljob.api.repository.IEmpresaRepository;
+import com.fulljob.api.repository.ISolicitudRepository;
 import com.fulljob.api.repository.IVacanteRepository;
 import com.fulljob.api.services.IVacanteService;
 
@@ -34,6 +38,9 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 	
 	@Autowired
 	private ICategoriaRepository categoriaRepo;
+	
+	@Autowired
+	private ISolicitudRepository solicitudRepo;
 	
 	@Autowired
 	private ModelMapper mapper;;
@@ -143,11 +150,9 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 	public List<VacanteResponseDto> obtenerVacantesDeEmpresa(Usuario usuario) {
 		
 		//Obtenemos la empresa del usuario que nos llega por paramentro(obtenido de la sesion)
-		Empresa empresa = empresaRepo.findByUsuario_email(usuario.getEmail());
-		if (empresa == null) {
-		    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontró la empresa asociada al usuario");
-		}
-
+		Empresa empresa = empresaRepo.findByUsuario_Email(usuario.getEmail())
+				 .orElseThrow(() -> new RuntimeException("La empresa no existe"));
+		
 		//Con la empresa sacamos una lista de sus vacantes
 		List<Vacante> listaVacantes =  vacanteRepo.findByEmpresa_IdEmpresa(empresa.getIdEmpresa());
 		
@@ -170,10 +175,8 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 	public VacanteResponseDto publicarVacante(VacanteRequestDto vacanteDto, Usuario usuario) {
 	    
 	    //Buscamos y guardamos los datos de la empresa autenticada en un objeto de su clase
-	    Empresa empresa = empresaRepo.findByUsuario_email(usuario.getEmail());        
-	    if (empresa == null) {
-	        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Empresa no encontrada");
-	    }
+	    Empresa empresa = empresaRepo.findByUsuario_Email(usuario.getEmail())       
+	    			.orElseThrow(() -> new RuntimeException("La empresa no existe"));
 	    
 	    //Buscamos la categoria con el idCategoria que nos llega del dto
 	    Categoria categoria = categoriaRepo.findById(vacanteDto.getIdCategoria())
@@ -254,6 +257,44 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 		}catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al cancelar la vacante", e);
 		}
+	}
+	
+	@Override
+	public SolicitudResponseDto inscribirseVacante (int idVacante, Usuario usuario, SolicitudRequestDto solicitudDto) {
+		
+		//Comprobamos que usuario no sea null
+		if(usuario == null){
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado");
+		}
+		
+		//Buscamos la vacante a la que el usuario se va a inscribir y la guardamos
+		Vacante nuevaVacante = vacanteRepo.findById(idVacante)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "La vacante no existe"));
+		
+		//Creamos la nueva solicitud metiendo los datos que nos llegan del dto
+		//El estado de la solicitud ya viene por defecto por pendiente por lo que no hay que añadirlo
+		Solicitud nuevaSolicitud = Solicitud.builder()
+				.usuario(usuario)
+				.vacante(nuevaVacante)
+				.archivo(solicitudDto.getArchivo())
+				.curriculum(solicitudDto.getCurriculum())
+				.comentarios(solicitudDto.getComentarios())
+				.fecha(LocalDate.now())
+				.build();
+		
+		//Comprobamos que no exista ya una solicitud de ese usuario a esta vacante
+		if(!solicitudRepo.existsByVacanteIdVacanteAndUsuarioEmail(idVacante, usuario.getEmail())) {
+			solicitudRepo.save(nuevaSolicitud);
+		}else {
+			throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Ya hay una solicitud para esta vacante con este usuario");
+		}
+		
+		//Ahora creamos el dto de respuesta y le añadimos datos extra como la empresa a la que es la vacante
+		SolicitudResponseDto respuestaDto = mapper.map(nuevaSolicitud, SolicitudResponseDto.class);
+		respuestaDto.setNombreEmpresa(nuevaVacante.getEmpresa().getNombreEmpresa());
+		
+		return respuestaDto;
+		
 	}
 	
 }

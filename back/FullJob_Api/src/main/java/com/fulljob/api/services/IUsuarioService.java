@@ -6,8 +6,6 @@ import com.fulljob.api.models.entities.Usuario;
 
 public interface IUsuarioService extends IGenericCrud<Usuario, String>{
 
-	AltaClienteAdminResponseDto altaCandidatoConRol(AltaClienteAdminRequestDto dto);
-
 	AltaClienteAdminResponseDto actualizarDatosCliente(String email, AltaClienteAdminRequestDto clienteDto);
 
 	void cambiarEstadoUsuario(String email, Integer estadoBaja);

@@ -9,7 +9,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -88,7 +87,9 @@ public class SpringSecurityConfig {
             	
             	// =================== AUTHORIZATION ======================
             	authorize.requestMatchers(HttpMethod.POST, "/auth/login", "/auth/alta/cliente").permitAll();
+            	authorize.requestMatchers(HttpMethod.POST, "/auth/logut").authenticated();
             	authorize.requestMatchers(HttpMethod.POST, "/auth/alta/empresa").hasRole("ADMON");
+            	
 
             	// =================== CATEGORIAS ======================
             	authorize.requestMatchers(HttpMethod.GET, "/categorias").permitAll();
@@ -100,8 +101,8 @@ public class SpringSecurityConfig {
             	authorize.requestMatchers(HttpMethod.GET, "/vacantes", "/vacantes/{id}").permitAll();
             	authorize.requestMatchers(HttpMethod.GET, "/vacantes/filtrar/empresa/{nombre}").permitAll();
             	authorize.requestMatchers(HttpMethod.GET, "/vacantes/filtrar/**").permitAll();
+            	authorize.requestMatchers(HttpMethod.POST, "/vacantes/inscribirse/{id}").hasRole("CLIENTE");
             	authorize.requestMatchers(HttpMethod.GET, "/vacantes/misvacantes").hasRole("EMPRESA");
-            	authorize.requestMatchers(HttpMethod.GET, "/empresas/**").hasRole("EMPRESA");
             	authorize.requestMatchers(HttpMethod.POST, "/vacantes/publicar").hasRole("EMPRESA");
             	authorize.requestMatchers(HttpMethod.PUT, "/vacantes/editar/{id}").hasRole("EMPRESA");
             	authorize.requestMatchers(HttpMethod.DELETE, "/vacantes/cancelar/{id}").hasRole("EMPRESA");
@@ -110,12 +111,12 @@ public class SpringSecurityConfig {
             	authorize.requestMatchers(HttpMethod.GET, "/empresas/perfil").hasRole("EMPRESA");
             	authorize.requestMatchers(HttpMethod.PUT, "/empresas/update").hasRole("EMPRESA");
             	authorize.requestMatchers(HttpMethod.GET, "/empresas", "/empresas/{id}", "/empresas/buscar/{nombre}").hasRole("ADMON");
-            	authorize.requestMatchers(HttpMethod.POST, "/empresas/register").hasRole("ADMON");
             	authorize.requestMatchers(HttpMethod.PUT, "/empresas/{id}", "/desactivar/{id}", "/activar/{id}").hasRole("ADMON");
             	            	
             	// =================== SOLICITUDES =====================
-            	authorize.requestMatchers(HttpMethod.GET, "/solicitudes").hasRole("CLIENTE");
+            	authorize.requestMatchers(HttpMethod.GET, "/solicitudes/missolicitudes").hasAnyRole("CLIENTE","EMPRESA");
             	authorize.requestMatchers(HttpMethod.DELETE, "/solicitudes/{id}").hasRole("CLIENTE");
+            	authorize.requestMatchers(HttpMethod.GET, "/solicitudes/empresa/missolicitudes").hasRole("EMPRESA");
             	authorize.requestMatchers(HttpMethod.GET, "/solicitudes/vacante/{idVacante}").hasRole("EMPRESA");
             	authorize.requestMatchers(HttpMethod.PUT, "/solicitudes/asignar/{id}").hasRole("EMPRESA");
 

@@ -5,7 +5,9 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,9 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fulljob.api.models.dto.SolicitudRequestDto;
+import com.fulljob.api.models.dto.SolicitudResponseDto;
 import com.fulljob.api.models.dto.VacanteRequestDto;
 import com.fulljob.api.models.dto.VacanteResponseDto;
 import com.fulljob.api.models.entities.TipoDeContrato;
@@ -95,20 +98,18 @@ public class VacanteRestController {
 	
 	//METODO CON RUTA PARA EMPRESA VER SUS VACANTES
 	@GetMapping("/misvacantes")
-	public ResponseEntity<List<VacanteResponseDto>> empresaMisVacantes() {
-		
-		//Obtenemos el usuario autenticado con security
-		Usuario usuario = (Usuario)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	@PreAuthorize("hasRole('EMPRESA')")
+	public ResponseEntity<List<VacanteResponseDto>> empresaMisVacantes(@AuthenticationPrincipal Usuario usuario) {
 		
 		List<VacanteResponseDto> listaRespuestaDto = vacanteService.obtenerVacantesDeEmpresa(usuario);
-		
-		
+			
 		return ResponseEntity.ok(listaRespuestaDto );
 	}
 	
 	
 	//METODO CON RUTA PARA PUBLICAR UN VACANTE
 	@PostMapping("/publicar")
+	@PreAuthorize("hasRole('EMPRESA')")
 	public ResponseEntity<VacanteResponseDto> publicarVacante(@RequestBody VacanteRequestDto vacanteDto) {
 		
 		//Obtenemos el usuario autenticado con security
@@ -122,8 +123,9 @@ public class VacanteRestController {
 	
 	
 	
-	//METODO CON RUTA PARA PUBLICAR UN VACANTE
+	//METODO CON RUTA PARA MODIFICAR UN VACANTE
 	@PutMapping("/editar/{id}")
+	@PreAuthorize("hasRole('EMPRESA')")
 	public ResponseEntity<VacanteResponseDto> editarVacante(@PathVariable int id, @RequestBody VacanteRequestDto vacanteDto) {
 		
 		//Actualizamos la vacante con los datos que nos llega en el dto y guardamos el dto de respuesta
@@ -134,14 +136,31 @@ public class VacanteRestController {
 	
 	
 	
-	//METODO CON RUTA PARA PUBLICAR UN VACANTE
+	//METODO CON RUTA PARA CANCELAR UN VACANTE
 	@DeleteMapping("/cancelar/{id}")
+	@PreAuthorize("hasRole('EMPRESA')")
 	public ResponseEntity<String> cancelarVacante(@PathVariable int id) {
 		
 		vacanteService.cancelarVacante(id);
 		
 		return ResponseEntity.ok("Vacante cancelada");
 	}
+
+	
+	//METODO PARA INSCRIBIRSE UN CLIENTE EN UNA VACANTE
+	@PostMapping("/inscribirse/{id}")
+	@PreAuthorize("hasRole('CLIENTE')")
+	public ResponseEntity<SolicitudResponseDto> incribirseVacante(
+			@PathVariable int id , 
+			@AuthenticationPrincipal Usuario usuario , 
+			@RequestBody SolicitudRequestDto solicitudDto) {
+		
+		
+		SolicitudResponseDto respuestaDto = vacanteService.inscribirseVacante(id, usuario, solicitudDto);
+		
+		return ResponseEntity.ok(respuestaDto);
+	}
+	
 	
 	
 	

@@ -6,6 +6,7 @@ INSERT INTO Usuarios (email, nombre, apellidos, password, enabled, fecha_registr
 ('admin@admin.com', 'Pedro', 'Herrero', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-01', 'ADMON'),
 ('empresa@empresa.com', 'Elena', 'Cabrera', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-05', 'EMPRESA'),
 ('cliente@cliente.com', 'Jose', 'Benito', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-10', 'CLIENTE'),
+('pacoporras@cliente.com', 'Paco', 'Porras', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-10', 'CLIENTE'),
 ('info@innovapps.com', 'Carlos', 'López', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-01', 'EMPRESA'),
 ('contact@datainsight.com', 'Ana', 'Martínez', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-02', 'EMPRESA'),
 ('info@softtechpartners.com', 'Luis', 'Rodríguez', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-03', 'EMPRESA'),
@@ -57,10 +58,6 @@ INSERT INTO Vacantes (nombre, descripcion, fecha, salario, estatus, destacado, i
 INSERT INTO Solicitudes (fecha, archivo, comentarios, estado, curriculum, id_Vacante, email) VALUES
 ('2025-03-05', 'cv_jose.pdf', 'Me interesa mucho esta vacante, gracias.', 0, 'cv_jose.pdf', 1, 'cliente@cliente.com'),
 ('2025-03-06', 'cv_jose.pdf', 'Tengo experiencia previa en el sector.', 0, 'cv_jose.pdf', 2, 'cliente@cliente.com'),
-('2025-03-07', 'cv_jose.pdf', 'Gran motivación por crecer profesionalmente.', 0, 'cv_jose.pdf', 3, 'cliente@cliente.com'),
-('2025-03-08', 'cv_jose.pdf', 'Estoy dispuesto a cambiar de ciudad.', 0, 'cv_jose.pdf', 4, 'cliente@cliente.com'),
-('2025-03-09', 'cv_jose.pdf', 'Me adapto fácilmente a nuevas tecnologías.', 0, 'cv_jose.pdf', 5, 'cliente@cliente.com'),
-('2025-03-10', 'cv_jose.pdf', 'Interesado en prácticas para aprender más.', 0, 'cv_jose.pdf', 6, 'cliente@cliente.com'),
 ('2025-03-11', 'cv_jose.pdf', 'Puedo incorporarme inmediatamente.', 0, 'cv_jose.pdf', 7, 'cliente@cliente.com'),
 ('2025-03-12', 'cv_jose.pdf', 'Tengo experiencia liderando equipos.', 0, 'cv_jose.pdf', 8, 'cliente@cliente.com'),
 ('2025-03-13', 'cv_jose.pdf', 'Fuerte interés en el desarrollo profesional.', 0, 'cv_jose.pdf', 9, 'cliente@cliente.com'),

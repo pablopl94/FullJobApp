@@ -50,7 +50,7 @@ public class EmpresaImplService extends GenericCrudServiceImpl<Empresa, Integer>
 
 	@Override
 	public Empresa buscarPorEmail(String email) {
-		return empresaRepository.findByUsuarioEmail(email).orElseThrow(() -> new RuntimeException("La empresa no existe"));
+		return empresaRepository.findByUsuario_Email(email).orElseThrow(() -> new RuntimeException("La empresa no existe"));
 	}
 	
 	@Override
@@ -66,7 +66,7 @@ public class EmpresaImplService extends GenericCrudServiceImpl<Empresa, Integer>
 	    usuarioRepository.save(usuario);
 
 	    // Buscamos la empresa
-	    Empresa empresa = empresaRepository.findByUsuarioEmail(usuario.getEmail())
+	    Empresa empresa = empresaRepository.findByUsuario_Email(usuario.getEmail())
 	            .orElseThrow(() -> new RuntimeException("La empresa no existe"));
 
 	    // Sacamos las vacantes de la empresa

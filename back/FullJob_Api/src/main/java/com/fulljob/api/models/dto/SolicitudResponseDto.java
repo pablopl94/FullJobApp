@@ -3,10 +3,6 @@ package com.fulljob.api.models.dto;
 import java.time.LocalDate;
 
 import com.fulljob.api.models.entities.EstadoSolicitud;
-import com.fulljob.api.models.entities.Usuario;
-
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,7 +22,7 @@ public class SolicitudResponseDto {
 	
 	private String curriculum;
 	
-	private String comentario;
+	private String comentarios;
 	
 	private EstadoSolicitud estado;
 	
