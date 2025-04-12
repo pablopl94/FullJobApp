@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EmpresaService } from '../../../core/services/empresa.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Vacante } from '../../../core/interfaces/vacante';
 import { RouterLink } from '@angular/router';
+import { VacantesService } from '../../../core/services/vacantes.service';
 
 @Component({
   selector: 'app-home-page',
@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
 })
 export class HomePageComponent implements OnInit {
 
-  private readonly empresaService = inject(EmpresaService);
+  private readonly empresaService = inject(VacantesService);
   private readonly authService = inject(AuthService);
 
   usuario: any = null;

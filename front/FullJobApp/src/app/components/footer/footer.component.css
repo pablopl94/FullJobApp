@@ -1,0 +1,8 @@
+.hover-effect:hover {
+  color: #ffc107 !important;
+}
+
+.hover-opacity:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s ease-in-out;
+}
