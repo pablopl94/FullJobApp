@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EmpresaService } from '../../../core/services/empresa.service';
 import { Vacante } from '../../../core/interfaces/vacante';
+import { IUsuario } from '../../../core/interfaces/iusuario';
+import { AuthService } from '../../../core/services/auth.service';
+import { VacantesService } from '../../../core/services/vacantes.service';
+import { VacanteCardComponent } from '../../components/vacante-card/vacante-card.component';
+import { BotonesVacanteEmpresaComponent } from '../../components/botones-vacante-empresa/botones-vacante-empresa.component';
 
 
 @Component({
@@ -9,13 +13,27 @@ import { Vacante } from '../../../core/interfaces/vacante';
   selector: 'app-vacantes-page',
   templateUrl: './vacantes-page.component.html',
   styleUrls: ['./vacantes-page.component.css'],
-  imports: [CommonModule],
+  imports: [CommonModule, VacanteCardComponent, BotonesVacanteEmpresaComponent],
 })
 
 export class VacantesPageComponent {
-  vacantes: Vacante[] = [];
+  @Input() vacanteId!: number; 
+  arrayVacantes: Vacante[] = [];
+  usuario !: IUsuario;
+  authService = inject(AuthService);
+  VacantesService = inject(VacantesService);
 
-  constructor(private empresaService: EmpresaService) {}
+  constructor() {}
+
+  ngOnInit() {
+    this.usuario = this.authService.obtenerUsuario();
+    
+    this.VacantesService.getMisVacantes().subscribe((vacantes: Vacante[]) => {
+      console.log('Vacantes recibidas:', vacantes);
+      this.arrayVacantes = vacantes;
+    }
+    );
+  }
 
 
 }

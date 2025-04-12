@@ -1,2 +1,35 @@
-<h2 class="mb-4">Mis Vacantes</h2>
+<section class="container ps-5">
+  <h2 class="welcome-title mb-5">Mis Vacantes</h2>
 
+  <table class="tabla-estilo mb-5">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Nombre</th>
+        <th>Salario</th>
+        <th>Estado</th>
+        <th>Destacada</th>
+        <th class="text-center">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (vacante of arrayVacantes; track vacante.id_vacante) {
+        <tr>
+          <td>{{ vacante.fecha }}</td>
+          <td>{{ vacante.nombre }}</td>
+          <td>{{ vacante.salario }}€</td>
+          <td>{{ vacante.estatus }}</td>
+          <td>{{ vacante.destacado ? 'Sí' : 'No' }}</td>
+          <td class="text-center">
+
+          </td>
+        </tr>
+      }
+      @empty {
+        <tr>
+          <td colspan="6" class="text-center">No hay vacantes todavía</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>

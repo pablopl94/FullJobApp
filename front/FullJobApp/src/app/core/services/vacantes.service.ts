@@ -7,14 +7,19 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class VacantesService {
-
-  //private apiUrl = 'http://localhost:9007/vacantes';
+  // API para Empresa
+  private apiUrl = 'http://localhost:9007/vacantes/';
 
   constructor(private http: HttpClient) {}
 
-  // getVacantes(): Observable<Vacante[]> {
-  //   return this.http.get<Vacante[]>(this.apiUrl);
-  // }
+  getMisVacantes(): Observable<Vacante[]> {
+    return this.http.get<Vacante[]>(`${this.apiUrl}misvacantes`);
+  }
+
+
+
+
+  
 
   private vacantes: Vacante[] = [
     {
