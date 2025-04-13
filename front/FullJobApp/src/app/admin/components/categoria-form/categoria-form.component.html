@@ -1,1 +1,38 @@
-<p>categoria-form works!</p>
+<div class="container mt-4">
+  <h2 class="fw-bold mb-4">Alta de Categoría</h2>
+
+  <form [formGroup]="categoriaForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="mb-3">
+      <label for="nombre" class="form-label fw-semibold">Nombre</label>
+      <input
+        type="text"
+        id="nombre"
+        formControlName="nombre"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && categoriaForm.get('nombre')?.invalid }"
+      />
+      <div class="invalid-feedback">El nombre es obligatorio.</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="descripcion" class="form-label fw-semibold">Descripción</label>
+      <textarea
+        id="descripcion"
+        formControlName="descripcion"
+        class="form-control"
+        rows="4"
+        [ngClass]="{ 'is-invalid': submitted && categoriaForm.get('descripcion')?.invalid }"
+      ></textarea>
+      <div class="invalid-feedback">La descripción es obligatoria.</div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-dark fw-bold">
+        Guardar Categoría
+      </button>
+      <button type="button" class="btn btn-outline-secondary fw-bold" (click)="router.navigate(['/admin/categorias'])">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>

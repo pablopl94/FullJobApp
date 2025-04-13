@@ -1,1 +1,47 @@
-<app-usuario-card></app-usuario-card>
+<div class="container py-4">
+  <h2 class="fw-bold fs-2 mb-4 text-uppercase">Gestión de Candidatos</h2>
+
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>Email</th>
+          <th>Fecha registro</th>
+          <th>Estado usuario</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (usuario of usuarios; track usuario.email) {
+          <tr>
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.apellidos }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.fechaRegistro | date : "dd/MM/yyyy" }}</td>
+            <td>
+              <span 
+                class="badge" 
+                [ngClass]="usuario.enabled === 1 ? 'bg-success' : 'bg-danger'">
+                {{ usuario.enabled === 1 ? "ACTIVO" : "INACTIVO" }}
+              </span>
+            </td>
+            <td>
+              <button 
+                class="btn btn-sm btn-outline-danger fw-bold"
+                [disabled]="usuario.enabled === 0"
+                (click)="suspenderUsuario(usuario.email)">
+                SUSPENDER
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6">No hay candidatos disponibles</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

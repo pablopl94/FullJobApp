@@ -13,7 +13,7 @@ import { BotonesVacanteEmpresaComponent } from '../../components/botones-vacante
   selector: 'app-vacantes-page',
   templateUrl: './vacantes-page.component.html',
   styleUrls: ['./vacantes-page.component.css'],
-  imports: [CommonModule, VacanteCardComponent, BotonesVacanteEmpresaComponent],
+  imports: [CommonModule],
 })
 
 export class VacantesPageComponent {

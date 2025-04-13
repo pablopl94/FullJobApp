@@ -92,6 +92,10 @@ public class EmpresaImplService extends GenericCrudServiceImpl<Empresa, Integer>
 	    // Devolvemos la respuesta en dto de la empresa eliminada
 	    return mapper.map(empresa, EmpresaResponseDto.class);
 	}
+	
+	public Empresa save(Empresa empresa) {
+	    return empresaRepository.save(empresa);
+	}
 
 
 }

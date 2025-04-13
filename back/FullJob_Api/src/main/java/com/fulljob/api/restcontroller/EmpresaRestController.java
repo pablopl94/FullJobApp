@@ -10,12 +10,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,14 +56,17 @@ public class EmpresaRestController {
     //GET    /empresas/{id} ........................ [ROLE_ADMON]
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMON')")
-    public ResponseEntity<EmpresaResponseDto> empresaPorId(@PathVariable Integer id){
+    public ResponseEntity<EmpresaResponseDto> empresaPorId(@PathVariable Integer id) {
+        Empresa empresa = empresaService.findById(id)
+                .orElseThrow(() -> new RuntimeException("La empresa no existe"));
 
-        Empresa empresa = empresaService.findById(id).orElseThrow(() -> new RuntimeException("La empresa no existe"));
-        EmpresaResponseDto empresaDto = mapper.map(empresa, EmpresaResponseDto.class);
-        
-        return ResponseEntity.ok(empresaDto);
+        EmpresaResponseDto dto = mapper.map(empresa, EmpresaResponseDto.class);
+        dto.setFechaRegistro(empresa.getUsuario().getFechaRegistro());        
 
+        return ResponseEntity.ok(dto);
     }
+
+
 
     //ENDPOINT PARA  BUSCAR EMPRESA POR SU NOMBRE
     //GET    /empresas/buscar/{nombre} ............. [ROLE_ADMON]
@@ -146,6 +151,20 @@ public class EmpresaRestController {
         return ResponseEntity.ok(responseDto);
     }
 
-    
+    @PostMapping
+    @PreAuthorize("hasRole('ADMON')")
+    public ResponseEntity<EmpresaResponseDto> crearEmpresa(@RequestBody EmpresaRequestDto dto) {
+        Empresa nuevaEmpresa = new Empresa();
+
+        nuevaEmpresa.setCif(dto.getCif());
+        nuevaEmpresa.setNombreEmpresa(dto.getNombreEmpresa());
+        nuevaEmpresa.setDireccionFiscal(dto.getDireccionFiscal());
+        nuevaEmpresa.setPais(dto.getPais());
+
+        empresaService.save(nuevaEmpresa);
+
+        EmpresaResponseDto respuestaDto = mapper.map(nuevaEmpresa, EmpresaResponseDto.class);
+        return ResponseEntity.status(HttpStatus.CREATED).body(respuestaDto);
+    }
 
 }

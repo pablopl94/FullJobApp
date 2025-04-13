@@ -7,6 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './usuario-card.component.css'
 })
 export class UsuarioCardComponent {
-
-  // @Inptu miUsuario !: IUsuario;
+  
 }

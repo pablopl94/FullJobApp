@@ -14,4 +14,8 @@ public interface IEmpresaService extends IGenericCrud<Empresa, Integer>{
     Empresa buscarPorEmail(String email);
     
 	EmpresaResponseDto eliminarEmpresa(Usuario usuario);
+	
+	public Empresa save(Empresa empresa);
+	    
+	
 }
