@@ -10,11 +10,7 @@ export const empresaRoutes: Routes = [
       ),
     canActivate: [empresaGuard],
     children: [
-      {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full',
-      },
+      { path: '',redirectTo: 'home',pathMatch: 'full',},
       {
         path: 'home',
         loadComponent: () =>

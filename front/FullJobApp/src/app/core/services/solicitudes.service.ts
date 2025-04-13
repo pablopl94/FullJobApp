@@ -20,6 +20,11 @@ export class SolicitudesService {
     return this.http.get<ISolicitud[]>(`${this.baseUrl}missolicitudes`);
   }
 
+  //Obtener las 5 ultimas solicitudes de la base de datos para el dashboard
+   obtenerUltimasSolicitudes(): Observable<ISolicitud[]> {
+     return this.http.get<ISolicitud[]>(`${this.baseUrl}top5`);
+    }
+
   //Metodo para que el usuario con rol CLIENTE cancele una solicitud ya enviada
   cancelarSolicitud(id: number): Observable<ISolicitud> {
     return this.http.put<ISolicitud>(`${this.baseUrl}cancelar/${id}`, {});
@@ -40,8 +45,5 @@ export class SolicitudesService {
     return this.http.put(`${this.baseUrl}asignar/${id}`, {}, { responseType: 'text' });
   }
 
-  //Obtener las 5 ultimas solicitudes de la base de datos para el dashboard
-  obtenerUltimasSolicitudes(): Observable<ISolicitud[]> {
-    return this.http.get<ISolicitud[]>(`${this.baseUrl}top5`);
-  }
+
 }

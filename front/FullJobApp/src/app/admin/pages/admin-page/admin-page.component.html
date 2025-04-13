@@ -1,44 +1,10 @@
-<div class="d-flex justify-content-center align-items-center bg-warning" 
-     style="min-height: 100vh; width: 100%;">
-
-    <div class="bg-white rounded shadow p-4 p-md-5 d-flex flex-column align-items-center" 
-         style="max-width: 400px; width: 100%;">
-      <h2 class="h4 fw-bold mb-4 text-center text-dark">
-        <img src="../../../../assets/img/FullJob_logo.png" alt="" style="max-width: 150px; height: auto;">
-      </h2>
-
-      <form class="d-flex flex-column flex-grow justify-content-between">
-        <div class="mb-4 flex-grow">
-          <div class="mb-3">
-            <label for="email" class="form-label small fw-medium">Correo electrónico</label>
-            <input
-              id="email"
-              formControlName="email"
-              placeholder="tucorreo@mail.com"
-              type="email"
-              required
-              class="form-control" />
-          </div>
-
-          <div class="mb-3">
-            <label for="password" class="form-label small fw-medium">Contraseña</label>
-            <input
-              id="password"
-              formControlName="password"
-              placeholder="********"
-              type="password"
-              required
-              class="form-control" />
-          </div>
-        </div>
-
-        <div class="pt-3">
-          <button
-            type="submit"
-            class="btn btn-warning w-100 text-white">
-            INICIAR SESIÓN
-          </button>
-        </div>
-      </form>
+<div class="d-flex vh-100 overflow-hidden">
+    <app-navbar></app-navbar>
+    <div class="flex-grow-1 d-flex flex-column overflow-hidden">
+      <div class="contenido flex-grow-1 overflow-auto p-4">
+        <router-outlet ></router-outlet>
+      </div>
+      <app-footer ></app-footer>
     </div>
-</div>
+  </div>
+  

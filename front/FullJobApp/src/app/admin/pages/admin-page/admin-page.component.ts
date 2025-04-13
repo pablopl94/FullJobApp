@@ -2,6 +2,8 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { FooterComponent } from "../../../components/footer/footer.component";
+import { NavbarComponent } from "../../../components/navbar/navbar.component";
 
 
 @Component({
@@ -9,7 +11,7 @@ import { AuthService } from '../../../core/services/auth.service';
   selector: 'app-admin-page',
   templateUrl: './admin-page.component.html',
   styleUrls: ['./admin-page.component.css'],
-  imports: [RouterModule]
+  imports: [RouterModule, FooterComponent, NavbarComponent]
 })
 export class AdminPageComponent {
 

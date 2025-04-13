@@ -31,6 +31,14 @@ export const routes: Routes = [
         m => m.AccessEmpresaComponent
       )
   },
+  
+  {
+    path: 'access/admin',
+    loadComponent: () =>
+      import('./public/pages/acces-admin/acces-admin.component').then(
+        m => m.AccesAdminComponent
+      )
+  },
 
   {
     path: '',

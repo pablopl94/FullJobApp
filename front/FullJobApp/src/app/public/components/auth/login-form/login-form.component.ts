@@ -12,9 +12,10 @@ import { AuthService } from '../../../../core/services/auth.service';
   styleUrls: ['./login-form.component.css'],
 })
 export class LoginFormComponent {
-  @Input() tipo: 'candidato' | 'empresa' = 'candidato';
 
+ @Input() tipo: 'candidato' | 'empresa' | 'admin' = 'candidato';
   loginForm: FormGroup;
+  @Input() parent: string = '';
 
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {
     this.loginForm = this.fb.group({

@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 export class RegistroInfoComponent {
 
   // Input definiendo que puede ser empresa o candidato
-  @Input() tipo: 'empresa' | 'candidato' = 'candidato';
+  @Input() tipo: 'candidato' | 'empresa' | 'admin' = 'candidato';
 
   //Segun el rol mostrara un texto o otro
   get acciones(): { icono: string, titulo: string, texto: string }[] {
