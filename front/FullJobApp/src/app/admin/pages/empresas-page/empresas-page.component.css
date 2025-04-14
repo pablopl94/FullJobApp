@@ -1,0 +1,31 @@
+.detalles {
+  background-color: white;
+  border: 2px solid #474747; /* gris oscuro */
+  padding: 6px 12px;
+  margin-right: 6px;
+  font-weight: bold;
+  color: #474747;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modificar {
+  background-color: white;
+  border: 2px solid #f4c542; /* mostaza */
+  padding: 6px 12px;
+  margin-right: 6px;
+  font-weight: bold;
+  color: #f4c542;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cancelar {
+  background-color: white;
+  border: 2px solid red;
+  color: red;
+  padding: 6px 12px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}

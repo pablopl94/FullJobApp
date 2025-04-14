@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="mb-0 fw-bold">GESTIÓN DE CATEGORÍAS</h2>
+    <h2 class="welcome-title mb-0">Gestión de Categorías</h2>
     <button
       class="btn fw-bold text-black border border-3 border-dark bg-white"
       [routerLink]="['alta']"
@@ -9,20 +9,22 @@
     </button>
   </div>
 
+  <h5 class="section-title fw-bold">Listado de categorías disponibles</h5>
+
   <div class="table-responsive">
-    <table class="table table-bordered table-hover align-middle">
-      <thead class="table-dark text-center">
+    <table class="tabla-estilo mb-5">
+      <thead>
         <tr>
-          <th>Nombre categoría</th>
-          <th>Descripción</th>
-          <th>Opciones</th>
+          <th class="text-center">Nombre categoría</th>
+          <th class="text-center">Descripción</th>
+          <th class="text-center">Opciones</th>
         </tr>
       </thead>
       <tbody>
         @for (categoria of categorias; track categoria.idCategoria) {
           <tr>
-            <td>{{ categoria.nombre }}</td>
-            <td>{{ categoria.descripcion }}</td>
+            <td class="text-center">{{ categoria.nombre }}</td>
+            <td class="text-center">{{ categoria.descripcion }}</td>
             <td class="text-center">
               <button
                 class="btn btn-sm fw-bold text-warning border border-2 border-warning bg-white me-2"

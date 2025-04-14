@@ -1,33 +1,35 @@
 <div class="container py-4">
-  <h2 class="fw-bold fs-2 mb-4 text-uppercase">Gestión de Candidatos</h2>
+  <h2 class="welcome-title">Gestión de Candidatos</h2>
+
+  <h5 class="section-title fw-bold">Listado de candidatos registrados</h5>
 
   <div class="table-responsive">
-    <table class="table table-hover table-bordered align-middle text-center">
-      <thead class="table-dark">
+    <table class="tabla-estilo mb-5">
+      <thead>
         <tr>
-          <th>Nombre</th>
-          <th>Apellidos</th>
-          <th>Email</th>
-          <th>Fecha registro</th>
-          <th>Estado usuario</th>
-          <th>Opciones</th>
+          <th class="text-center">Nombre</th>
+          <th class="text-center">Apellidos</th>
+          <th class="text-center">Email</th>
+          <th class="text-center">Fecha registro</th>
+          <th class="text-center">Estado usuario</th>
+          <th class="text-center">Opciones</th>
         </tr>
       </thead>
       <tbody>
         @for (usuario of usuarios; track usuario.email) {
           <tr>
-            <td>{{ usuario.nombre }}</td>
-            <td>{{ usuario.apellidos }}</td>
-            <td>{{ usuario.email }}</td>
-            <td>{{ usuario.fechaRegistro | date : "dd/MM/yyyy" }}</td>
-            <td>
+            <td class="text-center">{{ usuario.nombre }}</td>
+            <td class="text-center">{{ usuario.apellidos }}</td>
+            <td class="text-center">{{ usuario.email }}</td>
+            <td class="text-center">{{ usuario.fechaRegistro}}</td>
+            <td class="text-center">
               <span 
-                class="badge" 
+                class="badge px-3 py-2"
                 [ngClass]="usuario.enabled === 1 ? 'bg-success' : 'bg-danger'">
                 {{ usuario.enabled === 1 ? "ACTIVO" : "INACTIVO" }}
               </span>
             </td>
-            <td>
+            <td class="text-center">
               <button 
                 class="btn btn-sm btn-outline-danger fw-bold"
                 [disabled]="usuario.enabled === 0"
@@ -38,7 +40,7 @@
           </tr>
         } @empty {
           <tr>
-            <td colspan="6">No hay candidatos disponibles</td>
+            <td class="text-center" colspan="6">No hay candidatos disponibles</td>
           </tr>
         }
       </tbody>

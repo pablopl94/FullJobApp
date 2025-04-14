@@ -1,57 +1,56 @@
 <div class="container mt-4">
+  <!-- Título principal -->
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="mb-0">Empresas Registradas</h2>
+    <h2 class="welcome-title mb-0">Empresas Registradas</h2>
     <button class="btn fw-bold text-black border border-3 border-dark bg-white">
       Alta Empresa
     </button>
   </div>
 
+  <!-- Subtítulo -->
+  <h5 class="section-title fw-bold">Listado de empresas registradas</h5>
+
+  <!-- Tabla de empresas -->
   <div class="table-responsive">
-    <table class="table table-bordered table-striped table-hover align-middle">
-      <thead class="table-dark text-center">
+    <table class="tabla-estilo mb-5">
+      <thead>
         <tr>
-          <th>Nombre</th>
-          <th>CIF</th>
-          <th>Dirección</th>
-          <th>País</th>
-          <th>Fecha Registro</th>
-          <th>Estado</th>
-          <th>Opciones</th>
+          <th class="text-center">Nombre</th>
+          <th class="text-center">CIF</th>
+          <th class="text-center">Dirección</th>
+          <th class="text-center">País</th>
+          <th class="text-center">Fecha Registro</th>
+          <th class="text-center">Estado</th>
+          <th class="text-center">Opciones</th>
         </tr>
       </thead>
       <tbody>
         @for (empresa of empresas; track empresa.idEmpresa) {
-        <tr>
-          <td>{{ empresa.nombreEmpresa }}</td>
-          <td>{{ empresa.cif }}</td>
-          <td>{{ empresa.direccionFiscal }}</td>
-          <td>{{ empresa.pais }}</td>
-          <td>{{ empresa.fechaRegistro | date: 'dd/MM/yyyy' }}</td>
-          <td class="text-center">
-            <span
-              class="badge"
-              [ngClass]="{
-                'bg-success': empresa.enabled === 1,
-                'bg-danger': empresa.enabled === 0
-              }"
-            >
-              {{ empresa.enabled === 1 ? "ACTIVO" : "INACTIVO" }}
-            </span>
-          </td>
-          <td class="text-center">
-            <button class="btn btn-sm btn-outline-primary me-2">MODIFICAR</button>
-            <button class="btn btn-sm fw-bold text-black border border-dark bg-white me-2">DETALLES</button>
-            <button 
-            class="btn btn-sm btn-outline-danger"
-            (click)="eliminarEmpresa(empresa.idEmpresa)">
-            ELIMINAR
-          </button>
-          </td>
-        </tr>
+          <tr>
+            <td class="text-center">{{ empresa.nombreEmpresa }}</td>
+            <td class="text-center">{{ empresa.cif }}</td>
+            <td class="text-center">{{ empresa.direccionFiscal }}</td>
+            <td class="text-center">{{ empresa.pais }}</td>
+            <td class="text-center">{{ empresa.fechaRegistro | date: 'dd/MM/yyyy' }}</td>
+            <td class="text-center">
+              <span class="badge"
+                [ngClass]="empresa.enabled === 1 ? 'bg-success' : 'bg-danger'">
+                {{ empresa.enabled === 1 ? 'ACTIVO' : 'INACTIVO' }}
+              </span>
+            </td>
+            <td class="text-center">
+              <div class="d-flex justify-content-center gap-2">
+                <button class="detalles">DETALLES</button>
+                <button class="modificar">MODIFICAR</button>
+                <button class="cancelar" (click)="eliminarEmpresa(empresa.idEmpresa)">ELIMINAR</button>
+              </div>
+            </td>
+                      
+          </tr>
         } @empty {
-        <tr>
-          <td colspan="7" class="text-center">No hay empresas todavía</td>
-        </tr>
+          <tr>
+            <td colspan="7" class="text-center">No hay empresas todavía</td>
+          </tr>
         }
       </tbody>
     </table>

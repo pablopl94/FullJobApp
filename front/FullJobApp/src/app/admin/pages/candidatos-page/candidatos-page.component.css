@@ -1,0 +1,38 @@
+.detalles {
+  background-color: white;
+  border: 2px solid #474747;
+  padding: 6px 12px;
+  font-weight: bold;
+  color: #474747;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.modificar {
+  background-color: white;
+  border: 2px solid #f4c542;
+  padding: 6px 12px;
+  font-weight: bold;
+  color: #f4c542;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.cancelar {
+  background-color: white;
+  border: 2px solid red;
+  color: red;
+  padding: 6px 12px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.detalles:hover,
+.modificar:hover,
+.cancelar:hover {
+  opacity: 0.85;
+}

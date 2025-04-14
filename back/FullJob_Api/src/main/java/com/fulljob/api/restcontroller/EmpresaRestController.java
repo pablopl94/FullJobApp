@@ -45,9 +45,15 @@ public class EmpresaRestController {
     @PreAuthorize("hasRole('ADMON')")
     public ResponseEntity<List<EmpresaResponseDto>> mostrarEmpresas() {
         List<EmpresaResponseDto> respuestaDTO = empresaService.findAll()
-                .stream()
-                .map(empresa -> mapper.map(empresa, EmpresaResponseDto.class))
-                .collect(Collectors.toList());
+            .stream()
+            .map(empresa -> {
+            	
+                EmpresaResponseDto dto = mapper.map(empresa, EmpresaResponseDto.class);
+                
+                dto.setFechaRegistro(empresa.getUsuario().getFechaRegistro());
+                return dto;
+            })
+            .collect(Collectors.toList());
 
         return ResponseEntity.ok(respuestaDTO);
     }
