@@ -5,6 +5,7 @@ import { VacantesService } from '../../../core/services/vacantes.service';
 import { CategoriasService } from '../../../core/services/categorias.service';
 import { IVacante } from '../../../core/interfaces/IVacante';
 import { ICategoria } from '../../../core/interfaces/ICategoria';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -117,43 +118,70 @@ export class VacanteFormComponent implements OnInit {
     });
   }
 
-  // Metodo para enviar el formulario
   getDataForm() {
+  //guardamos los valores del formulario en una constante
+  const vacante: IVacante = this.vacanteForm.value;
 
-    //guardamos los valores del formulario en una constante
-    const vacante: IVacante = this.vacanteForm.value;
+  console.log('[getDataForm] JSON que se está enviando:');
+  console.log(JSON.stringify(vacante, null, 2));
 
-    console.log('[getDataForm] JSON que se está enviando:');
-    console.log(JSON.stringify(vacante, null, 2));
+  //Comprobacion para ver el id llega bien por consola
+  console.log(vacante.idCategoria);
 
-    //Comprobacion para ver el id llega bien por consola
-    console.log(vacante.idCategoria);
+  if (vacante.idVacante) {
 
-    if (vacante.idVacante) {
-      
-      this.vacanteService.actualizarVacante(vacante).subscribe({
-        next: () => {
-          alert('Vacante actualizada correctamente');
+    this.vacanteService.actualizarVacante(vacante).subscribe({
+      next: () => {
+        // Mensaje de éxito al actualizar
+        Swal.fire({
+          icon: 'success',
+          title: 'Vacante actualizada correctamente',
+          confirmButtonColor: '#f4c542'
+        }).then(() => {
           this.backToHome();
-        },
-        error: (error) => {
-          console.error('[getDataForm] Error al actualizar:', error);
-        }
-      });
-    } else {
-      
-      this.vacanteService.publicarVacante(vacante).subscribe({
-        next: () => {
-          alert('Vacante publicada correctamente');
+        });
+      },
+      error: (error) => {
+        console.error('[getDataForm] Error al actualizar:', error);
+        // Mensaje de error al actualizar
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al actualizar',
+          text: 'Ocurrió un error al actualizar la vacante',
+          confirmButtonColor: '#f4c542'
+        });
+      }
+    });
+
+  } else {
+
+    this.vacanteService.publicarVacante(vacante).subscribe({
+      next: () => {
+        // Mensaje de éxito al publicar
+        Swal.fire({
+          icon: 'success',
+          title: 'Vacante publicada correctamente',
+          confirmButtonColor: '#f4c542'
+        }).then(() => {
           this.vacanteForm.reset();
           this.backToHome();
-        },
-        error: (error) => {
-          console.error('[getDataForm] Error al publicar:', error);
-        }
-      });
+        });
+      },
+      error: (error) => {
+        console.error('[getDataForm] Error al publicar:', error);
+        // Mensaje de error al publicar
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al publicar',
+          text: 'Ocurrió un error al publicar la vacante',
+          confirmButtonColor: '#f4c542'
+        });
+      }
+    });
+
     }
   }
+
 
   checkControl(FormControlName: string, validator: string): boolean | undefined {
     return this.vacanteForm.get(FormControlName)?.hasError(validator) &&
