@@ -16,12 +16,16 @@ import lombok.NoArgsConstructor;
 public class VacanteResponseDto {
 
 	//Categiria de la vancate
+	private String idCategoria;
 	private String nombreCategoria;
 	
 	//Nombre de la empresa que publica la vancante
 	private String nombreEmpresa;
 	
 	//Datos de la vacante
+	
+	private int IdVacante;
+	
 	private String nombre;
 
 	private String descripcion;
@@ -32,7 +36,7 @@ public class VacanteResponseDto {
 
 	private EstadoVacante estatus;
 
-	private boolean destacado;
+	private int destacado;
 
 	private String imagen;
 

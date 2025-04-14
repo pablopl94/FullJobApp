@@ -1,14 +1,14 @@
 import { Component, inject } from '@angular/core';
-import { SolicitudEmpresaCardComponent } from "../../components/solicitud-empresa-card/solicitud-empresa-card.component";
 import { SolicitudesService } from '../../../core/services/solicitudes.service';
-import { ISolicitud } from '../../../core/interfaces/isolicitud';
-import { IUsuario } from '../../../core/interfaces/iusuario'; // Adjust the path if necessary
 import { AuthService } from '../../../core/services/auth.service';
+import { BotonesSolicitudEmpresaComponent } from "../../components/botones-solicitud-empresa/botones-solicitud-empresa.component";
+import { ISolicitud } from '../../../core/interfaces/ISolicitud';
+import { IUsuario } from '../../../core/interfaces/IUsuario';
 
 
 @Component({
   selector: 'app-home-page',
-  imports: [SolicitudEmpresaCardComponent],
+  imports: [BotonesSolicitudEmpresaComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
@@ -25,10 +25,17 @@ export class HomePageComponent {
     //cargamos los datos de usuario para la home
     this.usuario = this.authService.obtenerUsuario();
 
-    //Cargamos las ultimas solicitudes para la tabla del home
-    this.solicitudesService.obtenerUltimasSolicitudes().subscribe({
-      next: (solicitudes) => this.ultimasSolicitudes = solicitudes,
-      error: (err) => console.error('Error al cargar las solicitudes:', err)
+    //Cargamos las ultimas solicitudes
+    this.solicitudesService.cargarUltimasSolicitudes();
+  
+    //Nos suscribimos a los cambios con subject
+    this.solicitudesService.ultimasSolicitudes$.subscribe({
+      next: (solicitudes) => {
+        this.ultimasSolicitudes = solicitudes;
+      },
+      error: (err) => {
+        console.error(' Error al cargar las últimas solicitudes:', err);
+      }
     });
   }
 

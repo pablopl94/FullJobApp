@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ICategoria } from '../interfaces/Icategoria';
+import { ICategoria } from '../interfaces/ICategoria';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class CategoriasService {
       return this.http.delete<ICategoria>(`${this.baseUrl}/${id}`);
     }
 
-    createCategoria(categoria: ICategoria) {
-      return this.http.post<ICategoria>('http://localhost:9007/categorias', categoria);
-    }
+  createCategoria(categoria: ICategoria) {
+     return this.http.post<ICategoria>('http://localhost:9007/categorias', categoria);
+  }
 }

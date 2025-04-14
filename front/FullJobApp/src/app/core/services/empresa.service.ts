@@ -35,6 +35,11 @@ export class EmpresaService {
     return this.http.delete<IEmpresa>(`${this.baseUrl}/${id}`);
   }
 
+  //Metodo para cargar los datos de la empresa autenticada
+  getDetallesEmpresaAutenticada():Observable<IEmpresa> {
+    return this.http.get<IEmpresa>(`${this.baseUrl}/perfil`);
+  }
+
   //  // ⚠️ Este método no funcionará sin POST en backend
   //  crearEmpresa(dto: IEmpresa): Observable<IEmpresa> {
   //   return this.http.post<IEmpresa>(this.baseUrl, dto);

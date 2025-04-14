@@ -56,9 +56,27 @@ INSERT INTO Vacantes (nombre, descripcion, fecha, salario, estatus, destacado, i
 
 -- ================== SOLICITUD ==================
 INSERT INTO Solicitudes (fecha, archivo, comentarios, estado, curriculum, id_Vacante, email) VALUES
-('2025-03-05', 'cv_jose.pdf', 'Me interesa mucho esta vacante, gracias.', 0, 'cv_jose.pdf', 1, 'cliente@cliente.com'),
-('2025-03-06', 'cv_jose.pdf', 'Tengo experiencia previa en el sector.', 0, 'cv_jose.pdf', 2, 'cliente@cliente.com'),
-('2025-03-11', 'cv_jose.pdf', 'Puedo incorporarme inmediatamente.', 0, 'cv_jose.pdf', 7, 'cliente@cliente.com'),
-('2025-03-12', 'cv_jose.pdf', 'Tengo experiencia liderando equipos.', 0, 'cv_jose.pdf', 8, 'cliente@cliente.com'),
-('2025-03-13', 'cv_jose.pdf', 'Fuerte interés en el desarrollo profesional.', 0, 'cv_jose.pdf', 9, 'cliente@cliente.com'),
-('2025-03-14', 'cv_jose.pdf', 'Soy una persona proactiva y resolutiva.', 0, 'cv_jose.pdf', 10, 'cliente@cliente.com');
+
+-- 10 nuevas solicitudes para cliente@cliente.com
+('2025-04-01', 'cv_jose.pdf', 'Tengo formación específica para esta posición.', 0, 'cv_jose.pdf', 5, 'cliente@cliente.com'),
+('2025-04-02', 'cv_jose.pdf', 'Estoy muy interesado en esta vacante.', 0, 'cv_jose.pdf', 6, 'cliente@cliente.com'),
+('2025-04-03', 'cv_jose.pdf', 'Tengo disponibilidad inmediata.', 0, 'cv_jose.pdf', 11, 'cliente@cliente.com'),
+('2025-04-04', 'cv_jose.pdf', 'Me gustaría aportar mis conocimientos aquí.', 0, 'cv_jose.pdf', 12, 'cliente@cliente.com'),
+('2025-04-05', 'cv_jose.pdf', 'Esta vacante encaja con mi experiencia.', 0, 'cv_jose.pdf', 13, 'cliente@cliente.com'),
+('2025-04-06', 'cv_jose.pdf', 'He trabajado en proyectos similares.', 0, 'cv_jose.pdf', 14, 'cliente@cliente.com'),
+('2025-04-07', 'cv_jose.pdf', 'Busco una oportunidad estable.', 0, 'cv_jose.pdf', 15, 'cliente@cliente.com'),
+('2025-04-08', 'cv_jose.pdf', 'Interesado en nuevas tecnologías.', 0, 'cv_jose.pdf', 5, 'cliente@cliente.com'),
+('2025-04-09', 'cv_jose.pdf', 'Me apasiona el desarrollo web.', 0, 'cv_jose.pdf', 6, 'cliente@cliente.com'),
+('2025-04-10', 'cv_jose.pdf', 'Tengo conocimientos en el stack requerido.', 0, 'cv_jose.pdf', 11, 'cliente@cliente.com'),
+
+-- 10 nuevas solicitudes para pacoporras@cliente.com
+('2025-04-01', 'cv_paco.pdf', 'Me gustaría formar parte del equipo.', 0, 'cv_paco.pdf', 1, 'pacoporras@cliente.com'),
+('2025-04-02', 'cv_paco.pdf', 'Estoy disponible a jornada completa.', 0, 'cv_paco.pdf', 2, 'pacoporras@cliente.com'),
+('2025-04-03', 'cv_paco.pdf', 'Tengo experiencia previa en esta área.', 0, 'cv_paco.pdf', 3, 'pacoporras@cliente.com'),
+('2025-04-04', 'cv_paco.pdf', 'He trabajado con herramientas similares.', 0, 'cv_paco.pdf', 4, 'pacoporras@cliente.com'),
+('2025-04-05', 'cv_paco.pdf', 'Soy una persona resolutiva.', 0, 'cv_paco.pdf', 5, 'pacoporras@cliente.com'),
+('2025-04-06', 'cv_paco.pdf', 'Me interesa aprender y crecer.', 0, 'cv_paco.pdf', 6, 'pacoporras@cliente.com'),
+('2025-04-07', 'cv_paco.pdf', 'Tengo motivación para este puesto.', 0, 'cv_paco.pdf', 7, 'pacoporras@cliente.com'),
+('2025-04-08', 'cv_paco.pdf', 'Mi perfil encaja con la vacante.', 0, 'cv_paco.pdf', 8, 'pacoporras@cliente.com'),
+('2025-04-09', 'cv_paco.pdf', 'Deseo adquirir experiencia profesional.', 0, 'cv_paco.pdf', 9, 'pacoporras@cliente.com'),
+('2025-04-10', 'cv_paco.pdf', 'Tengo formación adecuada para este rol.', 0, 'cv_paco.pdf', 10, 'pacoporras@cliente.com');

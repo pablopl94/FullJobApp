@@ -1,0 +1,55 @@
+.form-title {
+  color: #474747;
+  font-weight: bold;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.formulario-vacante {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.formulario-vacante .form-label {
+  font-weight: 600;
+  color: #474747;
+  margin-bottom: 0.4rem;
+}
+
+.formulario-vacante .form-control,
+.formulario-vacante .form-select,
+.formulario-vacante textarea {
+  background-color: #f7f7f7; /* 🟨 Fondo gris claro */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.formulario-vacante .form-control:focus,
+.formulario-vacante .form-select:focus,
+.formulario-vacante textarea:focus {
+  border-color: #fac402;
+  box-shadow: 0 0 0 3px rgba(250, 196, 2, 0.2);
+  background-color: #fff; /* Al enfocar se vuelve blanco */
+}
+
+.btn-formulario {
+  background-color: #FAC402;
+  border: none;
+  color: #474747;
+  font-weight: 600;
+  padding: 0.6rem 1.8rem;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(250, 196, 2, 0.2);
+  transition: all 0.3s ease;
+}
+
+.btn-formulario:hover {
+  background-color: #e4b100;
+  color: #fff;
+}

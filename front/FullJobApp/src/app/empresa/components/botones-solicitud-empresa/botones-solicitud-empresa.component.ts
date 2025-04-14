@@ -1,9 +1,8 @@
 import { Component, inject, Input } from '@angular/core';
 
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import {RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 import { SolicitudesService } from '../../../core/services/solicitudes.service';
-import { ISolicitud } from '../../../core/interfaces/isolicitud';
 
 @Component({
   standalone: true,
@@ -39,8 +38,8 @@ export class BotonesSolicitudEmpresaComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.solicitudesService.asignarVacante(this.solicitudId).subscribe({
-          next: (msg) => {
-            Swal.fire('✅ Asignado', msg, 'success');
+          next: (message) => {
+            Swal.fire('✅ Asignado', message, 'success');
           },
           error: (err) => {
             console.error('❌ Error al asignar:', err);

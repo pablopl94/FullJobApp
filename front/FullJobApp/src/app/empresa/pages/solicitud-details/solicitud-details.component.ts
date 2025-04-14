@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { ISolicitud } from '../../../core/interfaces/isolicitud';
 import { ActivatedRoute } from '@angular/router';
 import { SolicitudesService } from '../../../core/services/solicitudes.service';
 import { BotonesSolicitudEmpresaComponent } from "../../components/botones-solicitud-empresa/botones-solicitud-empresa.component";
+import { ISolicitud } from '../../../core/interfaces/ISolicitud';
 
 @Component({
   standalone: true,

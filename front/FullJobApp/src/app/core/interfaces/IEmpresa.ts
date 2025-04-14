@@ -1,4 +1,5 @@
 export interface IEmpresa {
+  
   idEmpresa: number;
   nombreEmpresa: string;
   cif: string;

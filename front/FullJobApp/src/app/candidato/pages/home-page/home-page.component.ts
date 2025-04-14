@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
-import { Vacante } from '../../../core/interfaces/vacante';
 import { RouterLink } from '@angular/router';
 import { VacantesService } from '../../../core/services/vacantes.service';
+import { IVacante } from '../../../core/interfaces/IVacante';
 
 @Component({
   selector: 'app-home-page',
@@ -18,8 +18,8 @@ export class HomePageComponent implements OnInit {
   private readonly authService = inject(AuthService);
 
   usuario: any = null;
-  recientes: Vacante[] = [];
-  populares: Vacante[] = [];
+  recientes: IVacante[] = [];
+  populares: IVacante[] = [];
 
   ngOnInit(): void {
     this.usuario = this.authService.obtenerUsuario();

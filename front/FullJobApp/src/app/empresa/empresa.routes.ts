@@ -26,6 +26,24 @@ export const empresaRoutes: Routes = [
           ),
       },
       {
+        path: 'vacantes',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./pages/vacantes-page/vacantes-page.component').then(m => m.VacantesPageComponent),
+          },
+          {
+            path: 'alta',
+            loadComponent: () => import('./pages/vacante-form/vacante-form.component').then(m => m. VacanteFormComponent),
+          },
+          {
+            path: 'editar/:idVacante',
+            loadComponent: () => import('./pages/vacante-form/vacante-form.component').then(m => m. VacanteFormComponent),
+          }
+        ]
+      },
+      {
         path: 'solicitudes',
         children: [
           {

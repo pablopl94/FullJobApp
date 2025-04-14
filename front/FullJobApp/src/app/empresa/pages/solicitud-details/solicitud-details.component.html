@@ -1,44 +1,43 @@
 <div class="detalle-container">
-    <h2 class="detalle-titulo">Detalles de la Solicitud</h2>
-  
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <p><strong>Fecha de solicitud:</strong> {{ miSolicitud.fecha }}</p>
-        <p><strong>Estado:</strong> {{ miSolicitud.estado }}</p>
-        <p><strong>Comentarios:</strong> {{ miSolicitud.comentarios || 'Sin comentarios' }}</p>
-      </div>
-      <div class="col-md-6">
-        <p><strong>Archivo adjunto:</strong> {{ miSolicitud.archivo || 'No adjuntado' }}</p>
-        <p><strong>Currículum:</strong> {{ miSolicitud.curriculum || 'No disponible' }}</p>
-      </div>
+  <h2 class="detalle-titulo text-center">📝 Detalles de la Solicitud</h2>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <p><strong>📅 Fecha de solicitud:</strong> {{ miSolicitud.fecha }}</p>
+      <p><strong>📌 Estado:</strong> {{ miSolicitud.estado }}</p>
+      <p><strong>🗒️ Comentarios:</strong> {{ miSolicitud.comentarios || 'Sin comentarios' }}</p>
     </div>
-  
-    <hr>
-  
-    <h5 class="seccion-titulo">Datos del Candidato</h5>
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <p><strong>Nombre:</strong> {{ miSolicitud.nombreUsuario }}</p>
-        <p><strong>Apellidos:</strong> {{ miSolicitud.apellidosUsuario }}</p>
-      </div>
-    </div>
-  
-    <hr>
-  
-    <h5 class="seccion-titulo">Información de la Vacante</h5>
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <p><strong>Vacante:</strong> {{ miSolicitud.nombreVacante }}</p>
-        <p><strong>Salario:</strong> {{ miSolicitud.salario }}</p>
-        <p><strong>Categoría:</strong> {{ miSolicitud.nombreCategoria }}</p>
-      </div>
-      <div class="col-md-6">
-        <p><strong>Empresa:</strong> {{ miSolicitud.nombreEmpresa }}</p>
-      </div>
-    </div>
-  
-    <div class="text-end mt-4">
-      <app-botones-solicitud-empresa [parent]="'view'" [solicitudId]="miSolicitud.idSolicitud"  > </app-botones-solicitud-empresa>
+    <div class="col-md-6">
+      <p><strong>📎 Archivo adjunto:</strong> {{ miSolicitud.archivo || 'No adjuntado' }}</p>
+      <p><strong>📄 Currículum:</strong> {{ miSolicitud.curriculum || 'No disponible' }}</p>
     </div>
   </div>
-   
+
+  <hr>
+
+  <h5 class="seccion-titulo">👤 Datos del Candidato</h5>
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <p><strong>Nombre:</strong> {{ miSolicitud.nombreUsuario }}</p>
+      <p><strong>Apellidos:</strong> {{ miSolicitud.apellidosUsuario }}</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <h5 class="seccion-titulo">💼 Información de la Vacante</h5>
+  <div class="row">
+    <div class="col-md-6">
+      <p><strong>Vacante:</strong> {{ miSolicitud.nombreVacante }}</p>
+      <p><strong>Salario:</strong> {{ miSolicitud.salario }} €</p>
+      <p><strong>Categoría:</strong> {{ miSolicitud.nombreCategoria }}</p>
+    </div>
+    <div class="col-md-6">
+      <p><strong>Empresa:</strong> {{ miSolicitud.nombreEmpresa }}</p>
+    </div>
+  </div>
+
+  <div class="text-end mt-4">
+    <app-botones-solicitud-empresa [parent]="'view'" [solicitudId]="miSolicitud.idSolicitud"></app-botones-solicitud-empresa>
+  </div>
+</div>

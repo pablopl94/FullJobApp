@@ -1,8 +1,38 @@
 <section>
-  <h2 class="welcome-title mb-5">Bienvenido, {{ usuario.nombre|| 'Usuario' }}!</h2>
-  <h5 class="section-title fw-bold">Estas son tus ultimas solicitudes</h5>
-      @for (solicitud of ultimasSolicitudes; track $index) {
-        <app-solicitud-empresa-card [miSolicitud]="solicitud" ></app-solicitud-empresa-card>  
-      }@empty {
-        <p class="text-center">No hay solicitudes todavia</p>
-      } 
+  <h2 class="welcome-title mb-5">Hola, {{ usuario.nombre }}!</h2>
+
+  <h5 class="section-title fw-bold">Tus últimas solicitudes</h5>
+  <table class="tabla-estilo table-hover mb-5">
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Categoría</th>
+      <th>Puesto</th>
+      <th>Candidato</th>
+      <th>Salario</th>
+      <th>Estado</th>
+      <th class="text-center">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (solicitud of ultimasSolicitudes; track solicitud.idSolicitud) {
+      <tr>
+        <td>{{ solicitud.fecha }}</td>
+        <td>{{ solicitud.nombreCategoria }}</td>
+        <td>{{ solicitud.nombreVacante }}</td>
+        <td>{{ solicitud.nombreUsuario }}</td>
+        <td>{{ solicitud.salario }}€</td>
+        <td>{{ solicitud.estado }}</td>
+        <td class="text-center">
+          <app-botones-solicitud-empresa [parent]="'card'" [solicitudId]="solicitud.idSolicitud">
+          </app-botones-solicitud-empresa>
+        </td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="7" class="text-center">No hay solicitudes todavía</td>
+      </tr>
+    }
+  </tbody>
+  </table>
+</section>

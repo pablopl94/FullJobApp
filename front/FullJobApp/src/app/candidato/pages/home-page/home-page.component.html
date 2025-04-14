@@ -12,13 +12,13 @@
         </tr>
       </thead>
       <tbody>
-        @for (vacante of populares; track vacante.id_vacante) {
+        @for (vacante of populares; track vacante.idVacante) {
           <tr>
             <td>{{ vacante.nombre }}</td>
             <td>{{ vacante.salario | currency }}</td>
-            <td>{{ vacante.id_empresa }}</td>
+            <td>{{ vacante.nombreEmpresa }}</td>
             <td>
-              <button class="btn btn-sm btn-outline-warning fw-bold" [routerLink]="['/candidato/vacantes', vacante.id_vacante]">
+              <button class="btn btn-sm btn-outline-warning fw-bold" [routerLink]="['/candidato/vacantes', vacante.idVacante]">
                 DETALLES
               </button>
             </td>
@@ -38,13 +38,13 @@
         </tr>
       </thead>
       <tbody>
-        @for (vacante of recientes; track vacante.id_vacante) {
+        @for (vacante of recientes; track vacante.idVacante) {
           <tr>
             <td>{{ vacante.nombre }}</td>
             <td>{{ vacante.salario | currency }}</td>
             <td>{{ vacante.fecha }}</td>
             <td>
-              <button class="btn btn-sm btn-outline-warning fw-bold" [routerLink]="['/candidato/vacantes', vacante.id_vacante]">
+              <button class="btn btn-sm btn-outline-warning fw-bold" [routerLink]="['/candidato/vacantes', vacante.idVacante]">
                 DETALLES
               </button>
             </td>

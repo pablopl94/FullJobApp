@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CategoriasService } from '../../../core/services/categorias.service';
-import { ICategoria } from '../../../core/interfaces/Icategoria';
+import { ICategoria } from '../../../core/interfaces/ICategoria';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -29,7 +29,7 @@ export class CategoriasPageComponent {
   eliminarCategoria(id: number) {
     if (confirm('¿Estás seguro de que deseas eliminar esta categoria?')) {
       this.categoriaService.eliminarCategoria(id).subscribe(() => {
-        this.categorias = this.categorias.filter(e => e.id !== id);
+        this.categorias = this.categorias.filter(e => e.idCategoria !== id);
       });
     }
   }

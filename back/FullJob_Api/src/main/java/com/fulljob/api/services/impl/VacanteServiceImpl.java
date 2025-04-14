@@ -230,7 +230,8 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 		    	updateOne(vacanteExistente); //Usamos el metodo de IGenericCrud con validaciones extras
 		    }else {
 		    	throw new ResponseStatusException(HttpStatus.CONFLICT, "La vacante no existe");
-		    }	  
+		    }	
+		    
 	    
 	    //Devolvemos un dto de respuesta
 	    return mapper.map(vacanteExistente,VacanteResponseDto.class);

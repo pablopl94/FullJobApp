@@ -162,8 +162,12 @@ public class VacanteRestController {
 	}
 	
 	
-	
-	
+	//Metodo para obtener los tipos de contrato para los forms del from
+	@GetMapping("/tiposcontrato")
+	public ResponseEntity<TipoDeContrato[]> getTiposContrato() {
+	    return ResponseEntity.ok(TipoDeContrato.values());
+	}
+
 	
 	
 }

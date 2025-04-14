@@ -1,1 +1,66 @@
-<p>vacante-form works!</p>
+<section class="container mt-5 mb-5">
+  <h2 class="form-title text-center mb-4">{{tipo}} Vacante</h2>
+  <form [formGroup]="vacanteForm" (ngSubmit)="getDataForm()" class="formulario-vacante p-4 shadow-lg rounded">
+    <div class="row">
+
+      <!-- Categoría -->
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Categoría</label>
+        <select formControlName="idCategoria" id="idCategoria" class="form-select">
+          <option value="" disabled>Selecciona una categoría</option>
+          @for (categoria of arrayCategorias;  track $index) {
+            <option [value]="categoria.idCategoria">{{ categoria.nombre }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- Nombre de la vacante-->
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Nombre de la Vacante</label>
+        <input type="text" class="form-control" formControlName="nombre" id="nombre" placeholder="Ej: Desarrollador Java" />
+      </div>
+
+      <!-- Salario -->
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Salario (€)</label>
+        <input type="number" class="form-control" formControlName="salario" id="salario" placeholder="Ej: 30000" />
+      </div>
+
+      <!-- Tipo de Contrato -->
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Tipo de Contrato</label>
+        <select class="form-select" formControlName="detalles">
+          <option disabled disabled>Selecciona una opción</option>
+          @for (contrato of arrayTiposContrato; track $index) {
+            <option [value]="contrato">{{ contrato }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- Destacado -->
+      <div class="col-md-6 mb-3">
+        <label class="form-label">¿Vacante destacada?</label>
+        <select class="form-select" formControlName="destacado">
+          <option [value]="0">No</option>
+          <option [value]="1">Sí</option>
+        </select>
+      </div>
+
+      <!-- Imagen -->
+      <div class="col-12 mb-3">
+        <label class="form-label">URL de Imagen (opcional)</label>
+        <input type="text" class="form-control" formControlName="imagen" placeholder="https://..." />
+      </div>
+
+      <!-- Descripción -->
+      <div class="col-12 mb-3">
+        <label class="form-label">Descripción</label>
+        <textarea class="form-control" formControlName="descripcion" rows="5" placeholder="Describe la vacante..."></textarea>
+      </div>
+    </div>
+
+    <div class="text-end">
+      <button type="submit" class="btn btn-formulario">Publicar Vacante</button>
+    </div>
+  </form>
+</section>

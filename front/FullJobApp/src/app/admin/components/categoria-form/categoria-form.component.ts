@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CategoriasService } from '../../../core/services/categorias.service';
-import { ICategoria } from '../../../core/interfaces/Icategoria';
+import { ICategoria } from '../../../core/interfaces/ICategoria';
 
 @Component({
   selector: 'app-categoria-form',

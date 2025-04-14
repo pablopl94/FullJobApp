@@ -1,69 +1,22 @@
-/* Tabla completa */
-table.tabla-estilo {
-    width: 100%;
-    background-color: white;
-    border-collapse: collapse;
-    border-radius: 12px;
-    overflow: hidden;
-    font-family: 'Poppins', sans-serif;
-    box-shadow: 0 0 8px rgba(0,0,0,0.05);
-  }
-  
-  /* Cabecera de la tabla */
-  table thead {
-    background-color: #333;
-    color: white;
-  }
-  
-  table th {
-    padding: 16px;
+section {
+  margin-right: 2rem;
+  padding-right: 1rem;
+  margin-left: 2rem;
+  padding-left: 1rem;
+}
+
+  .btn-publicar {
+    background-color: #ffffff;
+    border: 2px solid #474747;
+    color: #474747;
     font-weight: 600;
-    text-align: left;
-    font-size: 16px;
+    padding: 0.4rem 1rem;
+    transition: all 0.3s ease;
   }
   
-  /* Celdas del cuerpo */
-  table td {
-    padding: 16px;
-    font-size: 15px;
-    border-bottom: 1px solid #eee;
+  .btn-publicar:hover {
+    background-color: #474747;
+    color: #fff;
+    border-color: #474747;
   }
   
-  /* Quitar borde inferior a última fila */
-  table tbody tr:last-child td {
-    border-bottom: none;
-  }
-  
-  /* Botón MODIFICAR */
-  .btn-modificar {
-    background-color: #ffe567;
-    color: black;
-    border: none;
-    font-weight: bold;
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 13px;
-    margin-right: 6px;
-    box-shadow: 0 0 0 2px #ffe567;
-    transition: background-color 0.2s ease;
-  }
-  
-  .btn-modificar:hover {
-    background-color: #ffdd3d;
-  }
-  
-  /* Botón CANCELAR */
-  .btn-cancelar {
-    background-color: white;
-    color: red;
-    border: 2px solid red;
-    font-weight: bold;
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 13px;
-    transition: background-color 0.2s ease;
-  }
-  
-  .btn-cancelar:hover {
-    background-color: #ffe5e5;
-  }

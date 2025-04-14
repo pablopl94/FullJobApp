@@ -1,0 +1,29 @@
+.perfil-empresa-seccion {
+  padding: 2rem 1rem;
+}
+
+.perfil-card {
+  background-color: #fff;
+  border-radius: 1rem;
+  max-width: 1000px;
+}
+
+.perfil-titulo {
+  font-weight: bold;
+  font-size: 2rem;
+  color: #FAC402;
+}
+
+.perfil-divider {
+  border: none;
+  height: 3px;
+  width: 600px;
+  background-color: #FAC402;
+  margin: 0 auto;
+}
+
+.perfil-avatar {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}

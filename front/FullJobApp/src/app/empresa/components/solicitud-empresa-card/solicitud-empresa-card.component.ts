@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { BotonesSolicitudEmpresaComponent } from "../botones-solicitud-empresa/botones-solicitud-empresa.component";
-import { ISolicitud } from '../../../core/interfaces/isolicitud';
+import { ISolicitud } from '../../../core/interfaces/ISolicitud';
 
 @Component({
   standalone: true,

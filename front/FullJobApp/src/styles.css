@@ -7,3 +7,56 @@ body {
   font-family: 'Poppins', sans-serif; /* Fuente Poppins*/
 }
 
+.bg-mostaza {
+  background-color: #f4c542;
+}
+
+  /* Estilos globales de titulos*/
+.welcome-title {
+  color: #474747;
+  font-weight: bold;
+  font-size: 2rem;
+  margin: 2rem 0 2rem 0;
+}
+
+.section-title {
+  color: #474747;
+  font-weight: 600;
+  margin: 2rem 0 1rem 0;
+}
+
+
+  /* Estilos globlales de las tablas*/
+table.tabla-estilo {
+  width: 100%;
+  background-color: white;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+table thead {
+  background-color: #474747;
+  color: white;
+}
+
+table th {
+  padding: 16px;
+  font-weight: 600;
+  text-align: left;
+  font-size: 16px;
+}
+
+table td {
+  padding: 16px;
+  font-size: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+

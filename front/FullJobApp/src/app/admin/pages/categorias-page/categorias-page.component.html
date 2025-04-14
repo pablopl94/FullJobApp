@@ -19,7 +19,7 @@
         </tr>
       </thead>
       <tbody>
-        @for (categoria of categorias; track categoria.id) {
+        @for (categoria of categorias; track categoria.idCategoria) {
           <tr>
             <td>{{ categoria.nombre }}</td>
             <td>{{ categoria.descripcion }}</td>
@@ -31,7 +31,7 @@
               </button>
               <button
                 class="btn btn-sm btn-outline-danger fw-bold border-2"
-                (click)="eliminarCategoria(categoria.id)"
+                (click)="eliminarCategoria(categoria.idCategoria)"
               >
                 ELIMINAR
               </button>

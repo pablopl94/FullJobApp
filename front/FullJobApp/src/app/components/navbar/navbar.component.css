@@ -22,5 +22,9 @@
   border-radius: 50%;
 }
 
-
+.logout-btn:hover {
+  background-color: #f4c542;
+  color: black;
+  border-color: #f4c542;
+}
 

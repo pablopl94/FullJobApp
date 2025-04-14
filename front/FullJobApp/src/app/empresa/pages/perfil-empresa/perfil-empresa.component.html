@@ -1,1 +1,36 @@
-<p>perfil-empresa works!</p>
+<section class="perfil-empresa-seccion">
+    <div class="perfil-card mx-auto p-5 shadow">
+      <h2 class="perfil-titulo text-center">
+        {{ empresa.nombreEmpresa }}
+      </h2>
+      
+      <hr class="perfil-divider mb-5" />
+  
+      <div class="row align-items-center">
+        <div class="col-md-4 text-center">
+          <img
+            src="assets/img/avatar.svg"
+            alt="Avatar Empresa"
+            class="img-fluid rounded-circle shadow-sm perfil-avatar"
+          />
+          <hr class="d-md-none my-4" />
+        </div>
+  
+        <div class="col-md-8">
+          <div class="mb-3">
+            <strong class="text-dark">CIF:</strong>
+            <p>{{ empresa.cif }}</p>
+          </div>
+          <div class="mb-3">
+            <strong class="text-dark">Dirección:</strong>
+            <p>{{ empresa.direccionFiscal }}</p>
+          </div>
+          <div>
+            <strong class="text-dark">País:</strong>
+            <p>{{ empresa.pais }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
