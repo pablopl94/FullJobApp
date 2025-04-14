@@ -21,7 +21,7 @@ export class RegistroInfoComponent {
           {
             icono: '📄',
             titulo: 'Redacta y publica ofertas',
-            texto: 'Publica tus ofertas en pocos minutos desde nuestra app'
+            texto: 'Publica tus ofertas en pocos minutos '
           },
           {
             icono: '✔️',

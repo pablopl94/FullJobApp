@@ -36,7 +36,6 @@ export class LoginFormComponent {
         next: (res: any) => {
           const token = res.token;
   
-          // Extraemos solo los datos relevantes del usuario
           const usuario = {
             email: res.email,
             nombre: res.nombre,
@@ -46,14 +45,23 @@ export class LoginFormComponent {
             fechaRegistro: res.fechaRegistro,
           };
   
-          // Guardamos token y usuario por separado
+          // Validar que el rol coincide con el tipo del formulario
+          const rolFormulario = this.tipo === 'admin' ? 'ADMON'
+                            : this.tipo === 'empresa' ? 'EMPRESA'
+                            : 'CLIENTE';
+  
+          if (usuario.rol !== rolFormulario) {
+            alert('No tienes permiso para acceder desde esta página');
+            return;
+          }
+  
+          // Guardamos token y usuario
           this.auth.guardarUsuarioYToken(token, usuario);
   
-          // Redirigimos según el rol
-          const rol = usuario.rol;
-          if (rol === 'ADMON') this.router.navigate(['/admin']);
-          else if (rol === 'EMPRESA') this.router.navigate(['/empresa']);
-          else if (rol === 'CLIENTE') this.router.navigate(['/candidato']);
+          // Redirigir según rol
+          if (usuario.rol === 'ADMON') this.router.navigate(['/admin']);
+          else if (usuario.rol === 'EMPRESA') this.router.navigate(['/empresa']);
+          else if (usuario.rol === 'CLIENTE') this.router.navigate(['/candidato']);
           else this.router.navigate(['/']);
         },
         error: (err: any) => {

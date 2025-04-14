@@ -1,56 +1,58 @@
 <section>
+
   <h2 class="welcome-title mb-5">Hola, {{ usuario?.nombre || 'Usuario' }}!</h2>
 
+  <!-- Vacantes más populares -->
   <h5 class="section-title fw-bold">Nuestras vacantes más populares</h5>
-    <table class="table tabla-estilo table-hover mb-5">
-      <thead>
+  <table class="tabla-estilo mb-5">
+    <thead>
+      <tr>
+        <th class="text-center">Puesto</th>
+        <th class="text-center">Salario</th>
+        <th class="text-center">Empresa</th>
+        <th class="text-center">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (vacante of populares; track vacante.idVacante) {
         <tr>
-          <th>Puesto</th>
-          <th>Salario</th>
-          <th>Empresa</th>
-          <th></th>
+          <td class="text-center">{{ vacante.nombre }}</td>
+          <td class="text-center">{{ vacante.salario | currency }}</td>
+          <td class="text-center">{{ vacante.nombreEmpresa }}</td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-outline-warning fw-bold" [routerLink]="['/candidato/vacantes', vacante.idVacante]">
+              DETALLES
+            </button>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        @for (vacante of populares; track vacante.idVacante) {
-          <tr>
-            <td>{{ vacante.nombre }}</td>
-            <td>{{ vacante.salario | currency }}</td>
-            <td>{{ vacante.nombreEmpresa }}</td>
-            <td>
-              <button class="btn btn-sm btn-outline-warning fw-bold" [routerLink]="['/candidato/vacantes', vacante.idVacante]">
-                DETALLES
-              </button>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
+      }
+    </tbody>
+  </table>
 
-    <h5 class="section-title fw-bold">Nuestras vacantes más recientes</h5>
-    <table class="table tabla-estilo table-hover">
-      <thead>
+  <!-- Vacantes más recientes -->
+  <h5 class="section-title fw-bold">Nuestras vacantes más recientes</h5>
+  <table class="tabla-estilo">
+    <thead>
+      <tr>
+        <th class="text-center">Puesto</th>
+        <th class="text-center">Salario</th>
+        <th class="text-center">Fecha</th>
+        <th class="text-center">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (vacante of recientes; track vacante.idVacante) {
         <tr>
-          <th>Puesto</th>
-          <th>Salario</th>
-          <th>Fecha</th>
-          <th></th>
+          <td class="text-center">{{ vacante.nombre }}</td>
+          <td class="text-center">{{ vacante.salario | currency }}</td>
+          <td class="text-center">{{ vacante.fecha }}</td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-outline-warning fw-bold" [routerLink]="['/candidato/vacantes', vacante.idVacante]">
+              DETALLES
+            </button>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        @for (vacante of recientes; track vacante.idVacante) {
-          <tr>
-            <td>{{ vacante.nombre }}</td>
-            <td>{{ vacante.salario | currency }}</td>
-            <td>{{ vacante.fecha }}</td>
-            <td>
-              <button class="btn btn-sm btn-outline-warning fw-bold" [routerLink]="['/candidato/vacantes', vacante.idVacante]">
-                DETALLES
-              </button>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
-
+      }
+    </tbody>
+  </table>
 </section>
