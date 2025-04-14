@@ -1,5 +1,5 @@
 export interface IVacante {
-    
+
     idVacante: number;
     nombre: string;
     descripcion: string;

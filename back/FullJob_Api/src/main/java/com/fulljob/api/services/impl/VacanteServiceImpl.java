@@ -147,7 +147,7 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 	
 	//Metodo para ver las vacantes de una empresa
 	@Override
-	public List<VacanteResponseDto> obtenerVacantesDeEmpresa(Usuario usuario) {
+	public List<VacanteResponseDto> obtenerVacantesDeEmpresaCreadas(Usuario usuario) {
 		
 		//Obtenemos la empresa del usuario que nos llega por paramentro(obtenido de la sesion)
 		Empresa empresa = empresaRepo.findByUsuario_Email(usuario.getEmail())
@@ -157,6 +157,8 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 		List<Vacante> listaVacantes =  vacanteRepo.findByEmpresa_IdEmpresa(empresa.getIdEmpresa());
 		
 		return listaVacantes.stream()
+				//filtramos solo por las vacantes CREADAS
+				.filter(vacante -> "CREADA".equals(vacante.getEstatus().name()))
 				//Mapeamos la entidades vacantes que hay en  lista
 				.map(vacante -> {
 					
@@ -168,6 +170,60 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 				})
 				.collect(Collectors.toList());
 	}
+	
+	
+	//Metodo para ver las vacantes de una empresa
+	@Override
+	public List<VacanteResponseDto> obtenerVacantesDeEmpresaAsignadas(Usuario usuario) {
+		
+		//Obtenemos la empresa del usuario que nos llega por paramentro(obtenido de la sesion)
+		Empresa empresa = empresaRepo.findByUsuario_Email(usuario.getEmail())
+				 .orElseThrow(() -> new RuntimeException("La empresa no existe"));
+		
+		//Con la empresa sacamos una lista de sus vacantes
+		List<Vacante> listaVacantes =  vacanteRepo.findByEmpresa_IdEmpresa(empresa.getIdEmpresa());
+		
+		return listaVacantes.stream()
+				//filtramos solo por las vacantes CREADAS
+				.filter(vacante -> "CUBIERTA".equals(vacante.getEstatus().name()))
+				//Mapeamos la entidades vacantes que hay en  lista
+				.map(vacante -> {
+					
+					VacanteResponseDto dto = mapper.map(vacante, VacanteResponseDto.class);
+					//Aqui  metemos este atributo a la relacion de vacante
+					dto.setNombreCategoria(vacante.getCategoria().getNombre());
+					
+					return dto;
+				})
+				.collect(Collectors.toList());
+	}
+	
+	//Metodo para ver las vacantes de una empresa
+	@Override
+	public List<VacanteResponseDto> obtenerVacantesDeEmpresaCanceladas(Usuario usuario) {
+		
+		//Obtenemos la empresa del usuario que nos llega por paramentro(obtenido de la sesion)
+		Empresa empresa = empresaRepo.findByUsuario_Email(usuario.getEmail())
+				 .orElseThrow(() -> new RuntimeException("La empresa no existe"));
+		
+		//Con la empresa sacamos una lista de sus vacantes
+		List<Vacante> listaVacantes =  vacanteRepo.findByEmpresa_IdEmpresa(empresa.getIdEmpresa());
+		
+		return listaVacantes.stream()
+				//filtramos solo por las vacantes CREADAS
+				.filter(vacante -> "CANCELADA".equals(vacante.getEstatus().name()))
+				//Mapeamos la entidades vacantes que hay en  lista
+				.map(vacante -> {
+					
+					VacanteResponseDto dto = mapper.map(vacante, VacanteResponseDto.class);
+					//Aqui  metemos este atributo a la relacion de vacante
+					dto.setNombreCategoria(vacante.getCategoria().getNombre());
+					
+					return dto;
+				})
+				.collect(Collectors.toList());
+	}
+	
 	
 	
 	//Metodo para que las empresas publiquen vacantes
@@ -216,14 +272,20 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 		//Buscamos la vacante que se esta editando y la guardamos en un objeto de su clase
 		Vacante vacanteExistente = findById(idVacante)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "La vacante no se ha encontrado"));
-
+		
 		//Buscamos su categoria y la guardamos
 	    Categoria categoria = categoriaRepo.findById(vacanteDto.getIdCategoria())
 	            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoría no encontrada"));
 
-	    //Tranferimos los datos directamente con ModelMapper a la categoria a modificar y le añadimos la categoria
-	     mapper.map(vacanteDto,vacanteExistente);
-	     vacanteExistente.setCategoria(categoria);
+	    //Le metemos todos los datos nuevos a la vacante
+	    vacanteExistente.setNombre(vacanteDto.getNombre());
+	    vacanteExistente.setDescripcion(vacanteDto.getDescripcion());
+	    vacanteExistente.setSalario(vacanteDto.getSalario());
+	    vacanteExistente.setDestacado(vacanteDto.getDestacado());
+	    vacanteExistente.setDetalles(vacanteDto.getDetalles());
+	    vacanteExistente.setImagen(vacanteDto.getImagen());
+	    vacanteExistente.setCategoria(categoria);
+
 	  
 	   //Comprobamos que no existe la vacante y si es asi  la guardamos
 		    if(vacanteRepo.existsById(vacanteExistente.getIdVacante())) {
@@ -231,8 +293,7 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 		    }else {
 		    	throw new ResponseStatusException(HttpStatus.CONFLICT, "La vacante no existe");
 		    }	
-		    
-	    
+		        
 	    //Devolvemos un dto de respuesta
 	    return mapper.map(vacanteExistente,VacanteResponseDto.class);
 	}
@@ -259,6 +320,7 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al cancelar la vacante", e);
 		}
 	}
+	
 	
 	@Override
 	public SolicitudResponseDto inscribirseVacante (int idVacante, Usuario usuario, SolicitudRequestDto solicitudDto) {

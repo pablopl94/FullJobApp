@@ -43,7 +43,7 @@ export class BotonesSolicitudEmpresaComponent {
           },
           error: (err) => {
             console.error('❌ Error al asignar:', err);
-            Swal.fire('Error', 'No se pudo asignar la vacante', 'error');
+            Swal.fire('Error', 'La vacante ya tiene una solicitud asignada', 'error');
           }
         });
       }

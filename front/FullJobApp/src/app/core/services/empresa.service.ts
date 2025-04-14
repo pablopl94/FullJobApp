@@ -40,6 +40,8 @@ export class EmpresaService {
     return this.http.get<IEmpresa>(`${this.baseUrl}/perfil`);
   }
 
+  
+
   //  // ⚠️ Este método no funcionará sin POST en backend
   //  crearEmpresa(dto: IEmpresa): Observable<IEmpresa> {
   //   return this.http.post<IEmpresa>(this.baseUrl, dto);

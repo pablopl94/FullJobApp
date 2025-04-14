@@ -1,6 +1,6 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component,inject, Input} from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { IVacante } from '../../../core/interfaces/IVacante';
+
 import { VacantesService } from '../../../core/services/vacantes.service';
 import Swal from 'sweetalert2';
 
@@ -14,8 +14,6 @@ export class BotonesVacanteEmpresaComponent {
 
   @Input() miId !: number;
   vacanteService = inject(VacantesService)
-  
-
 
   cancelar() {
     if (!this.miId) return;
@@ -37,7 +35,7 @@ export class BotonesVacanteEmpresaComponent {
           },
           error: (err) => {
             console.error('❌ Error al asignar:', err);
-            Swal.fire('Error', 'No se pudo asignar la vacante', 'error');
+            Swal.fire('Error', 'La vacante no se puede cancelar', 'error');
           }
         });
       }

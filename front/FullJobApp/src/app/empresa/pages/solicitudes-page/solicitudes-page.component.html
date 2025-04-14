@@ -3,6 +3,7 @@
   <table class="tabla-estilo table-hover mb-5">
   <thead>
     <tr>
+      <th>ID vacante</th>
       <th>Fecha</th>
       <th>Categoría</th>
       <th>Puesto</th>
@@ -15,6 +16,7 @@
   <tbody>
     @for (solicitud of arraySolicitudes; track solicitud.idSolicitud) {
       <tr>
+        <td class="text-center">{{ solicitud.idVacante }}</td>
         <td>{{ solicitud.fecha }}</td>
         <td>{{ solicitud.nombreCategoria }}</td>
         <td>{{ solicitud.nombreVacante }}</td>

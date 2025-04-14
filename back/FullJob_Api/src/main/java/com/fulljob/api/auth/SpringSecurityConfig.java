@@ -102,7 +102,7 @@ public class SpringSecurityConfig {
             	authorize.requestMatchers(HttpMethod.GET, "/vacantes/filtrar/empresa/{nombre}").permitAll();
             	authorize.requestMatchers(HttpMethod.GET, "/vacantes/filtrar/**").permitAll();
             	authorize.requestMatchers(HttpMethod.POST, "/vacantes/inscribirse/{id}").hasRole("CLIENTE");
-            	authorize.requestMatchers(HttpMethod.GET, "/vacantes/misvacantes").hasRole("EMPRESA");
+            	authorize.requestMatchers(HttpMethod.GET, "/vacantes/misvacantes/**").hasRole("EMPRESA");
             	authorize.requestMatchers(HttpMethod.POST, "/vacantes/publicar").hasRole("EMPRESA");
             	authorize.requestMatchers(HttpMethod.PUT, "/vacantes/editar/{id}").hasRole("EMPRESA");
             	authorize.requestMatchers(HttpMethod.DELETE, "/vacantes/cancelar/{id}").hasRole("EMPRESA");

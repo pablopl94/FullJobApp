@@ -28,9 +28,7 @@ public class VacanteRequestDto {
 	//Categoria de la vacante 
 	@NotNull(message = "El ID de la categoría es obligatorio")
 	private int idCategoria;
-
 	
-	//Datos de la vacante
 	@NotBlank(message = "El nombre de la vacante es obligatorio")
 	@Size(max = 100, message = "El nombre no puede superar los 100 caracteres")
 	private String nombre;
@@ -49,7 +47,7 @@ public class VacanteRequestDto {
 	private TipoDeContrato detalles;
 	
 	//No ponemos validacion porque puede venir por defecto a false
-	private EstadoVacante status;
+	private EstadoVacante estatus;
 
 	// De momento sin validación
 	private String imagen;

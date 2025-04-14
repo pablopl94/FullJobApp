@@ -2,9 +2,9 @@ import { Component, inject, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 import { VacantesService } from '../../../core/services/vacantes.service';
-import { BotonesVacanteEmpresaComponent } from '../../components/botones-vacante-empresa/botones-vacante-empresa.component';
 import { RouterLink } from '@angular/router';
 import { IVacante } from '../../../core/interfaces/IVacante';
+import { VacanteCardComponent } from "../../components/vacante-card/vacante-card.component";
 
 
 @Component({
@@ -12,32 +12,38 @@ import { IVacante } from '../../../core/interfaces/IVacante';
   selector: 'app-vacantes-page',
   templateUrl: './vacantes-page.component.html',
   styleUrls: ['./vacantes-page.component.css'],
-  imports: [CommonModule, BotonesVacanteEmpresaComponent,RouterLink],
+  imports: [VacanteCardComponent, RouterLink] 
 })
-
 export class VacantesPageComponent {
 
-  @Input() vacanteId!: number; 
   authService = inject(AuthService);
-  VacantesService = inject(VacantesService);
+  vacantesService = inject(VacantesService);
 
-  arrayVacantes: IVacante[] = [];
-
-  constructor() {}
+  arrayVacantesCreadas: IVacante[] = [];
+  arrayVacantesAsginadas: IVacante[] = [];
+  arrayVacantesCanceladas: IVacante[] = [];
 
   ngOnInit(): void {
-    //Cargamos las vacantes la primera vez
-    this.VacantesService.cargarVacantes();
-  
-    //Nos suscribimos al observable para recibir actualizaciones automáticas
-    this.VacantesService.vacantes$.subscribe({
-      next: (vacantes) => this.arrayVacantes = vacantes,
-      error: (err) => console.error('Error al recibir las vacantes:', err)
+    
+    // Cargamos vacantes creadas
+    this.vacantesService.cargarVacantes();
+    this.vacantesService.vacantes$.subscribe({
+      next: (vacantes) => this.arrayVacantesCreadas = vacantes,
+      error: (err) => console.error('Error al recibir vacantes creadas:', err)
+    });
+
+    // Cargamos vacantes asignadas
+    this.vacantesService.cargarVacantesAsignadas();
+    this.vacantesService.vacantesAsignadas$.subscribe({
+      next: (vacantes) => this.arrayVacantesAsginadas = vacantes,
+      error: (err) => console.error('Error al recibir vacantes asignadas:', err)
+    });
+
+    // Cargamos vacantes canceladas (¡CAMBIADO para usar Subject!)
+    this.vacantesService.cargarVacantesCanceladas();
+    this.vacantesService.vacantesCanceladas$.subscribe({
+      next: (vacantes) => this.arrayVacantesCanceladas = vacantes,
+      error: (err) => console.error('Error al recibir vacantes canceladas:', err)
     });
   }
-
 }
-
-
-
-

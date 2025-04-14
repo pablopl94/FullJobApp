@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators, } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VacantesService } from '../../../core/services/vacantes.service';
 import { CategoriasService } from '../../../core/services/categorias.service';
@@ -16,6 +16,7 @@ import { ICategoria } from '../../../core/interfaces/ICategoria';
 
 export class VacanteFormComponent implements OnInit {
 
+
   router = inject(Router);
   vacanteService = inject(VacantesService);
   categoriaService = inject(CategoriasService);
@@ -27,21 +28,20 @@ export class VacanteFormComponent implements OnInit {
   arrayTiposContrato!: string[];
 
   constructor() {
-    this.tipo = "";
+    this.tipo = "Publicar";
 
-    // Inicializamos el formulario vacío
+    // Validaciones del formulario
     this.vacanteForm = new FormGroup({
       idVacante: new FormControl(''),
-      idCategoria: new FormControl(''),
-      nombre: new FormControl(''),
-      descripcion: new FormControl(''),
-      detalles: new FormControl(''),
-      fecha: new FormControl(''),
-      salario: new FormControl(''),
-      estatus: new FormControl(''),
-      destacado: new FormControl(''),
+      idCategoria: new FormControl('', Validators.required),
+      nombre: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]),
+      descripcion: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(1000)]),
+      detalles: new FormControl('', Validators.maxLength(1000)),
+      salario: new FormControl('', [Validators.required, Validators.min(1)]),
+      destacado: new FormControl('', Validators.required),
       imagen: new FormControl('')
     });
+    
   }
 
   // Cargar datos de una vacante por ID
@@ -55,13 +55,11 @@ export class VacanteFormComponent implements OnInit {
 
         this.vacanteForm.patchValue({
           idVacante: vacante.idVacante,
-          idCategoria: vacante.idCategoria , // Asegúrate que tenga un valor válido
+          idCategoria: vacante.idCategoria ,
           nombre: vacante.nombre,
           descripcion: vacante.descripcion,
           detalles: vacante.detalles,
-          fecha: vacante.fecha,
           salario: vacante.salario,
-          estatus: vacante.estatus,
           destacado: vacante.destacado,
           imagen: vacante.imagen || ''
         });
@@ -111,22 +109,28 @@ export class VacanteFormComponent implements OnInit {
 
     this.activatedRoute.params.subscribe((params: any) => {
       if (params.idVacante) {
-        console.log('[ngOnInit] Se detectó idVacante:', params.idVacante);
+        this.tipo = 'Modificar'
         this.cargarVacante(params.idVacante);
       } else {
-        console.log('[ngOnInit] No se recibió idVacante, modo creación');
-        this.tipo = 'Crear';
+        this.tipo = 'Publicar';
       }
     });
   }
 
-  // Enviar formulario
+  // Metodo para enviar el formulario
   getDataForm() {
+
+    //guardamos los valores del formulario en una constante
     const vacante: IVacante = this.vacanteForm.value;
+
+    console.log('[getDataForm] JSON que se está enviando:');
+    console.log(JSON.stringify(vacante, null, 2));
+
+    //Comprobacion para ver el id llega bien por consola
     console.log(vacante.idCategoria);
 
     if (vacante.idVacante) {
-      console.log('[getDataForm] Modo: Modificar');
+      
       this.vacanteService.actualizarVacante(vacante).subscribe({
         next: () => {
           alert('Vacante actualizada correctamente');
@@ -137,7 +141,7 @@ export class VacanteFormComponent implements OnInit {
         }
       });
     } else {
-      console.log('[getDataForm] Modo: Crear');
+      
       this.vacanteService.publicarVacante(vacante).subscribe({
         next: () => {
           alert('Vacante publicada correctamente');
@@ -149,5 +153,11 @@ export class VacanteFormComponent implements OnInit {
         }
       });
     }
+  }
+
+  checkControl(FormControlName: string, validator: string): boolean | undefined {
+    return this.vacanteForm.get(FormControlName)?.hasError(validator) &&
+           this.vacanteForm.get(FormControlName)?.touched;
+
   }
 }

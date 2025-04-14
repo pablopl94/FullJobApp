@@ -70,8 +70,12 @@ export class SolicitudesService {
 
   //Metodo para asignar a una solicitud a un CLIENTE por parte de la EMPRESA
   asignarVacante(id: number): Observable<string> {
-    return this.http.put(`${this.baseUrl}asignar/${id}`, {}, { responseType: 'text' });
+    return this.http.put(`${this.baseUrl}asignar/${id}`, {}, { responseType: 'text' }).pipe(
+      tap(() => {
+        this.cargarMisSolicitudes();        
+        this.cargarUltimasSolicitudes();     
+      })
+    );
   }
-
 
 }

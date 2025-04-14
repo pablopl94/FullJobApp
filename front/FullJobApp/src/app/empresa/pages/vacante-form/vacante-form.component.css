@@ -53,3 +53,18 @@
   background-color: #e4b100;
   color: #fff;
 }
+
+
+input.ng-valid.ng-touched{
+  border-bottom: 2px solid lightgreen;
+}
+
+input.ng-invalid.ng-touched{
+  border-bottom: 2px solid tomato;
+}
+
+.error{
+  color: tomato;
+  font-size: 80%;
+  margin: 0px 0px 10px;
+}

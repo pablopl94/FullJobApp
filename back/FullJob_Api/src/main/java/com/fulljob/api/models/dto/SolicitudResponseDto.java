@@ -26,14 +26,17 @@ public class SolicitudResponseDto {
 	private String nombreEmpresa;
 
     //Datos de la vacante
+	private int idVacante;
 	private String nombreVacante;
 	private double salario;
 
 	//Daatos del usuario solicitante
 	private String nombreUsuario;
 	private String apellidosUsuario;
+	private String email;
 	
 	//Datos de la categoria
+	private int idCategoria;
 	private String nombreCategoria;
 	
 	

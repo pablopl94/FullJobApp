@@ -1,5 +1,5 @@
 <section class="container mt-5 mb-5">
-  <h2 class="form-title text-center mb-4">{{tipo}} Vacante</h2>
+  <h2 class="welcome-title mb-4">{{tipo}} Vacante</h2>
   <form [formGroup]="vacanteForm" (ngSubmit)="getDataForm()" class="formulario-vacante p-4 shadow-lg rounded">
     <div class="row">
 
@@ -12,29 +12,50 @@
             <option [value]="categoria.idCategoria">{{ categoria.nombre }}</option>
           }
         </select>
+        @if(checkControl('idCategoria','required')){
+          <p class="error">La categoría es obligatoria.</p>
+        }
       </div>
 
-      <!-- Nombre de la vacante-->
+      <!-- Nombre -->
       <div class="col-md-6 mb-3">
-        <label class="form-label">Nombre de la Vacante</label>
+        <label class="form-label">Puesto de trabajo</label>
         <input type="text" class="form-control" formControlName="nombre" id="nombre" placeholder="Ej: Desarrollador Java" />
+        @if(checkControl('nombre','required')){
+          <p class="error">El nombre es obligatorio.</p>
+        }
+        @if(checkControl('nombre','minlength')){
+          <p class="error">Debe tener al menos 5 caracteres.</p>
+        }
+        @if(checkControl('nombre','maxlength')){
+          <p class="error">No puede superar los 100 caracteres.</p>
+        }
       </div>
 
       <!-- Salario -->
       <div class="col-md-6 mb-3">
-        <label class="form-label">Salario (€)</label>
-        <input type="number" class="form-control" formControlName="salario" id="salario" placeholder="Ej: 30000" />
+        <label class="form-label">Salario mensual bruto(€)</label>
+        <input type="number" class="form-control" formControlName="salario" id="salario" placeholder="Introduce la retribución mensual bruto" />
+        @if (checkControl('salario', 'required')) {
+          <p class="error">El salario es obligatorio.</p>
+        }
+        @if (checkControl('salario', 'min')) {
+          <p class="error">El salario tiene que ser mayor que 0.</p>
+        }
       </div>
 
       <!-- Tipo de Contrato -->
       <div class="col-md-6 mb-3">
         <label class="form-label">Tipo de Contrato</label>
         <select class="form-select" formControlName="detalles">
-          <option disabled disabled>Selecciona una opción</option>
+          <option disabled>Selecciona una opción</option>
           @for (contrato of arrayTiposContrato; track $index) {
             <option [value]="contrato">{{ contrato }}</option>
           }
         </select>
+        @if(checkControl('detalles','maxlength')){
+          <p class="error">Demasiado texto en detalles.</p>
+        }
       </div>
 
       <!-- Destacado -->
@@ -44,6 +65,9 @@
           <option [value]="0">No</option>
           <option [value]="1">Sí</option>
         </select>
+        @if(checkControl('destacado','required')){
+          <p class="error">Indica si la vacante es destacada.</p>
+        }
       </div>
 
       <!-- Imagen -->
@@ -56,11 +80,21 @@
       <div class="col-12 mb-3">
         <label class="form-label">Descripción</label>
         <textarea class="form-control" formControlName="descripcion" rows="5" placeholder="Describe la vacante..."></textarea>
+        @if(checkControl('descripcion','required')){
+          <p class="error">La descripción es obligatoria.</p>
+        }
+        @if(checkControl('descripcion','minlength')){
+          <p class="error">Debe tener al menos 10 caracteres.</p>
+        }
+        @if(checkControl('descripcion','maxlength')){
+          <p class="error">Máximo 1000 caracteres.</p>
+        }
       </div>
+
     </div>
 
     <div class="text-end">
-      <button type="submit" class="btn btn-formulario">Publicar Vacante</button>
+      <button type="submit" class="btn btn-formulario" [disabled]="!vacanteForm.valid">{{tipo}} Vacante</button>
     </div>
   </form>
 </section>

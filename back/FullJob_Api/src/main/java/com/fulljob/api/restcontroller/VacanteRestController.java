@@ -96,12 +96,33 @@ public class VacanteRestController {
 	}
 	
 	
-	//METODO CON RUTA PARA EMPRESA VER SUS VACANTES
-	@GetMapping("/misvacantes")
+	//METODO CON RUTA PARA EMPRESA VER SUS VACANTES CREADAS
+	@GetMapping("/misvacantes/creadas")
 	@PreAuthorize("hasRole('EMPRESA')")
-	public ResponseEntity<List<VacanteResponseDto>> empresaMisVacantes(@AuthenticationPrincipal Usuario usuario) {
+	public ResponseEntity<List<VacanteResponseDto>> empresaMisVacantesCreadas(@AuthenticationPrincipal Usuario usuario) {
 		
-		List<VacanteResponseDto> listaRespuestaDto = vacanteService.obtenerVacantesDeEmpresa(usuario);
+		List<VacanteResponseDto> listaRespuestaDto = vacanteService.obtenerVacantesDeEmpresaCreadas(usuario);
+			
+		return ResponseEntity.ok(listaRespuestaDto );
+	}
+	
+	//METODO CON RUTA PARA EMPRESA VER SUS VACANTES ASGINADAS
+	@GetMapping("/misvacantes/asignadas")
+	@PreAuthorize("hasRole('EMPRESA')")
+	public ResponseEntity<List<VacanteResponseDto>> empresaMisVacantesAsginadas(@AuthenticationPrincipal Usuario usuario) {
+		
+		List<VacanteResponseDto> listaRespuestaDto = vacanteService.obtenerVacantesDeEmpresaAsignadas(usuario);
+			
+		return ResponseEntity.ok(listaRespuestaDto );
+	}
+	
+	
+	//METODO CON RUTA PARA EMPRESA VER SUS VACANTES ASGINADAS
+	@GetMapping("/misvacantes/canceladas")
+	@PreAuthorize("hasRole('EMPRESA')")
+	public ResponseEntity<List<VacanteResponseDto>> empresaMisVacantesCanceladas(@AuthenticationPrincipal Usuario usuario) {
+		
+		List<VacanteResponseDto> listaRespuestaDto = vacanteService.obtenerVacantesDeEmpresaCanceladas(usuario);
 			
 		return ResponseEntity.ok(listaRespuestaDto );
 	}

@@ -20,7 +20,12 @@ public interface IVacanteService extends IGenericCrud<Vacante, Integer> {
 	 
 	 List<VacanteResponseDto> filtrarVacantesTipoContrato(TipoDeContrato detalles);
 
-	 List<VacanteResponseDto> obtenerVacantesDeEmpresa(Usuario usuario);
+	 List<VacanteResponseDto> obtenerVacantesDeEmpresaAsignadas(Usuario usuario);
+	 
+	 List<VacanteResponseDto> obtenerVacantesDeEmpresaCreadas(Usuario usuario);
+	 
+	 List<VacanteResponseDto> obtenerVacantesDeEmpresaCanceladas(Usuario usuario);
+
 	
 	 VacanteResponseDto publicarVacante(VacanteRequestDto vacanteDto, Usuario usuario);
 
@@ -29,4 +34,7 @@ public interface IVacanteService extends IGenericCrud<Vacante, Integer> {
 	 void cancelarVacante(int idVacante);
 
 	 SolicitudResponseDto inscribirseVacante(int idVacante, Usuario usuario, SolicitudRequestDto solicitudDto);
+
+	
+
 }

@@ -1,0 +1,40 @@
+<h5 class="section-title fw-bold">{{ titulo }}</h5>
+
+<table class="tabla-estilo mb-5">
+  <thead>
+    <tr>
+      <th class="text-center">Fecha</th>
+      <th class="text-center">Categoría</th>
+      <th class="text-center">Nombre</th>
+      <th class="text-center">Salario</th>
+      <th class="text-center">Estado</th>
+      <th class="text-center">Destacada</th>
+      @if (mostrarOpciones) {
+        <th class="text-center">Opciones</th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (vacante of vacantes; track $index) {
+      <tr>
+        <td class="text-center">{{ vacante.fecha }}</td>
+        <td class="text-center">{{ vacante.nombreCategoria }}</td>
+        <td class="text-center">{{ vacante.nombre }}</td>
+        <td class="text-center">{{ vacante.salario }}€</td>
+        <td class="text-center">{{ vacante.estatus }}</td>
+        <td class="text-center">{{ vacante.destacado ? 'Sí' : 'No' }}</td>
+        @if (mostrarOpciones) {
+          <td class="text-center">
+            <app-botones-vacante-empresa [miId]="vacante.idVacante"></app-botones-vacante-empresa>
+          </td>
+        }
+      </tr>
+    } @empty {
+      <tr>
+        <td class="text-center" [attr.colspan]="mostrarOpciones ? 7 : 6">
+          No hay vacantes todavía
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

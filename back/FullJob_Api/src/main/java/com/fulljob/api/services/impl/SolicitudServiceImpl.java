@@ -84,6 +84,8 @@ public class SolicitudServiceImpl extends GenericCrudServiceImpl<Solicitud, Inte
             
             dto.setNombreEmpresa(empresa.getNombreEmpresa());
             dto.setNombreCategoria(solicitud.getVacante().getCategoria().getNombre());
+            dto.setIdVacante(solicitud.getVacante().getIdVacante());
+            dto.setSalario(solicitud.getVacante().getSalario());
             return dto;
             
         }).collect(Collectors.toList());
@@ -119,6 +121,7 @@ public class SolicitudServiceImpl extends GenericCrudServiceImpl<Solicitud, Inte
 				
 					dto.setNombreEmpresa(empresa.getNombreEmpresa());
 					dto.setNombreCategoria(solicitud.getVacante().getCategoria().getNombre());
+					dto.setIdVacante(solicitud.getVacante().getIdVacante());
 					dto.setSalario(solicitud.getVacante().getSalario());
 					
 				return dto;
@@ -143,6 +146,7 @@ public class SolicitudServiceImpl extends GenericCrudServiceImpl<Solicitud, Inte
 		SolicitudResponseDto respuestaDto =  mapper.map(solicitud, SolicitudResponseDto.class);
 		respuestaDto.setNombreEmpresa(solicitud.getVacante().getEmpresa().getNombreEmpresa());
 		respuestaDto.setNombreCategoria(solicitud.getVacante().getCategoria().getNombre());
+		respuestaDto.setIdVacante(solicitud.getVacante().getIdVacante());
 		respuestaDto.setSalario(solicitud.getVacante().getSalario());
 		
 		return respuestaDto;
@@ -163,6 +167,8 @@ public class SolicitudServiceImpl extends GenericCrudServiceImpl<Solicitud, Inte
 		
 		if(vacante == null) {
 			throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "La solicitud no peude ser nula");
+		} else if("CUBIERTA".equals(vacante.getEstatus().name())){
+			throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "La solicitud ya esta asginada");
 		}
 		
 		//Le cambiamos los estados a la solicitud y a la vacante
@@ -178,6 +184,7 @@ public class SolicitudServiceImpl extends GenericCrudServiceImpl<Solicitud, Inte
 			throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "La solicitud no existe");
 		}
 
+		
 		if(vacanteRepo.existsById(vacante.getIdVacante())) {
 			vacanteRepo.save(vacante);
 		}else {
@@ -218,6 +225,7 @@ public class SolicitudServiceImpl extends GenericCrudServiceImpl<Solicitud, Inte
             
             dto.setNombreEmpresa(empresa.getNombreEmpresa());
             dto.setNombreCategoria(solicitud.getVacante().getCategoria().getNombre());
+            dto.setIdVacante(solicitud.getVacante().getIdVacante());
             dto.setSalario(solicitud.getVacante().getSalario());
             return dto;
             

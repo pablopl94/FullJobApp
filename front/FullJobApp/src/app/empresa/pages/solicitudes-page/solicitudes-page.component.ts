@@ -14,25 +14,25 @@ import { IUsuario } from '../../../core/interfaces/IUsuario';
 export class SolicitudesPageComponent {
 
   arraySolicitudes: ISolicitud[] = [];
-  usuario !: IUsuario;
-  authService = inject(AuthService);
   solicitudService = inject(SolicitudesService);
 
   constructor() {}
 
   ngOnInit() {
 
-    //Cargamos las solicitudes de la empresa
+    // Cargamos las solicitudes de la empresa
     this.solicitudService.cargarMisSolicitudes();  
-
-   //Nos suscribimos a los cambios que pueda tener con subject
+  
+    // Nos suscribimos a los cambios
     this.solicitudService.solicitudes$.subscribe({
-    next: (solicitudes) => {
-      this.arraySolicitudes = solicitudes;
-    },
-    error: (err) => {
-      console.error('Error al cargar solicitudes del usuario:', err);
-    }
-  });
+      next: (solicitudes) => {
+        // Ordenamos por idCategoria antes de guardar en el array
+        this.arraySolicitudes = solicitudes.sort((a, b) => a.idVacante - b.idVacante);
+      },
+      error: (err) => {
+        console.error('Error al cargar solicitudes del usuario:', err);
+      }
+    });
   }
+  
 }

@@ -98,6 +98,11 @@ public class SolicitudRestController {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Solicitud no encontrada"));
 
 		SolicitudResponseDto respuestaDto = modelMapper.map(solicitud, SolicitudResponseDto.class);
+		respuestaDto.setNombreEmpresa(solicitud.getVacante().getEmpresa().getNombreEmpresa());
+		respuestaDto.setSalario(solicitud.getVacante().getSalario());
+		respuestaDto.setNombreCategoria(solicitud.getVacante().getCategoria().getNombre());
+		respuestaDto.setEmail(solicitud.getUsuario().getEmail());
+		
 		
 		return ResponseEntity.ok(respuestaDto);
 	}

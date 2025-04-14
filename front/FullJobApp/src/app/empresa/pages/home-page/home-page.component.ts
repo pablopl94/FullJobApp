@@ -3,7 +3,8 @@ import { SolicitudesService } from '../../../core/services/solicitudes.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { BotonesSolicitudEmpresaComponent } from "../../components/botones-solicitud-empresa/botones-solicitud-empresa.component";
 import { ISolicitud } from '../../../core/interfaces/ISolicitud';
-import { IUsuario } from '../../../core/interfaces/IUsuario';
+import { IEmpresa } from '../../../core/interfaces/IEmpresa';
+import { EmpresaService } from '../../../core/services/empresa.service';
 
 
 @Component({
@@ -16,14 +17,23 @@ export class HomePageComponent {
 
   ultimasSolicitudes: ISolicitud[] = [];
   private solicitudesService = inject(SolicitudesService);
-  usuario!: IUsuario; 
+  miEmpresa!: string; 
   authService = inject(AuthService);
+  empresaService = inject(EmpresaService);
 
   constructor() {}
 
   ngOnInit(): void {
     //cargamos los datos de usuario para la home
-    this.usuario = this.authService.obtenerUsuario();
+     this.empresaService.getDetallesEmpresaAutenticada().subscribe({
+      next:(empresa) =>{
+        this.miEmpresa = empresa.nombreEmpresa
+      },
+      error: (error) =>{
+        console.error(`Error al cargar el nombre del empresa ` + error);
+      }
+     });
+    
 
     //Cargamos las ultimas solicitudes
     this.solicitudesService.cargarUltimasSolicitudes();
@@ -37,10 +47,11 @@ export class HomePageComponent {
         console.error(' Error al cargar las últimas solicitudes:', err);
       }
     });
-  }
-
+  
 }
+
+
   
 
-
+}
 
