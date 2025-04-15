@@ -5,16 +5,14 @@ import { CommonModule } from '@angular/common';
 @Component({
   standalone: true,
   selector: 'app-registro-info',
-  imports: [CommonModule,RouterLink], 
+  imports: [CommonModule,RouterLink],
   templateUrl: './registro-info.component.html',
   styleUrl: './registro-info.component.css'
 })
 export class RegistroInfoComponent {
 
-  // Input definiendo que puede ser empresa o candidato
   @Input() tipo: 'candidato' | 'empresa' | 'admin' = 'candidato';
 
-  //Segun el rol mostrara un texto o otro
   get acciones(): { icono: string, titulo: string, texto: string }[] {
     return this.tipo === 'empresa'
       ? [
@@ -53,12 +51,10 @@ export class RegistroInfoComponent {
         ];
   }
 
-  // Texto del botón según el rol
   get textoBoton(): string {
     return this.tipo === 'empresa' ? 'Contactar' : 'Registrarse';
   }
 
-  //Ruta que se usará en el botón según el rol
   get link(): string {
     return this.tipo === 'empresa' ? '/empresa/contacto' : '/registro';
   }

@@ -56,4 +56,14 @@ export class AuthService {
     const usuario = this.obtenerUsuario();
     return usuario?.rol || '';
   }
+
+  registrarCliente(data: {
+    nombre: string;
+    apellidos: string;
+    email: string;
+    password: string;
+  }) {
+    return this.http.post<any>('http://localhost:9007/auth/alta/cliente', data);
+  }
+
 }
