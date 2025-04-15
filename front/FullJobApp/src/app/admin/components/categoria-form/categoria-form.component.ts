@@ -1,53 +1,70 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CategoriasService } from '../../../core/services/categorias.service';
-import { ICategoria } from '../../../core/interfaces/ICategoria';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-categoria-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './categoria-form.component.html',
-  styleUrls: ['./categoria-form.component.css'], // 👈 Corregido (antes estaba mal escrito)
+  styleUrls: ['./categoria-form.component.css'],
 })
-export class CategoriaFormComponent {
+export class CategoriaFormComponent implements OnInit {
+  
   categoriaForm: FormGroup;
-  submitted = false;
+  idCategoria?: number;
+  modoEdicion = false;
 
   constructor(
     private fb: FormBuilder,
-    private categoriasService: CategoriasService,
-    public router: Router
+    private route: ActivatedRoute,
+    private router: Router,
+    private categoriaService: CategoriasService
   ) {
     this.categoriaForm = this.fb.group({
-      nombre: ['', Validators.required],
-      descripcion: ['', Validators.required],
+      nombre: ['', [Validators.required, Validators.maxLength(100)]],
+      descripcion: ['', [Validators.required, Validators.maxLength(2000)]],
     });
   }
 
-  onSubmit(): void {
-    this.submitted = true;
+  ngOnInit(): void {
+    this.idCategoria = Number(this.route.snapshot.paramMap.get('id'));
+    this.modoEdicion = !!this.idCategoria;
+  
+    if (this.modoEdicion) {
+      this.categoriaService.getById(this.idCategoria).subscribe((categoria) => {
+        this.categoriaForm.patchValue(categoria);
+      });
+    }
+  }
 
+  guardar(): void {
     if (this.categoriaForm.invalid) return;
 
-    const nuevaCategoria: ICategoria = this.categoriaForm.value;
+    const datos = this.categoriaForm.value;
 
-    this.categoriasService.createCategoria(nuevaCategoria).subscribe({
-      next: () => {
-        alert('✅ ¡Categoría creada correctamente!');
+    if (this.modoEdicion && this.idCategoria) {
+      this.categoriaService.update(this.idCategoria, datos).subscribe(() => {
         this.router.navigate(['/admin/categorias']);
-      },
-      error: (err) => {
-        console.error(err);
-        alert('❌ Error al crear la categoría');
-      },
-    });
+      });
+    } else {
+      this.categoriaService.create(datos).subscribe(() => {
+        this.router.navigate(['/admin/categorias']);
+      });
+    }
+  }
+
+  cancelar(): void {
+    this.router.navigate(['/admin/categorias']);
+  }
+
+  get nombre() {
+    return this.categoriaForm.get('nombre')!;
+  }
+  
+  get descripcion() {
+    return this.categoriaForm.get('descripcion')!;
   }
 }

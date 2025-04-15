@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ICategoria } from '../interfaces/ICategoria';
 import { Observable } from 'rxjs';
+import { ICategoria } from '../interfaces/ICategoria';
+
 
 @Injectable({
   providedIn: 'root',
@@ -11,15 +12,23 @@ export class CategoriasService {
 
   constructor(private http: HttpClient) {}
 
-  getCategorias(): Observable<ICategoria[]> {
+  getAll(): Observable<ICategoria[]> {
     return this.http.get<ICategoria[]>(this.baseUrl);
   }
 
-  eliminarCategoria(id: number): Observable<ICategoria> {
-      return this.http.delete<ICategoria>(`${this.baseUrl}/${id}`);
-    }
+  getById(id: number): Observable<ICategoria> {
+    return this.http.get<ICategoria>(`${this.baseUrl}/${id}`);
+  }
 
-  createCategoria(categoria: ICategoria) {
-     return this.http.post<ICategoria>('http://localhost:9007/categorias', categoria);
+  create(categoria: ICategoria): Observable<ICategoria> {
+    return this.http.post<ICategoria>(this.baseUrl, categoria);
+  }
+
+  update(id: number, categoria: ICategoria): Observable<ICategoria> {
+    return this.http.put<ICategoria>(`${this.baseUrl}/${id}`, categoria);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }

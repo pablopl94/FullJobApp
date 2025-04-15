@@ -1,3 +1,25 @@
+section {
+  margin-right: 2rem;
+  padding-right: 1rem;
+  margin-left: 2rem;
+  padding-left: 1rem;
+}
+
+  .btn-publicar {
+    background-color: #ffffff;
+    border: 2px solid #474747;
+    color: #474747;
+    font-weight: 600;
+    padding: 0.4rem 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-publicar:hover {
+    background-color: #474747;
+    color: #fff;
+    border-color: #474747;
+  }
+
 .modificar {
     background-color: white;
     border: 2px solid #ffdd00;

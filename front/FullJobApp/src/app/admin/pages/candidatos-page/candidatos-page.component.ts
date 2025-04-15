@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IUsuario } from '../../../core/interfaces/IUsuario';
+
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { FormsModule } from '@angular/forms';
+import { IUsuario } from '../../../core/interfaces/iusuario';
 
 @Component({
   selector: 'app-candidatos-page',
@@ -27,16 +28,18 @@ export class CandidatosPageComponent implements OnInit {
         this.usuarios = [];
       },
     });
-  }  
-
-  suspenderUsuario(email: string): void {
-    this.usuarioService.desactivarUsuario(email).subscribe(() => {
-      // Opcional: actualizar estado localmente
-      const usuario = this.usuarios.find(u => u.email === email);
-      if (usuario) {
-        usuario.enabled = 0;
-      }
-    });
   }
-  
+  suspenderUsuario(usuario: IUsuario): void {
+    if (usuario.enabled === 1) {
+      // Está activo → desactivar
+      this.usuarioService.desactivar(usuario.email).subscribe(() => {
+        usuario.enabled = 0;
+      });
+    } else {
+      // Está inactivo → activar
+      this.usuarioService.activar(usuario.email).subscribe(() => {
+        usuario.enabled = 1;
+      });
+    }
+  }
 }

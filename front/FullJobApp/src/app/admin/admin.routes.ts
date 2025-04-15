@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import { adminGuard } from '../guards/admin.guard';
-import { EmpresaFormComponent } from './components/empresa-form/empresa-form.component';
 
 export const adminRoutes: Routes = [
   {
@@ -32,6 +30,15 @@ export const adminRoutes: Routes = [
             './pages/administradores-page/administradores-page.component'
           ).then((m) => m.AdministradoresPageComponent),
       },
+
+      {
+        path: 'categorias',
+        loadComponent: () =>
+          import(
+            './pages/categorias-page/categorias-page.component'
+          ).then((m) => m.CategoriasPageComponent),
+      },
+
       {
         path: 'categorias',
         loadComponent: () =>
@@ -42,10 +49,17 @@ export const adminRoutes: Routes = [
           {
             path: 'alta',
             loadComponent: () =>
+              import(
+                './components/categoria-form/categoria-form.component'
+              ).then((m) => m.CategoriaFormComponent),
+          },
+          {
+            path: 'editar/:id',
+            loadComponent: () =>
               import('./components/categoria-form/categoria-form.component').then(
                 (m) => m.CategoriaFormComponent
               ),
-          },
+          }
         ],
       },
     ],

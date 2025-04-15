@@ -17,35 +17,30 @@ export class EmpresaService {
   getEmpresas(): Observable<IEmpresa[]> {
     return this.http.get<IEmpresa[]>(this.baseUrl);    
   }
-
-  getEmpresa(id: number): Observable<IEmpresa> {
-    return this.http.get<IEmpresa>(`${this.baseUrl}/${id}`);
+ 
+  crearEmpresa(empresa: IEmpresa): Observable<IEmpresa> {
+    return this.http.post<IEmpresa>(this.baseUrl, empresa);
   }
-
   
   buscarPorNombre(nombre: string): Observable<IEmpresa[]> {
     return this.http.get<IEmpresa[]>(`${this.baseUrl}/buscar/${nombre}`);
   }
 
-  actualizarEmpresa(id: number, dto: IEmpresa): Observable<IEmpresa> {
-    return this.http.put<IEmpresa>(`${this.baseUrl}/${id}`, dto);
+  actualizarEmpresa(empresa: IEmpresa): Observable<IEmpresa> {
+    return this.http.put<IEmpresa>(`${this.baseUrl}/${empresa.idEmpresa}`, empresa);
   }
 
-  eliminarEmpresa(id: number): Observable<IEmpresa> {
-    return this.http.delete<IEmpresa>(`${this.baseUrl}/${id}`);
+  eliminarEmpresa(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
-
-  //Metodo para cargar los datos de la empresa autenticada
+  
   getDetallesEmpresaAutenticada():Observable<IEmpresa> {
     return this.http.get<IEmpresa>(`${this.baseUrl}/perfil`);
   }
 
-  
-
-  //  // ⚠️ Este método no funcionará sin POST en backend
-  //  crearEmpresa(dto: IEmpresa): Observable<IEmpresa> {
-  //   return this.http.post<IEmpresa>(this.baseUrl, dto);
-  // }
+  getEmpresaById(id: number): Observable<IEmpresa> {
+    return this.http.get<IEmpresa>(`${this.baseUrl}/${id}`);
+  }
 
 }
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from '../../../core/services/usuario.service';
-import { IUsuario } from '../../../core/interfaces/IUsuario';
+import { IUsuario } from '../../../core/interfaces/iusuario';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 

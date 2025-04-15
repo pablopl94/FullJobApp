@@ -3,7 +3,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { SolicitudesService } from '../../../core/services/solicitudes.service';
 import { BotonesSolicitudEmpresaComponent } from "../../components/botones-solicitud-empresa/botones-solicitud-empresa.component";
 import { ISolicitud } from '../../../core/interfaces/ISolicitud';
-import { IUsuario } from '../../../core/interfaces/IUsuario';
+import { IUsuario } from '../../../core/interfaces/iusuario';
 
 @Component({
   selector: 'app-solicitudes-page',

@@ -30,12 +30,12 @@
               </span>
             </td>
             <td class="text-center">
-              <button 
-                class="btn btn-sm btn-outline-danger fw-bold"
-                [disabled]="usuario.enabled === 0"
-                (click)="suspenderUsuario(usuario.email)">
-                SUSPENDER
-              </button>
+              <button
+              class="btn btn-sm"
+              [ngClass]="usuario.enabled === 1 ? 'btn-outline-danger' : 'btn-outline-success'"
+              (click)="suspenderUsuario(usuario)">
+              {{ usuario.enabled === 1 ? 'SUSPENDER' : 'ACTIVAR' }}
+            </button>
             </td>
           </tr>
         } @empty {

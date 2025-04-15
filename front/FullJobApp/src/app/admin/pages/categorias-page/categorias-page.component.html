@@ -1,12 +1,7 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h2 class="welcome-title mb-0">Gestión de Categorías</h2>
-    <button
-      class="btn fw-bold text-black border border-3 border-dark bg-white"
-      [routerLink]="['alta']"
-    >
-      Añadir categoría
-    </button>
+    <button class="btn btn-publicar" [routerLink]="['/admin/categorias/alta']" >AÑADIR CATEGORÍA</button>
   </div>
 
   <h5 class="section-title fw-bold">Listado de categorías disponibles</h5>
@@ -26,17 +21,11 @@
             <td class="text-center">{{ categoria.nombre }}</td>
             <td class="text-center">{{ categoria.descripcion }}</td>
             <td class="text-center">
-              <button
-                class="btn btn-sm fw-bold text-warning border border-2 border-warning bg-white me-2"
-              >
-                MODIFICAR
-              </button>
-              <button
-                class="btn btn-sm btn-outline-danger fw-bold border-2"
-                (click)="eliminarCategoria(categoria.idCategoria)"
-              >
-                ELIMINAR
-              </button>
+              <app-categoria-actions
+              [categoria]="categoria"
+              (onEdit)="editarCategoria($event)"
+              (onDelete)="eliminarCategoria($event)"
+            ></app-categoria-actions>
             </td>
           </tr>
         } @empty {

@@ -1,58 +1,52 @@
 <div class="container mt-4">
-  <!-- Título principal -->
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="welcome-title mb-0">Empresas Registradas</h2>
-    <button class="btn fw-bold text-black border border-3 border-dark bg-white">
-      Alta Empresa
-    </button>
+    <h2 class="welcome-title mb-0">Gestión de Empresas</h2>
+    <button class="btn btn-publicar" (click)="nuevaEmpresa()">AÑADIR EMPRESA</button>
   </div>
 
-  <!-- Subtítulo -->
   <h5 class="section-title fw-bold">Listado de empresas registradas</h5>
 
-  <!-- Tabla de empresas -->
   <div class="table-responsive">
     <table class="tabla-estilo mb-5">
       <thead>
         <tr>
+          <th class="text-center">ID</th>
           <th class="text-center">Nombre</th>
           <th class="text-center">CIF</th>
-          <th class="text-center">Dirección</th>
           <th class="text-center">País</th>
-          <th class="text-center">Fecha Registro</th>
-          <th class="text-center">Estado</th>
           <th class="text-center">Opciones</th>
         </tr>
       </thead>
       <tbody>
         @for (empresa of empresas; track empresa.idEmpresa) {
           <tr>
+            <td class="text-center">{{ empresa.idEmpresa }}</td>
             <td class="text-center">{{ empresa.nombreEmpresa }}</td>
             <td class="text-center">{{ empresa.cif }}</td>
-            <td class="text-center">{{ empresa.direccionFiscal }}</td>
             <td class="text-center">{{ empresa.pais }}</td>
-            <td class="text-center">{{ empresa.fechaRegistro | date: 'dd/MM/yyyy' }}</td>
-            <td class="text-center">
-              <span class="badge"
-                [ngClass]="empresa.enabled === 1 ? 'bg-success' : 'bg-danger'">
-                {{ empresa.enabled === 1 ? 'ACTIVO' : 'INACTIVO' }}
-              </span>
-            </td>
             <td class="text-center">
               <div class="d-flex justify-content-center gap-2">
-                <button class="detalles">DETALLES</button>
-                <button class="modificar">MODIFICAR</button>
-                <button class="cancelar" (click)="eliminarEmpresa(empresa.idEmpresa)">ELIMINAR</button>
+                <button class="btn btn-sm btn-outline-primary fw-bold" (click)="abrirAccion(empresa, 'detalles')">Detalles</button>
+                <button class="btn btn-sm btn-outline-warning fw-bold" (click)="abrirAccion(empresa, 'editar')">Modificar</button>
+                <button class="btn btn-sm btn-outline-danger fw-bold border-2" (click)="eliminarEmpresa(empresa.idEmpresa)">Eliminar</button>
               </div>
             </td>
-                      
           </tr>
         } @empty {
           <tr>
-            <td colspan="7" class="text-center">No hay empresas todavía</td>
+            <td colspan="5" class="text-center">No hay empresas registradas.</td>
           </tr>
         }
       </tbody>
     </table>
   </div>
+
+  @if (showActions && selectedEmpresa) {
+    <app-empresa-actions
+      [empresa]="selectedEmpresa"
+      [mode]="mode"
+      (onGuardar)="guardarEmpresa($event)"
+      (onCancelar)="cerrarAcciones()"
+    />
+  }
 </div>

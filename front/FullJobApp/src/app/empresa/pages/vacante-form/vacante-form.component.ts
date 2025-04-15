@@ -74,7 +74,7 @@ export class VacanteFormComponent implements OnInit {
 
   // Cargar categorías
   cargarCategorias() {
-    this.categoriaService.getCategorias().subscribe({
+    this.categoriaService.getAll().subscribe({
       next: (categorias) => {
         this.arrayCategorias = categorias;
         console.log('[cargarCategorias] Categorías cargadas:', categorias);

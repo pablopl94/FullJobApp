@@ -1,0 +1,78 @@
+<div class="empresa-card">
+
+  @if (mode === 'detalles') {
+    <h3 class="mb-3">Detalles de la Empresa</h3>
+    <div class="mb-2"><strong>ID:</strong> {{ empresa.idEmpresa }}</div>
+    <div class="mb-2"><strong>Nombre:</strong> {{ empresa.nombreEmpresa }}</div>
+    <div class="mb-2"><strong>CIF:</strong> {{ empresa.cif }}</div>
+    <div class="mb-2"><strong>Dirección Fiscal:</strong> {{ empresa.direccionFiscal }}</div>
+    <div class="mb-2"><strong>País:</strong> {{ empresa.pais }}</div>
+    <div class="mb-2"><strong>Fecha de Registro:</strong> {{ empresa.fechaRegistro }}</div>
+    <div class="mb-3"><strong>Estado:</strong> 
+      <span class="badge" [ngClass]="empresa.enabled === 1 ? 'bg-success' : 'bg-secondary'">
+        {{ empresa.enabled === 1 ? 'ACTIVO' : 'INACTIVO' }}
+      </span>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2">
+      <button class="btn btn-secondary" (click)="cancelar()">Cerrar</button>
+    </div>
+  }
+
+  @else if (mode === 'editar' || mode === 'alta') {
+    <h3 class="mb-3">{{ mode === 'editar' ? 'Editar Empresa' : 'Registrar Nueva Empresa' }}</h3>
+    <form (ngSubmit)="guardarCambios()" #form="ngForm">
+      <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input class="form-control" name="nombreEmpresa" required [(ngModel)]="empresaData.nombreEmpresa"
+               [class.is-invalid]="form.submitted && !empresaData.nombreEmpresa">
+        <div class="invalid-feedback" *ngIf="form.submitted && !empresaData.nombreEmpresa">
+          El nombre es obligatorio.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">CIF</label>
+        <input class="form-control" name="cif" required [(ngModel)]="empresaData.cif"
+               [class.is-invalid]="form.submitted && !empresaData.cif">
+        <div class="invalid-feedback" *ngIf="form.submitted && !empresaData.cif">
+          El CIF es obligatorio.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Dirección Fiscal</label>
+        <input class="form-control" name="direccionFiscal" [(ngModel)]="empresaData.direccionFiscal">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">País</label>
+        <input class="form-control" name="pais" [(ngModel)]="empresaData.pais">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Fecha de Registro</label>
+        <input type="date" class="form-control" name="fechaRegistro" required [(ngModel)]="empresaData.fechaRegistro"
+               [class.is-invalid]="form.submitted && !empresaData.fechaRegistro">
+        <div class="invalid-feedback" *ngIf="form.submitted && !empresaData.fechaRegistro">
+          La fecha de registro es obligatoria.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Estado</label>
+        <select class="form-select" name="enabled" [(ngModel)]="empresaData.enabled">
+          <option [value]="1">ACTIVO</option>
+          <option [value]="0">INACTIVO</option>
+        </select>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button type="submit" class="btn btn-primary fw-bold">
+          {{ mode === 'editar' ? 'Actualizar' : 'Guardar' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+      </div>
+    </form>
+  }
+</div>

@@ -1,0 +1,16 @@
+<div class="card mb-3 shadow-sm border-0 rounded-3">
+    <div class="card-body">
+      <h5 class="card-title fw-bold text-primary">{{ empresa.nombreEmpresa }}</h5>
+      <p class="mb-1"><strong>CIF:</strong> {{ empresa.cif }}</p>
+      <p class="mb-1"><strong>Dirección Fiscal:</strong> {{ empresa.direccionFiscal }}</p>
+      <p class="mb-1"><strong>País:</strong> {{ empresa.pais }}</p>
+      <p class="mb-1"><strong>Fecha de Registro:</strong> {{ empresa.fechaRegistro | date }}</p>
+      <p class="mb-1"><strong>Estado:</strong>
+        <span class="badge" [ngClass]="empresa.enabled ? 'bg-success' : 'bg-danger'">
+          {{ empresa.enabled ? 'Activa' : 'Inactiva' }}
+        </span>
+      </p>
+      <p class="text-muted small mb-0">ID Empresa: {{ empresa.idEmpresa }}</p>
+    </div>
+  </div>
+  

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IUsuario } from '../interfaces/IUsuario';
+import { IUsuario } from '../interfaces/iusuario';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +16,11 @@ export class UsuarioService {
     return this.http.get<IUsuario[]>(this.apiUrl);
   }
 
-  activarUsuario(email: string): Observable<any> {
+  activar(email: string): Observable<any> {
     return this.http.put(`${this.apiUrl}/activar/${email}`, {});
   }
-
-  desactivarUsuario(email: string): Observable<any> {
+  
+  desactivar(email: string): Observable<any> {
     return this.http.put(`${this.apiUrl}/desactivar/${email}`, {});
   }
  
