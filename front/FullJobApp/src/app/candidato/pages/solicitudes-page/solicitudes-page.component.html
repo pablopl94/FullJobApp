@@ -1,1 +1,13 @@
-<p>solicitudes-page works!</p>
+<section class="mis-solicitudes-page p-5">
+    <h2 class="titulo-seccion p-3">Estas son tus solicitudes, {{ usuario.nombre }}</h2>
+  
+    <div class="lista-solicitudes">
+      @for (solicitud of arraySolicitudes; track solicitud.idSolicitud) {
+        <app-solicitud-card
+        [solicitud]="solicitud"
+        (cancelar)="cancelarSolicitud($event)"
+        (saberMas)="saberMas($event)">
+        </app-solicitud-card>
+      }
+    </div>
+  </section>

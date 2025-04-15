@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { SolicitudesService } from '../../../core/services/solicitudes.service';
+import { AuthService } from '../../../core/services/auth.service';
+import { ISolicitud } from '../../../core/interfaces/ISolicitud';
 
 @Component({
   selector: 'app-vacante-card',
@@ -7,5 +10,6 @@ import { Component } from '@angular/core';
   styleUrl: './vacante-card.component.css'
 })
 export class VacanteCardComponent {
+
 
 }

@@ -1,1 +1,21 @@
-<p>solicitud-card works!</p>
+<div class="card-solicitud">
+    <div class="card-imagen">
+      <img src="assets/img/image-card.jpeg" alt="Empresa">
+ 
+        <span class="etiqueta-destacado">Destacado</span>
+
+    </div>
+  
+    <div class="card-info">
+      <h5 class="empresa">{{ solicitud.nombreEmpresa }}</h5>
+      <p class="vacante">{{ solicitud.nombreVacante }}</p>
+    </div>
+  
+    <app-botones-solicitud-candidato
+     [id]="solicitud.idSolicitud"
+     [estado]="solicitud.estado"
+     (saberMas)="onSaberMas()"
+     (cancelar)="onCancelar()">
+    </app-botones-solicitud-candidato>
+
+  </div>

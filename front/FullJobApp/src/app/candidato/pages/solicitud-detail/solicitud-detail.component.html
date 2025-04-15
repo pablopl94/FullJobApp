@@ -1,1 +1,33 @@
-<p>solicitud-detail works!</p>
+<section>
+    @if (miSolicitud) {
+      <div class="detalle-container">
+  
+        <h2>📄 Detalles de tu solicitud</h2>
+  
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>📅 Fecha:</strong> {{ miSolicitud.fecha }}</p>
+            <p><strong>🟢 Estado:</strong> {{ miSolicitud.estado }}</p>
+            <p><strong>📝 Comentarios:</strong> {{ miSolicitud.comentarios }}</p>
+          </div>
+          <div class="col-md-6">
+            <p><strong>📎 Archivo:</strong> {{ miSolicitud.archivo }}</p>
+            <p><strong>📄 CV:</strong> {{ miSolicitud.curriculum }}</p>
+          </div>
+        </div>
+  
+        <hr>
+  
+        <h5 class="seccion-titulo">🏢 Vacante</h5>
+        <p><strong>Puesto:</strong> {{ miSolicitud.nombreVacante }}</p>
+        <p><strong>Salario:</strong> {{ miSolicitud.salario }} €</p>
+        <p><strong>Categoría:</strong> {{ miSolicitud.nombreCategoria }}</p>
+        <p><strong>Empresa:</strong> {{ miSolicitud.nombreEmpresa }}</p>
+  
+      </div>
+    } @else {
+      <div class="detalle-container">
+        <p>Cargando detalles de la solicitud...</p>
+      </div>
+    }
+  </section>
