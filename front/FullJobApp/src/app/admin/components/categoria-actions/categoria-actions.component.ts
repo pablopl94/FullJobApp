@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ICategoria } from '../../../core/interfaces/ICategoria';
+import { ICategoria } from '../../../core/interfaces/Icategoria';
 
 @Component({
   selector: 'app-categoria-actions',

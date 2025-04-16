@@ -9,5 +9,7 @@ public interface IUsuarioService extends IGenericCrud<Usuario, String>{
 	AltaClienteAdminResponseDto actualizarDatosCliente(String email, AltaClienteAdminRequestDto clienteDto);
 
 	void cambiarEstadoUsuario(String email, Integer estadoBaja);
+	
+	void eliminarPorEmail(String email);
 }
 

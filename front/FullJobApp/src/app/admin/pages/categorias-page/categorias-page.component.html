@@ -1,41 +1,44 @@
 <div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="welcome-title mb-0">Gestión de Categorías</h2>
-    <button class="btn btn-publicar" [routerLink]="['/admin/categorias/alta']" >AÑADIR CATEGORÍA</button>
-  </div>
+  @if (!mostrarFormulario) {
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="welcome-title mb-0">Gestión de Categorías</h2>
+      <button class="btn btn-publicar" (click)="nuevaCategoria()">AÑADIR CATEGORÍA</button>
+    </div>
 
-  <h5 class="section-title fw-bold">Listado de categorías disponibles</h5>
+    <h5 class="section-title fw-bold">Listado de categorías disponibles</h5>
 
-  <div class="table-responsive">
-    <table class="tabla-estilo mb-5">
-      <thead>
-        <tr>
-          <th class="text-center">Nombre categoría</th>
-          <th class="text-center">Descripción</th>
-          <th class="text-center">Opciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (categoria of categorias; track categoria.idCategoria) {
+    <div class="table-responsive">
+      <table class="tabla-estilo mb-5">
+        <thead>
           <tr>
-            <td class="text-center">{{ categoria.nombre }}</td>
-            <td class="text-center">{{ categoria.descripcion }}</td>
-            <td class="text-center">
-              <app-categoria-actions
-              [categoria]="categoria"
-              (onEdit)="editarCategoria($event)"
-              (onDelete)="eliminarCategoria($event)"
-            ></app-categoria-actions>
-            </td>
+            <th class="text-center">Nombre categoría</th>
+            <th class="text-center">Descripción</th>
+            <th class="text-center">Opciones</th>
           </tr>
-        } @empty {
-          <tr>
-            <td colspan="3" class="text-center">No hay categorías todavía</td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+          @for (categoria of categorias; track categoria.idCategoria) {
+            <tr>
+              <td class="text-center">{{ categoria.nombre }}</td>
+              <td class="text-center">{{ categoria.descripcion }}</td>
+              <td class="text-center">
+                <app-categoria-actions
+                  [categoria]="categoria"
+                  (onEdit)="editarCategoria(categoria)"
+                  (onDelete)="eliminarCategoria($event)"
+                ></app-categoria-actions>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
 
-  <router-outlet></router-outlet>
+  @if (mostrarFormulario) {
+    <app-categoria-form
+      [categoria]="categoriaSeleccionada"
+      (formularioGuardado)="onFormularioGuardado()"
+    />
+  }
 </div>

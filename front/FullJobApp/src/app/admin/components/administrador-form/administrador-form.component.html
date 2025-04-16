@@ -1,0 +1,18 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label>Email</label>
+    <input type="email" formControlName="email" class="form-control" />
+  </div>
+  <div class="mb-3">
+    <label>Nombre</label>
+    <input type="text" formControlName="nombre" class="form-control" />
+  </div>
+  <div class="mb-3">
+    <label>Apellidos</label>
+    <input type="text" formControlName="apellidos" class="form-control" />
+  </div>
+
+  <button class="btn btn-success" type="submit">
+    {{ isEditMode ? 'Actualizar' : 'Crear' }} Administrador
+  </button>
+</form>

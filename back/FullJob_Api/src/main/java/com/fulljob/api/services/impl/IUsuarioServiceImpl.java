@@ -59,6 +59,11 @@ public class IUsuarioServiceImpl extends GenericCrudServiceImpl<Usuario, String>
 		usuario.setEnabled(estadoBaja);
         usuarioRepository.save(usuario);
 	}
+	
+	@Override
+	public void eliminarPorEmail(String email) {
+	    usuarioRepository.deleteById(email); // o el método correcto según tu modelo
+	}
 
 
 }

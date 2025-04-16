@@ -1,46 +1,40 @@
-<form [formGroup]="categoriaForm" (ngSubmit)="guardar()">
-  <div class="mb-3">
-    <label class="form-label">Nombre</label>
-    <input
-      formControlName="nombre"
-      class="form-control"
-      [class.is-invalid]="nombre.invalid && (nombre.dirty || nombre.touched)"
-    />
-    @if (nombre.invalid && (nombre.dirty || nombre.touched)) {
-      <div class="invalid-feedback">
-        @if (nombre.errors?.['required']) {
-          El nombre es obligatorio.
-        }
-        @if (nombre.errors?.['maxlength']) {
-          Máximo 50 caracteres.
-        }
-      </div>
-    }
-  </div>
+<div class="form-container">
+  <h4 class="mb-3 fw-bold">
+    {{ modoEdicion ? 'Editar Categoría' : 'Añadir Nueva Categoría' }}
+  </h4>
 
-  <div class="mb-3">
-    <label class="form-label">Descripción</label>
-    <textarea
-      formControlName="descripcion"
-      class="form-control"
-      [class.is-invalid]="descripcion.invalid && (descripcion.dirty || descripcion.touched)"
-    ></textarea>
-    @if (descripcion.invalid && (descripcion.dirty || descripcion.touched)) {
-      <div class="invalid-feedback">
-        @if (descripcion.errors?.['required']) {
-          La descripción es obligatoria.
-        }
-        @if (descripcion.errors?.['maxlength']) {
-          Máximo 200 caracteres.
-        }
+  <form [formGroup]="categoriaForm" (ngSubmit)="guardar()">
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre de la categoría</label>
+      <input
+        id="nombre"
+        class="form-control"
+        formControlName="nombre"
+        [class.is-invalid]="categoriaForm.get('nombre')?.invalid && categoriaForm.get('nombre')?.touched"
+      />
+      <div class="invalid-feedback" *ngIf="categoriaForm.get('nombre')?.hasError('required')">
+        El nombre es obligatorio.
       </div>
-    }
-  </div>
+    </div>
 
-  <button type="submit" class="btn btn-primary" [disabled]="categoriaForm.invalid">
-    {{ modoEdicion ? 'Actualizar' : 'Guardar' }}
-  </button>
-  <button type="button" (click)="cancelar()" class="btn btn-secondary ms-2">
-    Cancelar
-  </button>
-</form>
+    <div class="mb-3">
+      <label for="descripcion" class="form-label">Descripción</label>
+      <textarea
+        id="descripcion"
+        class="form-control"
+        formControlName="descripcion"
+        rows="3"
+        [class.is-invalid]="categoriaForm.get('descripcion')?.invalid && categoriaForm.get('descripcion')?.touched"
+      ></textarea>
+      <div class="invalid-feedback" *ngIf="categoriaForm.get('descripcion')?.hasError('required')">
+        La descripción es obligatoria.
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2">
+      <button type="submit" class="btn btn-primary" [disabled]="categoriaForm.invalid">
+        {{ modoEdicion ? 'Actualizar' : 'Guardar' }}
+      </button>
+    </div>
+  </form>
+</div>

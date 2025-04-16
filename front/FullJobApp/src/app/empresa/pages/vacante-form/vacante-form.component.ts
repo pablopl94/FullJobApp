@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VacantesService } from '../../../core/services/vacantes.service';
 import { CategoriasService } from '../../../core/services/categorias.service';
 import { IVacante } from '../../../core/interfaces/IVacante';
-import { ICategoria } from '../../../core/interfaces/ICategoria';
+import { ICategoria } from '../../../core/interfaces/Icategoria';
 import Swal from 'sweetalert2';
 
 

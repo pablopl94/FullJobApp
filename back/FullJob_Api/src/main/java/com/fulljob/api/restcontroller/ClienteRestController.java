@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -66,12 +67,15 @@ public class ClienteRestController {
 	// PUT /categorias/{id} ...................... [ROLE_ADMON]
 	@PutMapping("modificar/{id}")
 	@PreAuthorize("hasRole('ADMON')")
-	public ResponseEntity<AltaClienteAdminResponseDto> updateUsuario(@PathVariable String id ,@RequestBody @Valid AltaClienteAdminRequestDto clienteDto) {
+	public ResponseEntity<AltaClienteAdminResponseDto> updateUsuario(
+	        @PathVariable String id,
+	        @RequestBody @Valid AltaClienteAdminRequestDto clienteDto) {
 
-		AltaClienteAdminResponseDto respuestaDto =  iUsuarioService.actualizarDatosCliente(id, clienteDto);
+	    System.out.println("🔧 ID recibido (email): " + id);
+	    System.out.println("📦 Datos recibidos: " + clienteDto.toString());
 
-		return ResponseEntity.ok(respuestaDto);
-
+	    AltaClienteAdminResponseDto respuestaDto = iUsuarioService.actualizarDatosCliente(id, clienteDto);
+	    return ResponseEntity.ok(respuestaDto);
 	}
 
 	// ENDPOINT PARA DESACTIVAR USUARIOS (NO BORRA AL USUARIO)
@@ -92,6 +96,13 @@ public class ClienteRestController {
 		iUsuarioService.cambiarEstadoUsuario(email, 1);
 		
 		return ResponseEntity.ok(Map.of("message", "Usuario activado correctamente", "email", email));
+	}
+	
+	@DeleteMapping("/cliente/{email}")
+	@PreAuthorize("hasRole('ADMON')")
+	public ResponseEntity<?> eliminarUsuario(@PathVariable String email) {
+	    iUsuarioService.eliminarPorEmail(email); // asegúrate de tener este método en tu servicio
+	    return ResponseEntity.noContent().build();
 	}
 
 }

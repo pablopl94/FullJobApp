@@ -23,10 +23,8 @@
             <td class="text-center">{{ usuario.email }}</td>
             <td class="text-center">{{ usuario.fechaRegistro}}</td>
             <td class="text-center">
-              <span 
-                class="badge px-3 py-2"
-                [ngClass]="usuario.enabled === 1 ? 'bg-success' : 'bg-danger'">
-                {{ usuario.enabled === 1 ? "ACTIVO" : "INACTIVO" }}
+              <span class="badge" [ngClass]="usuario.enabled ? 'bg-success' : 'bg-danger'">
+                {{ usuario.enabled ? 'Activo' : 'Inactivo' }}
               </span>
             </td>
             <td class="text-center">
