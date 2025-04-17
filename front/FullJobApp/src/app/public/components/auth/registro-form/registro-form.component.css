@@ -80,3 +80,11 @@ button[disabled] {
   opacity: 0.8;
 }
 
+.btn-volver-container {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 10;
+}
+
+
