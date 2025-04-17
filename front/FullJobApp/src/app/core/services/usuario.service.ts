@@ -30,26 +30,13 @@ export class UsuarioService {
   suspenderUsuario(email: string): Observable<any> {
     return this.http.put(`${this.apiUrl}/desactivar/${email}`, {});
   }
-  
-
-  // crearUsuario(usuario: IUsuario): Observable<IUsuario> {
-  //   return this.http.post<IUsuario>(`${this.apiUrl}`, usuario);
-  // }
 
   crearUsuario(usuario: IUsuario) {
     return this.http.post<IUsuario>(`${this.apiUrl}/cliente`, usuario); // ClienteController
   }
 
-  // actualizarUsuario(email: string, usuario: any): Observable<IUsuario> {
-  //   const encodedEmail = encodeURIComponent(email);
-  //   return this.http.put<IUsuario>(
-  //     `${this.apiUrl}/clientes/modificar/${encodedEmail}`,
-  //     usuario
-  //   );
-  // }
-
-  actualizarUsuario(id: string, usuario: IUsuario) {
-    return this.http.put<IUsuario>(`${this.apiUrl}/cliente/${id}`, usuario);
+  actualizarAdmin(id: string, admin: IUsuario) {
+    return this.http.put<IUsuario>(`${this.apiUrl}/modificar/${id}`, admin);
   }
 
   obtenerUsuario(email: string): Observable<IUsuario> {

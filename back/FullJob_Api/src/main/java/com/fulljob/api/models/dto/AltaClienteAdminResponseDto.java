@@ -21,6 +21,8 @@ public class AltaClienteAdminResponseDto {
     private String apellidos;
     
     private String rol;
+    
+    private String token;
 
     private LocalDate fechaRegistro;
 

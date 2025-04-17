@@ -1,18 +1,67 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+  <!-- Email -->
   <div class="mb-3">
-    <label>Email</label>
-    <input type="email" formControlName="email" class="form-control" />
-  </div>
-  <div class="mb-3">
-    <label>Nombre</label>
-    <input type="text" formControlName="nombre" class="form-control" />
-  </div>
-  <div class="mb-3">
-    <label>Apellidos</label>
-    <input type="text" formControlName="apellidos" class="form-control" />
+    <label class="form-label">Email</label>
+    <input
+      type="email"
+      formControlName="email"
+      class="form-control"
+      [ngClass]="{
+        'is-invalid': form.get('email')?.invalid && form.get('email')?.touched,
+        'is-valid': form.get('email')?.valid && form.get('email')?.touched
+      }"
+    />
+    @if (form.get('email')?.touched && form.get('email')?.invalid) {
+      <div class="invalid-feedback">
+        @if (form.get('email')?.errors?.['required']) {
+          El email es obligatorio.
+        }
+        @if (form.get('email')?.errors?.['email']) {
+          Debe ingresar un email válido.
+        }
+      </div>
+    }
   </div>
 
-  <button class="btn btn-success" type="submit">
+  <!-- Nombre -->
+  <div class="mb-3">
+    <label class="form-label">Nombre</label>
+    <input
+      type="text"
+      formControlName="nombre"
+      class="form-control"
+      [ngClass]="{
+        'is-invalid': form.get('nombre')?.invalid && form.get('nombre')?.touched,
+        'is-valid': form.get('nombre')?.valid && form.get('nombre')?.touched
+      }"
+    />
+    @if (form.get('nombre')?.touched && form.get('nombre')?.invalid) {
+      <div class="invalid-feedback">
+        El nombre es obligatorio.
+      </div>
+    }
+  </div>
+
+  <!-- Apellidos -->
+  <div class="mb-3">
+    <label class="form-label">Apellidos</label>
+    <input
+      type="text"
+      formControlName="apellidos"
+      class="form-control"
+      [ngClass]="{
+        'is-invalid': form.get('apellidos')?.invalid && form.get('apellidos')?.touched,
+        'is-valid': form.get('apellidos')?.valid && form.get('apellidos')?.touched
+      }"
+    />
+    @if (form.get('apellidos')?.touched && form.get('apellidos')?.invalid) {
+      <div class="invalid-feedback">
+        Los apellidos son obligatorios.
+      </div>
+    }
+  </div>
+
+  <button class="btn btn-success w-100" type="submit">
     {{ isEditMode ? 'Actualizar' : 'Crear' }} Administrador
   </button>
 </form>

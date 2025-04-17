@@ -51,6 +51,7 @@ public class EmpresaRestController {
                 EmpresaResponseDto dto = mapper.map(empresa, EmpresaResponseDto.class);
                 
                 dto.setFechaRegistro(empresa.getUsuario().getFechaRegistro());
+                dto.setEmail(empresa.getUsuario().getEmail());
                 return dto;
             })
             .collect(Collectors.toList());

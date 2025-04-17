@@ -104,5 +104,7 @@ public class ClienteRestController {
 	    iUsuarioService.eliminarPorEmail(email); // asegúrate de tener este método en tu servicio
 	    return ResponseEntity.noContent().build();
 	}
-
+	
+	
+	
 }

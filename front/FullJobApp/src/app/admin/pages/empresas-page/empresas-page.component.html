@@ -14,6 +14,7 @@
           <th class="text-center">Nombre</th>
           <th class="text-center">CIF</th>
           <th class="text-center">País</th>
+          <th class="text-center">Estado</th>
           <th class="text-center">Opciones</th>
         </tr>
       </thead>
@@ -24,10 +25,11 @@
             <td class="text-center">{{ empresa.nombreEmpresa }}</td>
             <td class="text-center">{{ empresa.cif }}</td>
             <td class="text-center">{{ empresa.pais }}</td>
+            <td class="text-center">{{ empresa.enabled }}</td>
             <td class="text-center">
               <div class="d-flex justify-content-center gap-2">
-                <button class="btn btn-sm btn-outline-primary fw-bold" (click)="abrirAccion(empresa, 'detalles')">Detalles</button>
-                <button class="btn btn-sm btn-outline-warning fw-bold" (click)="abrirAccion(empresa, 'editar')">Modificar</button>
+                <button class="btn btn-sm btn-outline-primary fw-bold" (click)="mostrarDetalles(empresa)">Detalles</button>
+                <button class="btn btn-sm btn-outline-warning fw-bold" (click)="editarEmpresa(empresa)">Modificar</button>
                 <button class="btn btn-sm btn-outline-danger fw-bold border-2" (click)="eliminarEmpresa(empresa.idEmpresa)">Eliminar</button>
               </div>
             </td>
@@ -40,13 +42,4 @@
       </tbody>
     </table>
   </div>
-
-  @if (showActions && selectedEmpresa) {
-    <app-empresa-actions
-      [empresa]="selectedEmpresa"
-      [mode]="mode"
-      (onGuardar)="guardarEmpresa($event)"
-      (onCancelar)="cerrarAcciones()"
-    />
-  }
 </div>

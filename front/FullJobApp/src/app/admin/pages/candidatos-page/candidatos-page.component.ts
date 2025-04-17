@@ -22,6 +22,7 @@ export class CandidatosPageComponent implements OnInit {
   obtenerCandidatos(): void {
     this.usuarioService.getCandidatos().subscribe({
       next: (data) => {
+        console.log(data);
         this.usuarios = data.filter((u) => u.rol === 'CLIENTE');
       },
       error: () => {

@@ -89,7 +89,7 @@ public class SpringSecurityConfig {
             	authorize.requestMatchers(HttpMethod.POST, "/auth/login", "/auth/alta/cliente").permitAll();
             	authorize.requestMatchers(HttpMethod.POST, "/auth/logut").authenticated();
             	authorize.requestMatchers(HttpMethod.POST, "/auth/alta/empresa").hasRole("ADMON");
-            	
+            	authorize.requestMatchers(HttpMethod.POST, "/auth/alta/administrador").hasRole("ADMON");
 
             	// =================== CATEGORIAS ======================
             	authorize.requestMatchers(HttpMethod.GET, "/categorias").permitAll();

@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { IEmpresa } from '../interfaces/IEmpresa';
+import { Observable } from 'rxjs';
+import { IUsuario } from '../interfaces/iusuario';
+import { UsuarioService } from './usuario.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private baseUrl = 'http://localhost:9007/auth';
@@ -33,10 +37,8 @@ export class AuthService {
   }
 
   logout() {
-
     this.http.post(`${this.baseUrl}/logout`, {}).subscribe({
       next: () => {
-
         localStorage.removeItem('token');
         localStorage.removeItem('usuario');
 
@@ -48,7 +50,7 @@ export class AuthService {
         localStorage.removeItem('token');
         localStorage.removeItem('usuario');
         this.router.navigate(['']);
-      }
+      },
     });
   }
 
@@ -66,4 +68,10 @@ export class AuthService {
     return this.http.post<any>('http://localhost:9007/auth/alta/cliente', data);
   }
 
+  registrarAdmin(admin: IUsuario) {
+    return this.http.post<IUsuario>(
+      `${this.baseUrl}/alta/administrador`,
+      admin
+    );
+  }
 }

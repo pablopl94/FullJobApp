@@ -24,6 +24,8 @@ public class AltaClienteResponseDto {
 
     private LocalDate fechaRegistro;
     
+    private int enabled;
+    
    //Token generado
     private String token;
 }

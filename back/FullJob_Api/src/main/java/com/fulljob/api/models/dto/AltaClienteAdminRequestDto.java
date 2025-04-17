@@ -22,9 +22,7 @@ public class AltaClienteAdminRequestDto {
 
     @NotBlank(message = "Los apellidos no pueden estar vacíos")
     private String apellidos;
-    
-    @NotBlank(message = "El rol no puede estar vacio")
-    private String rol;
+   
 	
     @NotBlank(message = "La contraseña no puede estar vacia")
 	private String password;

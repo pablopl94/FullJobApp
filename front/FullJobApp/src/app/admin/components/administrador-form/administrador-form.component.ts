@@ -8,6 +8,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { IUsuario } from '../../../core/interfaces/iusuario';
 import { UsuarioService } from '../../../core/services/usuario.service';
+import { AuthService } from '../../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-administrador-form',
@@ -19,6 +21,8 @@ import { UsuarioService } from '../../../core/services/usuario.service';
 export class AdministradorFormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private usuarioService = inject(UsuarioService);
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   @Input() administrador: IUsuario | null = null;
   @Output() formularioGuardado = new EventEmitter<void>();
@@ -32,29 +36,35 @@ export class AdministradorFormComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       nombre: ['', Validators.required],
       apellidos: ['', Validators.required],
-      enabled: [1],
-      rol: ['ADMON'],
     });
 
     if (this.administrador) {
       this.isEditMode = true;
+      this.emailParam = this.administrador.email;
       this.form.patchValue(this.administrador);
     }
   }
 
   onSubmit() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
     const usuario: IUsuario = this.form.value;
-  
+
+    const finalizar = () => {
+      this.form.reset();
+      this.router.navigate(['/admin/administradores']);
+      this.formularioGuardado.emit();
+    };
+
     if (this.isEditMode) {
       this.usuarioService
-        .actualizarUsuarioPorEmail(this.emailParam!, usuario)
-        .subscribe(() => {
-          this.formularioGuardado.emit(); 
-        });
+        .actualizarAdmin(this.emailParam!, usuario)
+        .subscribe(finalizar);
     } else {
-      this.usuarioService.crearUsuario(usuario).subscribe(() => {
-        this.formularioGuardado.emit(); 
-      });
+      this.authService.registrarAdmin(usuario).subscribe(finalizar);
     }
   }
 }

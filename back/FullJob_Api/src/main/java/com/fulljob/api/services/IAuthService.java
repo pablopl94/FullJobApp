@@ -1,5 +1,7 @@
 package com.fulljob.api.services;
 
+import com.fulljob.api.models.dto.AltaClienteAdminRequestDto;
+import com.fulljob.api.models.dto.AltaClienteAdminResponseDto;
 import com.fulljob.api.models.dto.AltaClienteRequestDto;
 import com.fulljob.api.models.dto.AltaClienteResponseDto;
 import com.fulljob.api.models.dto.AltaEmpresaRequestDto;
@@ -16,5 +18,7 @@ public interface IAuthService  extends IGenericCrud<Usuario, String> {
     AltaClienteResponseDto altaCandidato(AltaClienteRequestDto dto);
     
     AltaEmpresaResponseDto altaEmpresa(AltaEmpresaRequestDto dto);
+
+	AltaClienteAdminResponseDto altaAdministrador(AltaClienteAdminRequestDto dto);
 
 }

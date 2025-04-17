@@ -19,6 +19,8 @@ public class EmpresaResponseDto {
 
     private LocalDate fechaRegistro;
     
-    private Integer enabled;
+    private int enabled;
+    
+    private String email;
    
 }

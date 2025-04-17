@@ -6,5 +6,8 @@ export interface IEmpresa {
   direccionFiscal: string;
   pais: string;
   fechaRegistro: string;
+  email: string;
+  nombre: string;
+  apellidos: string;
   enabled: number;
 }
