@@ -13,9 +13,10 @@ import { AuthService } from '../../../../core/services/auth.service';
 })
 export class LoginFormComponent {
 
- @Input() tipo: 'candidato' | 'empresa' | 'admin' = 'candidato';
-  loginForm: FormGroup;
+  @Input() tipo: 'candidato' | 'empresa' | 'admin' = 'candidato';
   @Input() parent: string = '';
+  loginForm: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
@@ -29,13 +30,15 @@ export class LoginFormComponent {
   }
 
   onLogin() {
+    this.errorMessage = null; // limpiar errores anteriores
+
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
-  
+
       this.auth.login(email, password).subscribe({
         next: (res: any) => {
           const token = res.token;
-  
+
           const usuario = {
             email: res.email,
             nombre: res.nombre,
@@ -44,31 +47,29 @@ export class LoginFormComponent {
             enabled: res.enabled,
             fechaRegistro: res.fechaRegistro,
           };
-  
-          // Validar que el rol coincide con el tipo del formulario
+
           const rolFormulario = this.tipo === 'admin' ? 'ADMON'
-                            : this.tipo === 'empresa' ? 'EMPRESA'
-                            : 'CLIENTE';
-  
+                              : this.tipo === 'empresa' ? 'EMPRESA'
+                              : 'CLIENTE';
+
           if (usuario.rol !== rolFormulario) {
-            alert('No tienes permiso para acceder desde esta página');
+            this.errorMessage = 'No tienes permiso para acceder desde esta página.';
             return;
           }
-  
-          // Guardamos token y usuario
+
           this.auth.guardarUsuarioYToken(token, usuario);
-  
-          // Redirigir según rol
+
           if (usuario.rol === 'ADMON') this.router.navigate(['/admin']);
           else if (usuario.rol === 'EMPRESA') this.router.navigate(['/empresa']);
           else if (usuario.rol === 'CLIENTE') this.router.navigate(['/candidato']);
           else this.router.navigate(['/']);
         },
-        error: (err: any) => {
-          alert('Login incorrecto. Verifica tus credenciales.');
-          console.error(err);
+        error: () => {
+          this.errorMessage = 'Login incorrecto. Verifica tus credenciales.';
         }
       });
+    } else {
+      this.errorMessage = 'Por favor completa todos los campos correctamente.';
     }
   }
 }

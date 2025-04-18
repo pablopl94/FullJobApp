@@ -89,7 +89,7 @@ export class AdministradorFormComponent implements OnInit {
       if (passwordValor) {
         admin.password = passwordValor;
       } else {
-        admin.password = '********'; // placeholder seguro si el backend lo permite
+        admin.password = '********'; // ocultamos la contraseña
       }
     }
 

@@ -1,14 +1,12 @@
 <div class="bg-white rounded shadow p-4 p-md-5 d-flex flex-column min-vh-50" style="min-height: 400px;">
-  @if(parent == 'admin'){
+  @if (parent == 'admin') {
     <h2 class="h4 fw-bold mb-4 text-center text-dark">
       <img
         src="../../../../assets/img/FullJob_logo.png"
         alt=""
-        style="max-width: 150px; height: auto"
-      />
+        style="max-width: 150px; height: auto" />
     </h2>
-
-  }@else {
+  } @else {
     <h2 class="h4 fw-bold mb-4 text-center text-dark">
       {{ titulo }}
     </h2>
@@ -37,12 +35,16 @@
           required
           class="form-control" />
       </div>
+
+      @if (errorMessage) {
+        <div class="alert alert-danger mt-3 p-2 fs-10">
+          {{ errorMessage }}
+        </div>
+      }
     </div>
 
     <div class="pt-3">
-      <button
-        type="submit"
-        class="btn btn-warning w-100 text-white">
+      <button type="submit" class="btn btn-warning w-100 text-white">
         INICIAR SESIÓN
       </button>
     </div>

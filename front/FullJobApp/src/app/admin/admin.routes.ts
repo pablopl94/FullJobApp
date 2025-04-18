@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { adminGuard } from '../guards/admin.guard';
 
 export const adminRoutes: Routes = [
   {
@@ -7,6 +8,7 @@ export const adminRoutes: Routes = [
       import('./pages/admin-page/admin-page.component').then(
         (m) => m.AdminPageComponent
       ),
+    canActivate: [adminGuard],
     children: [
       { path: '', redirectTo: 'empresas', pathMatch: 'full' },
 

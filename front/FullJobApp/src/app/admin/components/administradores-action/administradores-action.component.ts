@@ -13,7 +13,7 @@ import { NgClass } from '@angular/common';
 })
 export class AdministradoresActionComponent {
   
-  @Input() usuario!: IUsuario;  // Recibe todo el objeto del usuario
+  @Input() usuario!: IUsuario;  
 
   private usuarioService = inject(UsuarioService);
 

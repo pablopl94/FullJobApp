@@ -9,6 +9,7 @@
     </h4>
 
     <form [formGroup]="categoriaForm" (ngSubmit)="guardar()">
+      
       <!-- Nombre -->
       <div class="form-group mb-3">
         <label class="form-label">Nombre</label>
@@ -37,7 +38,7 @@
         }
       </div>
 
-      <!-- Botón -->
+      <!-- Botón de actualizar o crear categoria-->
       <div class="text-center">
         <button type="submit" class="btn btn-submit" [disabled]="categoriaForm.invalid">
           {{ modoEdicion ? 'ACTUALIZAR' : 'CREAR CATEGORÍA' }}

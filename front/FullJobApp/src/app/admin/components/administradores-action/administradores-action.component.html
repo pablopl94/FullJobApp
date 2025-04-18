@@ -1,16 +1,11 @@
 <div class="d-flex justify-content-center">
-  <button
-    class="btn btn-sm btn-outline-warning fw-bold me-2"
-    [routerLink]="['/admin/administradores/editar', usuario.email]"
-  >
+  <button class="btn btn-sm btn-outline-warning fw-bold me-2"
+    [routerLink]="['/admin/administradores/editar', usuario.email]">
     Modificar
   </button>
 
-  <button
-    class="btn"
-    [ngClass]="usuario.enabled === 1 ? 'btn-outline-danger' : 'btn-outline-success'"
-    (click)="cambiarEstado()"
-  >
+  <button class="btn" [ngClass]="usuario.enabled === 1 ? 'btn-outline-danger' : 'btn-outline-success'"
+    (click)="cambiarEstado()">
     {{ usuario.enabled === 1 ? 'Desactivar' : 'Activar' }}
   </button>
 </div>
