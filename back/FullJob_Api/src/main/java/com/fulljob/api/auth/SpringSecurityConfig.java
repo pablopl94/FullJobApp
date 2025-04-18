@@ -89,7 +89,7 @@ public class SpringSecurityConfig {
             	authorize.requestMatchers(HttpMethod.POST, "/auth/login", "/auth/alta/cliente").permitAll();
             	authorize.requestMatchers(HttpMethod.POST, "/auth/logut").authenticated();
             	authorize.requestMatchers(HttpMethod.POST, "/auth/alta/empresa").hasRole("ADMON");
-            	authorize.requestMatchers(HttpMethod.POST, "/auth/alta/administrador").hasRole("ADMON");
+            	
 
             	// =================== CATEGORIAS ======================
             	authorize.requestMatchers(HttpMethod.GET, "/categorias").permitAll();
@@ -114,7 +114,7 @@ public class SpringSecurityConfig {
             	authorize.requestMatchers(HttpMethod.PUT, "/empresas/{id}", "/desactivar/{id}", "/activar/{id}").hasRole("ADMON");
             	            	
             	// =================== SOLICITUDES =====================
-            	authorize.requestMatchers(HttpMethod.GET, "/solicitudes/missolicitudes").hasAnyRole("CLIENTE","EMPRESA");
+            	authorize.requestMatchers(HttpMethod.GET, "/solicitudes/missolicitudes","/solicitudes/{id}").hasAnyRole("CLIENTE","EMPRESA");
             	authorize.requestMatchers(HttpMethod.GET, "/solicitudes/top5").hasRole("EMPRESA");
             	authorize.requestMatchers(HttpMethod.DELETE, "/solicitudes/{id}").hasRole("CLIENTE");
             	authorize.requestMatchers(HttpMethod.GET, "/solicitudes/empresa/top5").hasRole("EMPRESA");
@@ -122,10 +122,11 @@ public class SpringSecurityConfig {
             	authorize.requestMatchers(HttpMethod.PUT, "/solicitudes/asignar/{id}").hasRole("EMPRESA");
 
             	// =================== CLIENTE =========================
-            	authorize.requestMatchers(HttpMethod.PUT, "/cliente/desactivar/{id}").hasRole("ADMON");
-            	authorize.requestMatchers(HttpMethod.POST, "/cliente/admin").hasRole("ADMON");
-            	authorize.requestMatchers(HttpMethod.PUT, "/cliente/admin/{id}").hasRole("ADMON");
-            	authorize.requestMatchers(HttpMethod.DELETE, "/cliente/admin/{id}").hasRole("ADMON");
+            	authorize.requestMatchers(HttpMethod.PUT, "/clientes/desactivar/{id}").hasRole("ADMON");
+            	authorize.requestMatchers(HttpMethod.POST, "/clientes/admin").hasRole("ADMON");
+            	authorize.requestMatchers(HttpMethod.PUT, "/clientes/admin/{id}").hasRole("ADMON");
+            	authorize.requestMatchers(HttpMethod.DELETE, "/clientes/admin/{id}").hasRole("ADMON");
+            	authorize.requestMatchers(HttpMethod.POST, "/clientes/alta/admin").hasRole("ADMON");
 
             	// =================== DEFAULT =========================
             	authorize.anyRequest().authenticated();

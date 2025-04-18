@@ -79,16 +79,5 @@ public class AthenticationController {
     	
     }
     
-  //ENDOPOINT PARA ADMINISTRADOR REGISTRE UN USUARIO CON ROL ADMIN
-    //POST /auth/alta/administrador ...................... [ROLE_ADMON] 
-    @PostMapping("/alta/administrador")
-    @PreAuthorize("hasRole('ADMON')")
-    public ResponseEntity<AltaClienteAdminResponseDto> altaAdministrador(@RequestBody @Valid AltaClienteAdminRequestDto clienteDto) {
-    	
-    	AltaClienteAdminResponseDto respuesta = authService.altaAdministrador(clienteDto);
-    	
-    	
-    	return ResponseEntity.ok(respuesta);
-    	
-    }
+
 }

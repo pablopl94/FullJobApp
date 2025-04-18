@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.fulljob.api.models.entities.Categoria;
 import com.fulljob.api.models.entities.TipoDeContrato;
 import com.fulljob.api.models.entities.Vacante;
 
@@ -19,10 +20,7 @@ public interface IVacanteRepository extends JpaRepository<Vacante, Integer> {
 	List<Vacante> findByCategoria_idCategoria(int idCategoria);
 	
 	List<Vacante> findByDetalles(TipoDeContrato detalles);
+	
+	List<Vacante> findByCategoria(Categoria categoria);
 
-
-	
-	
-	
-	
 }
