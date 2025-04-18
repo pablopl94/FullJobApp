@@ -18,6 +18,8 @@ export class SolicitudesPageComponent {
   usuario: any = {};
   private solicitudService = inject(SolicitudesService);
   private authService = inject(AuthService);
+
+  
   ngOnInit(): void {
     this.usuario = this.authService.obtenerUsuario();
 

@@ -110,7 +110,7 @@ public class SpringSecurityConfig {
             	// =================== EMPRESAS ========================
             	authorize.requestMatchers(HttpMethod.GET, "/empresas/perfil").hasRole("EMPRESA");
             	authorize.requestMatchers(HttpMethod.PUT, "/empresas/update").hasRole("EMPRESA");
-            	authorize.requestMatchers(HttpMethod.GET, "/empresas", "/empresas/{id}", "/empresas/buscar/{nombre}").hasRole("ADMON");
+            	authorize.requestMatchers(HttpMethod.GET, "/empresas", "/empresas/{id}", "/empresas/buscar/{nombre}").hasAnyRole("ADMON", "CLIENTE");
             	authorize.requestMatchers(HttpMethod.PUT, "/empresas/{id}", "/desactivar/{id}", "/activar/{id}").hasRole("ADMON");
             	            	
             	// =================== SOLICITUDES =====================

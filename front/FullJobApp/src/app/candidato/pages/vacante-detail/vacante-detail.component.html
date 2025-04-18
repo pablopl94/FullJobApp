@@ -1,1 +1,33 @@
-<p>vacante-detail works!</p>
+<section class="detalle-vacante-container">
+    <div class="detalle-card">
+      <div class="detalle-header">
+        <img src="assets/img/image-card.jpeg" alt="Imagen vacante" class="detalle-imagen" />
+        <div class="detalle-info">
+          <span class="destacado">Destacado</span>
+          <h2>{{ vacante.nombre }}</h2>
+          <p class="empresa">{{ vacante.nombreEmpresa }}</p>
+          <ul class="info-extra">
+            <li>{{ vacante.fecha }}</li>
+            <li>Tipo de contrato: {{ vacante.detalles }}</li>
+            <li>Salario: {{ vacante.salario }}</li>
+          </ul>
+        </div>
+      </div>
+  
+      <div class="detalle-descripcion">
+        <h4>DESCRIPCIÓN:</h4>
+        <p>{{ vacante.descripcion }}</p>
+  
+        <h4>DETALLES:</h4>
+        <p>
+          {{ vacante.detalles }}
+        </p>
+      </div>
+  
+      <div class="detalle-botones">
+
+        <button class="btn-inscribirse" (click)="inscripcion()">Inscribirme en esta oferta</button>
+        <button class="btn-volver" (click)="volver()">↩ Volver atrás</button>
+      </div>
+    </div>
+  </section>

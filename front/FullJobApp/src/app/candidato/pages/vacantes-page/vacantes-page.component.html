@@ -1,1 +1,47 @@
-<p>vacantes-page works!</p>
+<section class="vacantes-wrapper">
+  <h2 class="titulo-seccion mb-4">Vacantes disponibles</h2>
+
+  <div class="filtros-wrapper">
+    <!-- Categoria -->
+    <select class="form-select" #categoriaSelect (change)="onCategoriaChange($event)">
+      <option value="">Todas las categorías</option>
+      @for (cat of categorias; track cat.idCategoria) {
+        <option [value]="cat.idCategoria">{{ cat.nombre }}</option>
+      }
+    </select>
+  
+    <!--Tipo Contrato -->
+    <select class="form-select" #contratoSelect (change)="onContratoChange($event)" >
+      <option value="">Todos los contratos</option>
+      @for (tipo of contratos; track tipo) {
+        <option [value]="tipo">{{ tipo }}</option>
+      }
+    </select>
+  
+    <!-- Empresa -->
+    <select class="form-select" #empresaSelect  (change)="onEmpresaChange($event)">
+      <option value="">Todas las empresas</option>
+      @for (emp of empresas; track emp.idEmpresa) {
+        <option [value]="emp.nombreEmpresa">{{ emp.nombreEmpresa }}</option>
+      }
+    </select>
+  </div>
+  
+    <button class="btn-limpiar" (click)="limpiarFiltros()">Limpiar filtros</button>
+
+
+  <div class="lista-vacantes">
+    @for (vacante of vacantes; track vacante.idVacante) {
+      <app-vacante-card
+        [vacante]="vacante"
+        (saberMas)="saberMas($event)">
+      </app-vacante-card>
+    }
+  </div>
+
+  @if (vacantes.length === 0) {
+    <p class="text-muted mt-4 fst-italic">
+      No hay vacantes disponibles en este momento.
+    </p>
+  }
+</section>
