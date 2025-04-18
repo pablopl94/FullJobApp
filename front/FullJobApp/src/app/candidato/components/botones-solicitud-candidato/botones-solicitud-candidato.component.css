@@ -1,0 +1,52 @@
+.card-botones {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+    min-width: 140px; /* Aumentamos el mínimo */
+  }
+  
+  .bloque-boton {
+    position: relative;
+  }
+  
+  .badge-boton {
+    position: absolute;
+    top: -12px;
+    left: -56px;
+    background-color: #d9534f;
+    color: white;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    z-index: 1;
+    min-width: 56px;
+    text-align: center;
+  }
+  
+  .btn-ver,
+  .btn-cancelar {
+    width: 120px;
+    height: 38px;
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 0.95rem;
+    font-weight: bold;
+    border-radius: 6px;
+    box-sizing: border-box;
+    text-align: center;
+    white-space: nowrap;       /* ← importante para que no se corte el texto */
+  }
+  
+  .btn-ver {
+    background: transparent;
+    border: 2px solid #ffc107;
+    color: #ffc107;
+  }
+  
+  .btn-cancelar {
+    background: transparent;
+    border: 2px solid #d9534f;
+    color: #d9534f;
+  }

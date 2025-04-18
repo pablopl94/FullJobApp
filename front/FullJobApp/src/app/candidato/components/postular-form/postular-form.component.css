@@ -1,0 +1,85 @@
+.formulario-inscripcion {
+    display: flex;
+    justify-content: center;
+    padding: 3rem 1rem;
+  }
+  
+  .contenedor-form {
+    background-color: #f4f4f4;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contenedor-form h4,
+  .contenedor-form h5 {
+    margin-bottom: 1rem;
+    color: #222;
+    font-weight: 600;
+  }
+  
+  textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    resize: vertical;
+  }
+  
+  .btn-cv {
+    background-color: #222;
+    color: #f6c90e;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-cv:hover {
+    background-color: #111;
+  }
+  
+  .acciones {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .btn-postular {
+    background-color: #222;
+    color: #f6c90e;
+    padding: 0.9rem 1.5rem;
+    border: 2px solid #f6c90e;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-postular:hover {
+    background-color: #111;
+  }
+  
+  .btn-volver {
+    background-color: white;
+    color: #f6c90e;
+    border: 2px solid #f6c90e;
+    padding: 0.9rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-volver:hover {
+    background-color: #fff8dc;
+  }

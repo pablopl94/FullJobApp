@@ -1,1 +1,15 @@
-<p>postular-form works!</p>
+<section class="formulario-inscripcion">
+    <div class="contenedor-form">
+      <h4>Queremos saber más de ti, mándanos tu currículum</h4>
+      <button class="btn-cv">Subir archivo</button>
+  
+      <h5>Déjanos un comentario</h5>
+      <textarea [(ngModel)]="comentarios" name="comentarios" placeholder="Escribe tu comentario aquí..."></textarea>
+  
+      <div class="acciones">
+        <button class="btn-postular" (click)="postular()">Inscribirme en esta oferta</button>
+        <button class="btn-volver" (click)="volver()">Volver atrás</button>
+      </div>
+    </div>
+  </section>
+  

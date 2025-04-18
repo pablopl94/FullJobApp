@@ -1,0 +1,115 @@
+.card-solicitud {
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1.2rem;
+    justify-content: space-between;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    width: 70%; 
+    margin-left: 15%;
+    margin-right: 15%;
+   
+
+  }
+  
+  .card-imagen {
+    position: relative;
+  }
+  
+  .card-imagen img {
+    width: 120px;
+    height: 120px;
+    border-radius: 2rem;
+    object-fit: cover;
+  }
+  
+  .etiqueta-destacado {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #000;
+    color: white;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  
+  .card-info {
+    flex: 1;
+    padding: 0 1rem;
+  }
+  
+  .card-info .empresa {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  
+  .card-info .vacante {
+    margin: 0;
+    color: #555;
+    font-size: 0.95rem;
+  }
+  
+  .card-botones {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+    min-width: 120px;
+  }
+  
+  .bloque-boton {
+    position: relative;
+  }
+  
+  .badge-boton {
+    position: absolute;
+    top: -12px;
+    left: -48px;
+    background-color: #d9534f;
+    color: white;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    z-index: 1;
+  }
+  
+
+ 
+
+@media (max-width: 768px) {
+    .card-solicitud {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1.5rem;
+    }
+  
+    .card-imagen img {
+      width: 100px;
+      height: 100px;
+    }
+  
+    .card-info {
+      padding: 1rem 0;
+    }
+  
+    .card-botones {
+      flex-direction: row;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 1rem;
+    }
+  
+    .bloque-boton {
+      position: relative;
+    }
+  
+    .badge-boton {
+      left: calc(50% - 36px); /* Centra el badge más o menos */
+    }
+  }

@@ -112,4 +112,20 @@ export class VacantesService {
 
 
 
+  getVacantesCandidato(): Observable<IVacante[]> {
+    return this.http.get<IVacante[]>(`${this.apiUrl}`);
+  }
+  postularme(idVacante: number, solicitudDto: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/inscribirse/${idVacante}`, solicitudDto);
+  }
+
+  getVacantesPorEmpresa(nombreEmpresa: string): Observable<IVacante[]> {
+    return this.http.get<IVacante[]>(`${this.apiUrl}/filtrar/empresa/${encodeURIComponent(nombreEmpresa)}`);
+  }
+  getVacantesPorCategoria(idCategoria: number): Observable<IVacante[]> {
+    return this.http.get<IVacante[]>(`${this.apiUrl}/filtrar/categoria/${idCategoria}`);
+  }
+  getVacantesPorContrato(tipoContrato: string): Observable<IVacante[]> {
+    return this.http.get<IVacante[]>(`${this.apiUrl}/filtrar/contrato/${tipoContrato}`);
+  }
 }

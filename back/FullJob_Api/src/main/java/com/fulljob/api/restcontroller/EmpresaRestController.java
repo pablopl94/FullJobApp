@@ -37,12 +37,10 @@ public class EmpresaRestController {
     @Autowired
     private IEmpresaService empresaService;
 
-
-
     //ENDPOINT PARA MOSTRAR TODAS LAS EMPRESAS
     // GET    /empresas ............................. [ROLE_ADMON]
     @GetMapping()
-    @PreAuthorize("hasRole('ADMON')")
+    @PreAuthorize("hasAnyRole('CLIENTE', 'EMPRESA')")
     public ResponseEntity<List<EmpresaResponseDto>> mostrarEmpresas() {
         List<EmpresaResponseDto> respuestaDTO = empresaService.findAll()
             .stream()

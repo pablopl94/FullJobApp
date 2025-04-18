@@ -62,6 +62,7 @@ public class SolicitudRestController {
 		return ResponseEntity.ok(respuestaDto);
 	}
 
+
 	
 
 	//ENDPOINT PARA QUE EL CLIENTE CANCELE SU SOLICITUD
@@ -118,6 +119,32 @@ public class SolicitudRestController {
 
 		// Devolver un código de estado 200 con el mensaje
 		return ResponseEntity.ok("Solicitud asignada");
+	}
+// Endpoint para obtener detalles por ID de solicitudes con Role cliente
+	@GetMapping("/detalle/{id}")
+	@PreAuthorize("hasRole('CLIENTE')")
+	public ResponseEntity<SolicitudResponseDto> detalleSolicitudCliente(
+			@PathVariable Integer id,
+			@AuthenticationPrincipal Usuario usuario) {
+
+		Solicitud solicitud = solicitudService.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Solicitud no encontrada"));
+
+		// Validar que la solicitud pertenece al usuario autenticado
+		if (!solicitud.getUsuario().getEmail().equals(usuario.getEmail())) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "No autorizado para ver esta solicitud");
+		}
+
+		// Mapeamos a DTO
+		SolicitudResponseDto respuestaDto = modelMapper.map(solicitud, SolicitudResponseDto.class);
+
+		// Añadimos datos adicionales al DTO
+		respuestaDto.setNombreEmpresa(solicitud.getVacante().getEmpresa().getNombreEmpresa());
+		respuestaDto.setSalario(solicitud.getVacante().getSalario());
+		respuestaDto.setNombreCategoria(solicitud.getVacante().getCategoria().getNombre());
+		respuestaDto.setEmail(solicitud.getUsuario().getEmail());
+
+		return ResponseEntity.ok(respuestaDto);
 	}
 
 }

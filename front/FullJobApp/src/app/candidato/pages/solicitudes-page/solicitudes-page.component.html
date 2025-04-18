@@ -1,1 +1,20 @@
-<p>solicitudes-page works!</p>
+<section class="mis-solicitudes-page p-5">
+  <h2 class="titulo-seccion p-3">Estas son tus solicitudes, {{ usuario.nombre }}</h2>
+
+  <div class="lista-solicitudes">
+    @if (arraySolicitudes.length === 0) {
+      <div class="mensaje-sin-solicitudes text-center mt-5">
+        <p class="fw-bold fs-4">Aún no tienes solicitudes</p>
+        <img src="assets/img/empty-folder.png" alt="Sin solicitudes" width="120" height="120" />
+      </div>
+    } @else {
+      @for (solicitud of arraySolicitudes; track solicitud.idSolicitud) {
+        <app-solicitud-card
+          [solicitud]="solicitud"
+          (cancelar)="cancelarSolicitud($event)"
+          (saberMas)="saberMas($event)">
+        </app-solicitud-card>
+      }
+    }
+  </div>
+</section>
