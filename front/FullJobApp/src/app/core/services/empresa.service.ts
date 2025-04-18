@@ -15,7 +15,7 @@ export class EmpresaService {
   private empresasSubject = new BehaviorSubject<IEmpresa[]>([]);
   public empresas$ = this.empresasSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   // Llama al backend y actualiza el BehaviorSubject
   fetchEmpresas(): void {
@@ -30,12 +30,14 @@ export class EmpresaService {
     return this.http.get<IEmpresa[]>(`${this.baseUrl}/buscar/${nombre}`);
   }
 
+  //Metodo para modificar la empresa
   actualizarEmpresa(empresa: IEmpresa): Observable<IEmpresa> {
-    return this.http
-      .put<IEmpresa>(`${this.baseUrl}/${empresa.idEmpresa}`, empresa)
-      .pipe(tap(() => this.fetchEmpresas()));
+    return this.http.put<IEmpresa>(`${this.baseUrl}/${empresa.idEmpresa}`, empresa).pipe(
+      tap(() => this.fetchEmpresas())
+    );
   }
 
+  //Metodo para eliminar la empresa
   eliminarEmpresa(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`).pipe(
       tap(() => {
@@ -46,14 +48,17 @@ export class EmpresaService {
     );
   }
 
+  //Metodo para obtener detalles de la empresa
   getDetallesEmpresaAutenticada(): Observable<IEmpresa> {
     return this.http.get<IEmpresa>(`${this.baseUrl}/perfil`);
   }
 
+  //Buscar empresa por su id
   getEmpresaById(id: number): Observable<IEmpresa> {
     return this.http.get<IEmpresa>(`${this.baseUrl}/${id}`);
   }
 
+  //Metodo para registrare empresa
   crearEmpresa(data: IEmpresa): Observable<IEmpresa> {
     return this.http
       .post<IEmpresa>(`http://localhost:9007/auth/alta/empresa`, data)

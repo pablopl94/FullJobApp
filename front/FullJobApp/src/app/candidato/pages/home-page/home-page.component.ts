@@ -14,7 +14,7 @@ import { IVacante } from '../../../core/interfaces/IVacante';
 })
 export class HomePageComponent implements OnInit {
 
-  private readonly empresaService = inject(VacantesService);
+  private readonly vacantesService = inject(VacantesService);
   private readonly authService = inject(AuthService);
 
   usuario: any = null;
@@ -22,14 +22,28 @@ export class HomePageComponent implements OnInit {
   populares: IVacante[] = [];
 
   ngOnInit(): void {
+    // Cargamos usuario logueado (si existe)
     this.usuario = this.authService.obtenerUsuario();
-
-    this.empresaService.getVacantes().subscribe(vacantes => {
+  
+    // Llamamos al método para cargar las vacantes públicas
+    this.vacantesService.cargarTodasLasVacantesActivas(); // << FALTABA ESTO
+  
+    // Nos suscribimos al observable para recibir las vacantes
+    this.vacantesService.vacantesPublicas$.subscribe(vacantes => {
+      if (!vacantes || vacantes.length === 0) {
+        console.warn('No hay vacantes disponibles');
+      }
+  
+      // Filtramos por las que están en estado CREADA
       const creadas = vacantes.filter(v => v.estatus === 'CREADA');
-      this.populares = creadas.filter(v => v.destacado).slice(0, 5);
-      this.recientes = [...creadas].sort((a, b) => b.fecha.localeCompare(a.fecha)).slice(0, 5);
+  
+      // Tomamos las destacadas (destacado = 1)
+      this.populares = creadas.filter(v => v.destacado === 1).slice(0, 5);
+  
+      // Ordenamos por fecha descendente
+      this.recientes = [...creadas]
+        .sort((a, b) => b.fecha.localeCompare(a.fecha))
+        .slice(0, 5);
     });
   }
-
 }
-

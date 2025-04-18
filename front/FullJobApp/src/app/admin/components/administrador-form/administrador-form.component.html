@@ -1,67 +1,58 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
-  <!-- Email -->
-  <div class="mb-3">
-    <label class="form-label">Email</label>
-    <input
-      type="email"
-      formControlName="email"
-      class="form-control"
-      [ngClass]="{
-        'is-invalid': form.get('email')?.invalid && form.get('email')?.touched,
-        'is-valid': form.get('email')?.valid && form.get('email')?.touched
-      }"
-    />
-    @if (form.get('email')?.touched && form.get('email')?.invalid) {
-      <div class="invalid-feedback">
-        @if (form.get('email')?.errors?.['required']) {
-          El email es obligatorio.
+<section class="container mt-4">
+  <h2 class="welcome-title mb-4">{{ tipo }} Administrador</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="formulario-admin p-4 shadow rounded" novalidate>
+    <div class="row">
+
+      <!-- Email -->
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" formControlName="email" placeholder="ejemplo@email.com" />
+        @if (checkControl('email', 'required')) {
+        <p class="error">El email es obligatorio.</p>
         }
-        @if (form.get('email')?.errors?.['email']) {
-          Debe ingresar un email válido.
+        @if (checkControl('email', 'email')) {
+        <p class="error">Debe ingresar un email válido.</p>
         }
       </div>
-    }
-  </div>
 
-  <!-- Nombre -->
-  <div class="mb-3">
-    <label class="form-label">Nombre</label>
-    <input
-      type="text"
-      formControlName="nombre"
-      class="form-control"
-      [ngClass]="{
-        'is-invalid': form.get('nombre')?.invalid && form.get('nombre')?.touched,
-        'is-valid': form.get('nombre')?.valid && form.get('nombre')?.touched
-      }"
-    />
-    @if (form.get('nombre')?.touched && form.get('nombre')?.invalid) {
-      <div class="invalid-feedback">
-        El nombre es obligatorio.
+      <!-- Nombre -->
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" class="form-control" formControlName="nombre" />
+        @if (checkControl('nombre', 'required')) {
+        <p class="error">El nombre es obligatorio.</p>
+        }
       </div>
-    }
-  </div>
 
-  <!-- Apellidos -->
-  <div class="mb-3">
-    <label class="form-label">Apellidos</label>
-    <input
-      type="text"
-      formControlName="apellidos"
-      class="form-control"
-      [ngClass]="{
-        'is-invalid': form.get('apellidos')?.invalid && form.get('apellidos')?.touched,
-        'is-valid': form.get('apellidos')?.valid && form.get('apellidos')?.touched
-      }"
-    />
-    @if (form.get('apellidos')?.touched && form.get('apellidos')?.invalid) {
-      <div class="invalid-feedback">
-        Los apellidos son obligatorios.
+      <!-- Apellidos -->
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Apellidos</label>
+        <input type="text" class="form-control" formControlName="apellidos" />
+        @if (checkControl('apellidos', 'required')) {
+        <p class="error">Los apellidos son obligatorios.</p>
+        }
       </div>
-    }
-  </div>
 
-  <button class="btn btn-success w-100" type="submit">
-    {{ isEditMode ? 'Actualizar' : 'Crear' }} Administrador
-  </button>
-</form>
+      <!-- Contraseña solo en alta -->
+      @if (tipo === 'Alta') {
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Contraseña</label>
+        <input type="password" class="form-control" formControlName="password" />
+        @if (checkControl('password', 'required')) {
+        <p class="error">La contraseña es obligatoria.</p>
+        }
+        @if (checkControl('password', 'minlength')) {
+        <p class="error">Mínimo 8 caracteres.</p>
+        }
+      </div>
+      }
+
+    </div>
+
+    <div class="text-end">
+      <button class="btn btn-formulario" type="submit" [disabled]="form.invalid">
+        {{ tipo }} Administrador
+      </button>
+    </div>
+  </form>
+</section>

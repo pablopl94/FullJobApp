@@ -11,33 +11,35 @@ import { IUsuario } from '../../../core/interfaces/iusuario';
   imports: [CommonModule, FormsModule],
 })
 export class CandidatosPageComponent implements OnInit {
+  
   usuarios: IUsuario[] = [];
 
   constructor(private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
-    this.obtenerCandidatos();
-  }
+    // Llamamos una vez al backend para cargar candidatos
+    this.usuarioService.getCandidatos();
 
-  obtenerCandidatos(): void {
-    this.usuarioService.getCandidatos().subscribe({
-      next: (data) => {
+    // Nos suscribimos al observable para recibir los datos
+    this.usuarioService.candidatos$.subscribe({
+      next: (data: IUsuario[]) => {
         console.log(data);
-        this.usuarios = data.filter((u) => u.rol === 'CLIENTE');
+        this.usuarios = data.filter((u: IUsuario) => u.rol === 'CLIENTE');
       },
       error: () => {
         this.usuarios = [];
       },
     });
   }
+
   suspenderUsuario(usuario: IUsuario): void {
     if (usuario.enabled === 1) {
-      // Está activo → desactivar
+      // Si está activo → lo desactivamos
       this.usuarioService.desactivar(usuario.email).subscribe(() => {
         usuario.enabled = 0;
       });
     } else {
-      // Está inactivo → activar
+      // Si está desactivado → lo activamos
       this.usuarioService.activar(usuario.email).subscribe(() => {
         usuario.enabled = 1;
       });

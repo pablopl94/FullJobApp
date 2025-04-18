@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpresaService } from '../../../core/services/empresa.service';
-import { AuthService } from '../../../core/services/auth.service';
 import { IEmpresa } from '../../../core/interfaces/IEmpresa';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -15,25 +14,32 @@ import Swal from 'sweetalert2';
   styleUrl: './empresas-page.component.css',
 })
 export class EmpresasPageComponent implements OnInit {
+
+
+  //EN ESTE FORMULARIO HEMOS QUERIDO PROBAR UN FORMULARIO CON SWEET ALERT
+
+  // Lista de empresas que se mostrará en la tabla
   empresas: IEmpresa[] = [];
 
-  constructor(
-    private empresaService: EmpresaService,    
-  ) {}
+  constructor(private empresaService: EmpresaService) {}
 
   ngOnInit(): void {
-    this.empresaService.fetchEmpresas(); // Carga inicial
+    // Cargar todas las empresas al iniciar el componente
+    this.empresaService.fetchEmpresas();
+
+    // Nos suscribimos al observable para obtener las empresas
     this.empresaService.empresas$.subscribe({
       next: (empresas) => {
-        console.log(empresas)
+        console.log(empresas);
         this.empresas = empresas;
       },
       error: (err) => {
         console.error('Error al recibir empresas', err);
-      }
+      },
     });
   }
 
+  // Validar los campos obligatorios del formulario
   validarCampos(nombre: string, cif: string, pais: string, email: string): string | null {
     if (!nombre || !cif || !pais || !email) {
       return 'Todos los campos son obligatorios.';
@@ -47,6 +53,7 @@ export class EmpresasPageComponent implements OnInit {
     return null;
   }
 
+  // Formulario para crear nueva empresa con SweetAlert
   async nuevaEmpresa() {
     const { value: formValues } = await Swal.fire({
       title: 'Nueva Empresa',
@@ -85,11 +92,12 @@ export class EmpresasPageComponent implements OnInit {
           email,
           nombre,
           apellidos,
-          password: null // se autogenera en el backend
+          password: null, // Se autogenera en el backend
         };
-      }
+      },
     });
 
+    // Enviar los datos al backend si todo es válido
     if (formValues) {
       const nuevaEmpresa: IEmpresa = formValues;
 
@@ -100,11 +108,12 @@ export class EmpresasPageComponent implements OnInit {
         error: (err) => {
           console.error('Error al crear empresa', err);
           Swal.fire('Error', 'No se pudo crear la empresa', 'error');
-        }
+        },
       });
     }
   }
 
+  // Formulario para editar una empresa existente
   async editarEmpresa(empresa: IEmpresa) {
     const { value: formValues } = await Swal.fire({
       title: 'Modificar Empresa',
@@ -132,13 +141,14 @@ export class EmpresasPageComponent implements OnInit {
         }
 
         return { nombreEmpresa, cif, pais, direccionFiscal, email };
-      }
+      },
     });
 
+    // Si los datos son válidos, actualizamos la empresa
     if (formValues) {
       const actualizada: IEmpresa = {
         ...empresa,
-        ...formValues
+        ...formValues,
       };
 
       this.empresaService.actualizarEmpresa(actualizada).subscribe({
@@ -148,11 +158,12 @@ export class EmpresasPageComponent implements OnInit {
         error: (err) => {
           console.error('Error al actualizar empresa', err);
           Swal.fire('Error', 'No se pudo actualizar la empresa', 'error');
-        }
+        },
       });
     }
   }
 
+  // Mostrar detalles de la empresa seleccionada
   mostrarDetalles(empresa: IEmpresa) {
     Swal.fire({
       title: 'Detalles de Empresa',
@@ -164,10 +175,11 @@ export class EmpresasPageComponent implements OnInit {
         <p><b>Dirección:</b> ${empresa.direccionFiscal}</p>
         <p><b>Email:</b> ${empresa.email}</p>
         <p><b>Fecha Registro:</b> ${empresa.fechaRegistro}</p>
-      `
+      `,
     });
   }
 
+  // Confirmar y eliminar una empresa
   eliminarEmpresa(id: number) {
     Swal.fire({
       title: '¿Estás seguro?',
@@ -184,7 +196,7 @@ export class EmpresasPageComponent implements OnInit {
           error: (err) => {
             console.error('Error al eliminar empresa', err);
             Swal.fire('Error', 'No se pudo eliminar la empresa', 'error');
-          }
+          },
         });
       }
     });

@@ -1,8 +1,7 @@
 <div class="container mt-4">
-  @if (!mostrarFormulario) {
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h2 class="welcome-title mb-0">Gestión de administradores</h2>
-      <button class="btn btn-publicar" (click)="nuevaAlta()">ALTA ADMINISTRADOR</button>
+      <button class="btn btn-publicar" [routerLink]="['/admin/administradores/alta']">ALTA ADMINISTRADOR</button>
     </div>
 
     <h5 class="section-title fw-bold">Lista de administradores registrados</h5>
@@ -27,14 +26,12 @@
               <td class="text-center">{{ usuario.email }}</td>
               <td class="text-center">{{ usuario.fechaRegistro | date: 'dd/MM/yyyy' }}</td>
               <td class="text-center">
-                {{ usuario.enabled === 1 ? 'ACTIVO' : 'INACTIVO' }}
+                <span class="badge" [ngClass]="usuario.enabled ? 'bg-success' : 'bg-danger'">
+                  {{ usuario.enabled ? 'Activo' : 'Inactivo' }}
+                </span>
               </td>
               <td class="text-center">
-                <app-administradores-action
-                [usuario]="usuario"
-                (onEdit)="editarAdministrador(usuario)"
-                (onDelete)="eliminarAdministrador(usuario.email)"
-                />
+                <app-administradores-action [usuario]="usuario"></app-administradores-action>
               </td>
             </tr>
           } @empty {
@@ -45,12 +42,4 @@
         </tbody>
       </table>
     </div>
-  }
-
-  @if (mostrarFormulario) {
-    <app-administrador-form
-      [administrador]="administradorSeleccionado"
-      (formularioGuardado)="onFormularioGuardado()"
-    />
-  }
 </div>

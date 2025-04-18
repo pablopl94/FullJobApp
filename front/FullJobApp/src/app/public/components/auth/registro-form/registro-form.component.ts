@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
+import { IClienteRegistro } from '../../../../core/interfaces/IClienteRegistro';
+import Swal from 'sweetalert2';
 
 @Component({
   standalone: true,
@@ -12,7 +14,11 @@ import { AuthService } from '../../../../core/services/auth.service';
   styleUrls: ['./registro-form.component.css']
 })
 export class RegistroFormComponent {
+  
+  // Formulario reactivo
   form: FormGroup;
+
+  // Mensaje de error para mostrar debajo del botón
   mensaje = '';
 
   constructor(
@@ -20,6 +26,7 @@ export class RegistroFormComponent {
     private authService: AuthService,
     private router: Router
   ) {
+    // Definimos los campos y validaciones del formulario
     this.form = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(2)]],
       apellidos: ['', Validators.required],
@@ -29,21 +36,60 @@ export class RegistroFormComponent {
     });
   }
 
-  onSubmit() {
+  // Se ejecuta al cargar el componente
+  ngOnInit(): void {
+    // No hace falta lanzar ningún error aquí
+  }
+
+  // Al hacer submit
+  onSubmit(): void {
+    // Si el formulario es inválido o las contraseñas no coinciden
     if (this.form.invalid || this.form.value.password !== this.form.value.confirmar) {
       this.mensaje = 'Corrige los errores antes de continuar.';
       return;
     }
 
-    const { nombre, apellidos, email, password } = this.form.value;
+    // Preparamos los datos del cliente a registrar
+    const cliente: IClienteRegistro = {
+      nombre: this.form.value.nombre,
+      apellidos: this.form.value.apellidos,
+      email: this.form.value.email,
+      password: this.form.value.password
+    };
 
-    this.authService.registrarCliente({ nombre, apellidos, email, password }).subscribe({
+    // Llamamos al servicio para registrar el cliente
+    this.authService.registrarCliente(cliente).subscribe({
+      // Si todo va bien
       next: () => {
-        this.router.navigate(['/access/candidato']);
+        // Mostramos un mensaje bonito con SweetAlert
+        Swal.fire({
+          title: '¡Registro completado!',
+          text: 'Te has registrado correctamente.',
+          background: '#FAC402', 
+          color: '#474747',       
+          confirmButtonColor: '#fffff', // fondo del botón (gris oscuro)
+          confirmButtonText: '¡Entendido!',
+          customClass: {
+            confirmButton: 'text-white', // letras blancas
+            popup: 'rounded-3 shadow'
+          }
+        }).then(() => {
+          this.router.navigate(['/access/candidato']);
+        });        
       },
-      error: err => {
-        console.error(err);
-        this.mensaje = 'Hubo un problema al registrarse.';
+
+      // Si hay error desde el backend
+      error: (err: any) => {
+        console.error('Error recibido del backend:', err);
+
+        // Intentamos extraer el mensaje personalizado
+        const mensajeBackend = err.error?.message || err.error;
+        if (typeof mensajeBackend === 'string') {
+          const match = mensajeBackend.match(/"(.*?)"/); // Extrae lo que está entre comillas
+          this.mensaje = match ? match[1] : mensajeBackend;
+        } else {
+          this.mensaje = 'Hubo un problema al registrarse.';
+        }
       }
     });
   }

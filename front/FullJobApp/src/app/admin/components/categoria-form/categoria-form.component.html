@@ -1,40 +1,48 @@
-<div class="form-container">
-  <h4 class="mb-3 fw-bold">
-    {{ modoEdicion ? 'Editar Categoría' : 'Añadir Nueva Categoría' }}
-  </h4>
+<div class="form-wrapper">
+  <div class="form-card">
+    <h4 class="form-title text-center fw-bold mb-4">
+      @if (modoEdicion) {
+        Editar categoría
+      } @else {
+        Crea tu categoría
+      }
+    </h4>
 
-  <form [formGroup]="categoriaForm" (ngSubmit)="guardar()">
-    <div class="mb-3">
-      <label for="nombre" class="form-label">Nombre de la categoría</label>
-      <input
-        id="nombre"
-        class="form-control"
-        formControlName="nombre"
-        [class.is-invalid]="categoriaForm.get('nombre')?.invalid && categoriaForm.get('nombre')?.touched"
-      />
-      <div class="invalid-feedback" *ngIf="categoriaForm.get('nombre')?.hasError('required')">
-        El nombre es obligatorio.
+    <form [formGroup]="categoriaForm" (ngSubmit)="guardar()">
+      <!-- Nombre -->
+      <div class="form-group mb-3">
+        <label class="form-label">Nombre</label>
+        <input
+          formControlName="nombre"
+          type="text"
+          class="form-control form-field"
+          [class.is-invalid]="categoriaForm.get('nombre')?.invalid && categoriaForm.get('nombre')?.touched"
+        />
+        @if (categoriaForm.get('nombre')?.hasError('required')) {
+          <div class="invalid-feedback">El nombre es obligatorio.</div>
+        }
       </div>
-    </div>
 
-    <div class="mb-3">
-      <label for="descripcion" class="form-label">Descripción</label>
-      <textarea
-        id="descripcion"
-        class="form-control"
-        formControlName="descripcion"
-        rows="3"
-        [class.is-invalid]="categoriaForm.get('descripcion')?.invalid && categoriaForm.get('descripcion')?.touched"
-      ></textarea>
-      <div class="invalid-feedback" *ngIf="categoriaForm.get('descripcion')?.hasError('required')">
-        La descripción es obligatoria.
+      <!-- Descripción -->
+      <div class="form-group mb-4">
+        <label class="form-label">Descripción</label>
+        <textarea
+          formControlName="descripcion"
+          rows="3"
+          class="form-control form-field"
+          [class.is-invalid]="categoriaForm.get('descripcion')?.invalid && categoriaForm.get('descripcion')?.touched"
+        ></textarea>
+        @if (categoriaForm.get('descripcion')?.hasError('required')) {
+          <div class="invalid-feedback">La descripción es obligatoria.</div>
+        }
       </div>
-    </div>
 
-    <div class="d-flex justify-content-end gap-2">
-      <button type="submit" class="btn btn-primary" [disabled]="categoriaForm.invalid">
-        {{ modoEdicion ? 'Actualizar' : 'Guardar' }}
-      </button>
-    </div>
-  </form>
+      <!-- Botón -->
+      <div class="text-center">
+        <button type="submit" class="btn btn-submit" [disabled]="categoriaForm.invalid">
+          {{ modoEdicion ? 'ACTUALIZAR' : 'CREAR CATEGORÍA' }}
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

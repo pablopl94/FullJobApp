@@ -26,7 +26,7 @@ export class VacantesPageComponent {
   ngOnInit(): void {
     
     // Cargamos vacantes creadas
-    this.vacantesService.cargarVacantes();
+    this.vacantesService.cargarMisVacantes();
     this.vacantesService.vacantes$.subscribe({
       next: (vacantes) => this.arrayVacantesCreadas = vacantes,
       error: (err) => console.error('Error al recibir vacantes creadas:', err)

@@ -1,0 +1,35 @@
+.formulario-admin {
+    background-color: #fff;
+    border: 2px solid #f4c542;
+    border-radius: 1rem;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .campo-error {
+    border: 2px solid #b30000 !important;
+    box-shadow: 0 0 5px rgba(179, 0, 0, 0.15);
+  }
+  
+  .error {
+    color: #b30000;
+    font-size: 0.875rem;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+  
+  .btn-formulario {
+    background-color: transparent;
+    border: 2px solid #474747;
+    color: #474747;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 8px 1rem;
+    border-radius: 0.5rem;
+  }
+  
+  .btn-formulario:hover {
+    background-color: #f4c542;
+    color: #fff;
+    border-color: #f4c542;
+  }
+  

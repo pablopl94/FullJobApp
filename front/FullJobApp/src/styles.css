@@ -1,14 +1,16 @@
+@import 'sweetalert2/dist/sweetalert2.min.css';
+
 * {
   font-family: 'Poppins', sans-serif;
 }
 
 body {
-  background-color: #f4c542; /* Mostaza */
+  background-color: #FAC402; /* Mostaza */
   font-family: 'Poppins', sans-serif; /* Fuente Poppins*/
 }
 
 .bg-mostaza {
-  background-color: #f4c542;
+  background-color: #FAC402;
 }
 
   /* Estilos globales de titulos*/
@@ -60,3 +62,71 @@ table tbody tr:last-child td {
 }
 
 
+/* Estilo para los inputs de SweetAlert2 */
+.swal2-input {
+  background-color: white !important;
+  border: 2px solid #474747 !important;
+  border-radius: 0.5rem !important;
+  color: #474747 !important;
+  font-weight: 500;
+}
+
+/* Estilo para todo el popup */
+.swal2-popup {
+  background-color: #FAC402 !important; /* fondo mostaza */
+  color: #474747 !important;
+  border: 2px solid black;
+  border-radius: 1rem !important;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Botón Confirmar */
+.swal2-confirm {
+  background-color: #474747 !important;
+  color: #ffffff !important;
+  border: 2px solid #474747 !important;
+  border-radius: 0.5rem !important;
+  font-weight: 600;
+  padding: 8px 20px;
+  transition: all 0.3s ease;
+}
+
+.swal2-confirm:hover {
+  background-color: #000000 !important;
+  color: white !important;
+}
+
+/* Botón Cancelar */
+.swal2-cancel {
+  background-color: #474747 !important;
+  color: #ffffff !important;
+  border: 2px solid #474747 !important;
+  border-radius: 0.5rem !important;
+  font-weight: 600;
+  padding: 8px 20px;
+  transition: all 0.3s ease;
+}
+
+.swal2-cancel:hover {
+  background-color: #000000 !important;
+  color: white !important;
+}
+
+.swal2-icon.swal2-warning {
+  color: #e74c3c !important;               /* color rojo de advertencia */
+  border-color: #e74c3c !important;
+}
+
+.swal2-icon.swal2-warning .swal2-warning-body {
+  color: #e74c3c !important;               /* el icono "!" */
+  font-size: 4rem;
+}
+
+.swal2-icon.swal2-warning .swal2-icon-content {
+  color: #e74c3c !important;               /* fallback por si cambia la estructura */
+}
+
+.swal2-icon.swal2-warning svg {
+  fill: none !important;
+  stroke: #e74c3c !important;              /* borde del círculo */
+}

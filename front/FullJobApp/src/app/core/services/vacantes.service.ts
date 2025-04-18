@@ -8,126 +8,108 @@ import { IVacante } from '../interfaces/IVacante';
   providedIn: 'root'
 })
 export class VacantesService {
-
-  // API para Empresa
+  // URL base del backend
   private apiUrl = 'http://localhost:9007/vacantes';
 
-  // Sujeto para vacantes creadas
+  // Lista de vacantes creadas por la empresa
   private vacantesSubject = new BehaviorSubject<IVacante[]>([]);
   vacantes$ = this.vacantesSubject.asObservable();
 
-  // Sujeto para vacantes asignadas
+  // Lista de vacantes asignadas
   private vacantesAsignadasSubject = new BehaviorSubject<IVacante[]>([]);
   vacantesAsignadas$ = this.vacantesAsignadasSubject.asObservable();
 
-  // Sujeto para vacantes canceladas
+  // Lista de vacantes canceladas
   private vacantesCanceladasSubject = new BehaviorSubject<IVacante[]>([]);
   vacantesCanceladas$ = this.vacantesCanceladasSubject.asObservable();
 
+  // Lista de todas las vacantes activas visibles para cualquier usuario
+  private vacantespublicasSubject = new BehaviorSubject<IVacante[]>([]);
+  vacantesPublicas$ = this.vacantespublicasSubject.asObservable();
+
   constructor(private http: HttpClient) {}
 
-  //Metodo para cargar tabla de las vacantes que esta en estado creado es decir sin asignar, ni cancelada...
-  getMisVacantesCreadas(): Observable<IVacante[]> {
-    return this.http.get<IVacante[]>(`${this.apiUrl}/misvacantes/creadas`);
-  }
-  
-  //Metodo para cargar tabla de las vacantes que se han asginado
-  getMisVacantesAsignadas(): Observable<IVacante[]> {
-    return this.http.get<IVacante[]>(`${this.apiUrl}/misvacantes/asignadas`);
-  }
-
-  //Metodo para cargar tabla de las vacantes que se han cancelado
-  getMisVacantesCanceladas(): Observable<IVacante[]> {
-    return this.http.get<IVacante[]>(`${this.apiUrl}/misvacantes/canceladas`);
-  }
-
-  //Aqui le decimos que getVacantes este sujeto a los cambios de los demas metodos en lo que lo definamos
-  cargarVacantes(): void {
+  // Carga las vacantes creadas y las guarda en el observable
+  cargarMisVacantes(): void {
     this.getMisVacantesCreadas().subscribe((vacantes) => {
       this.vacantesSubject.next(vacantes);
     });
   }
 
-  // Metodo para cargar las vacantes asignadas y notificar cambios
+  // Carga todas vacantes activas píblicas
+  cargarTodasLasVacantesActivas(): void {
+    this.getTodasLasVacantes().subscribe((vacantes) => {
+      this.vacantespublicasSubject.next(vacantes);
+    });
+  }
+
+  // Carga las vacantes asignadas y las guarda en el observable
   cargarVacantesAsignadas(): void {
     this.getMisVacantesAsignadas().subscribe((vacantes) => {
       this.vacantesAsignadasSubject.next(vacantes);
     });
   }
 
-  // Metodo para cargar las vacantes canceladas y notificar cambios
+  // Carga las vacantes canceladas y las guarda en el observable
   cargarVacantesCanceladas(): void {
     this.getMisVacantesCanceladas().subscribe((vacantes) => {
       this.vacantesCanceladasSubject.next(vacantes);
     });
   }
+  
+  // Trae las vacantes en estado "CREADA" de la empresa actual
+  getMisVacantesCreadas(): Observable<IVacante[]> {
+    return this.http.get<IVacante[]>(`${this.apiUrl}/misvacantes/creadas`);
+  }
 
-  //Metodo para que una empresa pueda cancelar una vacante
+  // Trae las vacantes asignadas de la empresa actual
+  getMisVacantesAsignadas(): Observable<IVacante[]> {
+    return this.http.get<IVacante[]>(`${this.apiUrl}/misvacantes/asignadas`);
+  }
+
+  // Trae las vacantes canceladas de la empresa actual
+  getMisVacantesCanceladas(): Observable<IVacante[]> {
+    return this.http.get<IVacante[]>(`${this.apiUrl}/misvacantes/canceladas`);
+  }
+
+  // Trae todas las vacantes activas públicas
+   getTodasLasVacantes(): Observable<IVacante[]> {
+    return this.http.get<IVacante[]>(`${this.apiUrl}`);
+  }
+
+  // Cancela una vacante por su ID y actualiza todas las listas
   cancelarVacante(id: number) {
     return this.http.delete(`${this.apiUrl}/cancelar/${id}`, { responseType: 'text' }).pipe(
       tap(() => {
-        this.cargarVacantes();
+        this.cargarMisVacantes();
         this.cargarVacantesCanceladas();
         this.cargarVacantesAsignadas();
+        this.cargarTodasLasVacantesActivas();
       })
     );
   }
 
-  //Metodo para actualizr vacante con un usuario Empresa
+  // Actualiza los datos de una vacante
   actualizarVacante(vacante: IVacante): Observable<IVacante> {
     return this.http.put<IVacante>(`${this.apiUrl}/editar/${vacante.idVacante}`, vacante);
   }
 
-  //Metodo para publicar una vacante con un usuario Empresa
+  // Publica una nueva vacante
   publicarVacante(vacante: IVacante): Observable<IVacante> {
     return this.http.post<IVacante>(`${this.apiUrl}/publicar`, vacante);
   }
-  
-  //Metodo para buscar una vacante por su id
+
+  // Busca una vacante por su ID
   findById(id: number): Observable<IVacante> {
     return this.http.get<IVacante>(`${this.apiUrl}/${id}`);
   }
 
-  //Metodo para obtener los tipos de contrato "detalles" de una vacante
+  // Devuelve los tipos de contrato disponibles
   getTiposContrato(): Observable<string[]> {
     return this.http.get<string[]>(`${this.apiUrl}/tiposcontrato`);
   }
 
-  // Datos de prueba para testeo local
-  private vacantes: IVacante[] = [
-    {
-      idVacante: 1,
-      nombre: 'Desarrollador Backend',
-      descripcion: 'Se busca programador con experiencia en Java y Spring.',
-      detalles: 'INDEFINIDO',
-      fecha: '2025-04-01',
-      salario: 32000,
-      estatus: 'CREADA',
-      destacado: 0,
-      imagen: '',
-      nombreCategoria: 'Desarrollo',
-      nombreEmpresa: 'Tech Solutions',
-      idCategoria: 1,
-    },
-    {
-      idVacante: 2,
-      nombre: 'Analista de Datos',
-      descripcion: 'Experto en SQL, Python y herramientas de BI.',
-      detalles: 'TEMPORAL',
-      fecha: '2025-04-02',
-      salario: 30000,
-      estatus: 'CREADA',
-      destacado: 0,
-      imagen: '',
-      nombreCategoria: 'Desarrollo',
-      nombreEmpresa: 'Tech Solutions',
-      idCategoria: 1,
-    }
-    // ...etc
-  ];
 
-  getVacantes(): Observable<IVacante[]> {
-    return of(this.vacantes);
-  }
+
 
 }

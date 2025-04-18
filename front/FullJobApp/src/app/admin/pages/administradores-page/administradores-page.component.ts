@@ -4,12 +4,12 @@ import { IUsuario } from '../../../core/interfaces/iusuario';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdministradoresActionComponent } from '../../components/administradores-action/administradores-action.component';
-import { AdministradorFormComponent } from '../../components/administrador-form/administrador-form.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-administradores-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, AdministradoresActionComponent, AdministradorFormComponent],
+  imports: [CommonModule, FormsModule, AdministradoresActionComponent,RouterLink],
   templateUrl: './administradores-page.component.html',
   styleUrl: './administradores-page.component.css',
 })
@@ -21,13 +21,14 @@ export class AdministradoresPageComponent {
   constructor(private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
-    this.cargarAdministradores();
-  }
+    // Llamamos al método que carga los candidatos (lo llena en el BehaviorSubject)
+    this.usuarioService.getCandidatos();
 
-  cargarAdministradores(): void {
-    this.usuarioService.getCandidatos().subscribe({
-      next: (data) => {
-        this.usuarios = data.filter((u) => u.rol === 'ADMON');
+    // Nos suscribimos al observable candidatos$
+    this.usuarioService.candidatos$.subscribe({
+      next: (data: IUsuario[]) => {
+        // Filtramos solo los usuarios con rol ADMON
+        this.usuarios = data.filter((u: IUsuario) => u.rol === 'ADMON');
       },
       error: () => {
         this.usuarios = [];
@@ -35,27 +36,4 @@ export class AdministradoresPageComponent {
     });
   }
 
-  nuevaAlta() {
-    this.administradorSeleccionado = null;
-    this.mostrarFormulario = true;
-  }
-
-  editarAdministrador(usuario: IUsuario) {
-    this.administradorSeleccionado = usuario;
-    this.mostrarFormulario = true;
-  }
-  
-
-  eliminarAdministrador(email: string): void {
-    if (confirm(`¿Seguro que quieres eliminar a ${email}?`)) {
-      this.usuarioService.eliminarUsuario(email).subscribe(() => {
-        this.cargarAdministradores(); // Recarga la lista actualizada
-      });
-    }
-  }
-
-  onFormularioGuardado() {
-    this.mostrarFormulario = false;
-    this.cargarAdministradores();
-  }
 }

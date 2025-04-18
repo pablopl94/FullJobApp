@@ -1,0 +1,60 @@
+.form-wrapper {
+    background-color: #fac402; /* Fondo mostaza */
+    padding: 2rem;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .form-card {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+  }
+  
+  .form-title {
+    font-size: 1.5rem;
+    color: #474747;
+  }
+  
+  .form-label {
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .form-field {
+    background-color: #f2f2f2;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    width: 100%;
+    transition: all 0.3s ease;
+  }
+  
+  .form-field:focus {
+    outline: none;
+    background-color: #e8e8e8;
+  }
+  
+
+  .btn-submit {
+    background-color: #bfbfbf;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.6rem 1.5rem;
+    width: 100%;
+    max-width: 200px;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-submit:hover {
+    background-color: #fac402;
+    color: white;
+  }
+    
