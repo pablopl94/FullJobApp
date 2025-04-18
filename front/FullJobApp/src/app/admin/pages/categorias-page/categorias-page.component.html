@@ -22,11 +22,7 @@
               <td class="text-center">{{ categoria.nombre }}</td>
               <td class="text-center">{{ categoria.descripcion }}</td>
               <td class="text-center">
-                <app-categoria-actions
-                  [categoria]="categoria"
-                  (onEdit)="editarCategoria(categoria)"
-                  (onDelete)="eliminarCategoria($event)"
-                ></app-categoria-actions>
+                <app-categoria-actions [categoria]="categoria"></app-categoria-actions>
               </td>
             </tr>
           }

@@ -50,3 +50,13 @@
     border: 2px solid #d9534f;
     color: #d9534f;
   }
+
+  .btn-ver:hover {
+    background: #ffc107;
+    color: white;
+  }
+  
+  .btn-cancelar:hover {
+    background: #d9534f;
+    color: white;
+  }

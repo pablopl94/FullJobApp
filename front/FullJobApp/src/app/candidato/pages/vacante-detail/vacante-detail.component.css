@@ -89,7 +89,7 @@
     font-size: 1rem;
   }
   
-  .btn-inscribirse,
+
   .btn-volver {
     border-radius: 10px;
     border: 2px solid #f6c90e;
@@ -101,9 +101,24 @@
     color: #f6c90e;
     transition: 0.2s ease;
   }
-  
-  .btn-inscribirse:hover,
+
   .btn-volver:hover {
-    background-color: #f6c90e;
-    color: #fff;
+    background-color: #FAC402;
+    color: #ffffff;
+  }
+
+  .btn-postular {
+    background-color: black;
+    color: #FAC402;
+    padding: 0.9rem 1.5rem;
+    border: 2px solid ;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-postular:hover {
+    background-color: white;
+    color: black;
   }

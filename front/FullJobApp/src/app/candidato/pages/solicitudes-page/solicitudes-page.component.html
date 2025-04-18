@@ -4,8 +4,7 @@
   <div class="lista-solicitudes">
     @if (arraySolicitudes.length === 0) {
       <div class="mensaje-sin-solicitudes text-center mt-5">
-        <p class="fw-bold fs-4">Aún no tienes solicitudes</p>
-        <img src="assets/img/empty-folder.png" alt="Sin solicitudes" width="120" height="120" />
+        <img src="assets/icons/sinsolicitudes.png" alt="Sin solicitudes" width="500" height="500" />
       </div>
     } @else {
       @for (solicitud of arraySolicitudes; track solicitud.idSolicitud) {

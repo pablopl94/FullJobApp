@@ -1,9 +1,10 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CategoriasService } from '../../../core/services/categorias.service';
-import { ICategoria } from '../../../core/interfaces/Icategoria';
+import { ICategoria } from '../../../core/interfaces/ICategoria';
 import { CategoriaFormComponent } from '../../components/categoria-form/categoria-form.component';
 import { CategoriaActionsComponent } from '../../components/categoria-actions/categoria-actions.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-categorias-page',
@@ -37,24 +38,8 @@ export class CategoriasPageComponent {
     this.mostrarFormulario = true;
   }
 
-  editarCategoria(categoria: ICategoria): void {
-    this.categoriaSeleccionada = categoria;
-    this.mostrarFormulario = true;
-  }
-
   onFormularioGuardado(): void {
     this.mostrarFormulario = false;
     this.cargarCategorias();
-  }
-
-  eliminarCategoria(id: number): void {
-    this.categoriaService.eliminarCategoria(id).subscribe({
-      next: () => {
-        this.cargarCategorias();
-      },
-      error: (err) => {
-        console.error('Error al eliminar categoría:', err);
-      }
-    });
   }
 }

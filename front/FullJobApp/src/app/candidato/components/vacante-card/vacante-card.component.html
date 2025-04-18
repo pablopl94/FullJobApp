@@ -1,17 +1,18 @@
 <div class="card-vacante">
-    <div class="card-imagen">
-      <img src="assets/img/image-card.jpeg" alt="Imagen vacante" />
-        <span class="etiqueta-destacado">Destacado</span>
+  <div class="card-imagen">
+    <img src="assets/img/image-card.jpeg" alt="Imagen vacante" />
+    <span class="etiqueta-destacado">Destacado</span>
+  </div>
+
+  <div class="card-contenido">
+    <div class="card-info">
+      <h5 class="empresa">{{ vacante.nombreEmpresa }}</h5>
+      <p class="categoria">{{ vacante.nombreCategoria }}</p>
+      <p class="titulo">{{ vacante.nombre }}</p>
+      <p class="contrato">{{ vacante.detalles }}</p>
     </div>
-  
-    <div class="card-contenido">
-      <div class="card-info">
-        <h5 class="empresa">{{ vacante.nombreEmpresa }}</h5>
-        <p class="categoria">{{ vacante.nombreCategoria }}</p>
-      </div>
-      <div class="card-botones">
-        <button class="btn-ver" (click)="onSaberMas()">Saber más</button>
-      </div>
+    <div class="card-botones">
+      <button class="btn-ver" (click)="onSaberMas()">Saber más</button>
     </div>
-   
+  </div>
 </div>

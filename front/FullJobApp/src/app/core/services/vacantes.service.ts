@@ -109,9 +109,6 @@ export class VacantesService {
     return this.http.get<string[]>(`${this.apiUrl}/tiposcontrato`);
   }
 
-
-
-
   getVacantesCandidato(): Observable<IVacante[]> {
     return this.http.get<IVacante[]>(`${this.apiUrl}`);
   }
@@ -120,7 +117,7 @@ export class VacantesService {
   }
 
   getVacantesPorEmpresa(nombreEmpresa: string): Observable<IVacante[]> {
-    return this.http.get<IVacante[]>(`${this.apiUrl}/filtrar/empresa/${encodeURIComponent(nombreEmpresa)}`);
+    return this.http.get<IVacante[]>(`${this.apiUrl}/filtrar/empresa/${(nombreEmpresa)}`);
   }
   getVacantesPorCategoria(idCategoria: number): Observable<IVacante[]> {
     return this.http.get<IVacante[]>(`${this.apiUrl}/filtrar/categoria/${idCategoria}`);

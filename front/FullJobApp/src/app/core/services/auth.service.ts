@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { IUsuario } from '../interfaces/iusuario';
 import { IClienteRegistro } from '../interfaces/IClienteRegistro';
-import { IAdminRegistro } from '../interfaces/IAdminRegistro';
 
 @Injectable({
   providedIn: 'root',

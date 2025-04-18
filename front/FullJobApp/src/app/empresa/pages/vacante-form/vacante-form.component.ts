@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VacantesService } from '../../../core/services/vacantes.service';
 import { CategoriasService } from '../../../core/services/categorias.service';
 import { IVacante } from '../../../core/interfaces/IVacante';
-import { ICategoria } from '../../../core/interfaces/Icategoria';
+import { ICategoria } from '../../../core/interfaces/ICategoria';
 import Swal from 'sweetalert2';
 
 
@@ -74,7 +74,7 @@ export class VacanteFormComponent implements OnInit {
 
   // Cargar categorías
   cargarCategorias() {
-    this.categoriaService.getAll().subscribe({
+    this.categoriaService.getCategorias().subscribe({
       next: (categorias) => {
         this.arrayCategorias = categorias;
         console.log('[cargarCategorias] Categorías cargadas:', categorias);

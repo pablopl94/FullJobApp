@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-botones-solicitud-candidato',
@@ -18,6 +19,25 @@ export class BotonesSolicitudCandidatoComponent {
   }
 
   onCancelar(): void {
-    this.cancelar.emit(this.id);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción cancelará la solicitud.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#f4c542',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cancelar',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cancelar.emit(this.id);
+        Swal.fire({
+          title: 'Cancelado',
+          text: 'La solicitud ha sido cancelada.',
+          icon: 'success',
+          confirmButtonColor: '#f4c542'
+        });
+      }
+    });
   }
 }

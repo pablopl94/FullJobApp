@@ -26,7 +26,6 @@ export class UsuarioService {
       .subscribe();
   }
 
-  
   // Registra un nuevo administrador en el backend
   registrarAdmin(admin: IAdminRegistro): Observable<IAdminRegistro> {
     return this.http.post<IAdminRegistro>(`${this.apiUrl}/alta/admin`,admin );

@@ -78,8 +78,4 @@ export class SolicitudesService {
     );
   }
 
-  obtenerDetalleSolicitudComoCandidato(id: number): Observable<ISolicitud> {
-    return this.http.get<ISolicitud>(`${this.baseUrl}detalle/${id}`);
-  }
-
 }

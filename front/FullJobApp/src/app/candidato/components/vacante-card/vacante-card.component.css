@@ -5,9 +5,12 @@
   padding: 2rem;
   margin: 1rem auto;
   border-radius: 30px;
+  border: 2px solid #474747;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   max-width: 1000px;
   gap: 2rem;
+  min-height: 250px; /* Altura uniforme */
+  overflow: hidden;
 }
 
 .card-imagen {
@@ -33,26 +36,61 @@
   font-weight: 500;
 }
 
-/* CONTENIDO (texto + botón apilados) */
+/* CONTENIDO */
 .card-contenido {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   flex: 1;
-  gap: 1.5rem;
+  height: 100%;
+  gap: 1rem;
 }
 
-/* TEXTO */
+/* INFORMACIÓN */
+.card-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  gap: 0.3rem;
+}
+
 .card-info .empresa {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  margin-bottom: 0.2rem;
+  color: #FAC402;
 }
 
-.card-info .categoria {
-  font-size: 1.3rem;
-  color: #444;
+.card-info .categoria{
+  font-size: 1.0rem;
+  color: #5e5e5e;
+  font-weight: 500;
 }
+
+.card-info .titulo {
+  font-size: 1.2rem;
+  color: #474747;
+  font-weight: 500;
+}
+
+.card-info .contrato {
+  display: inline-block;
+  background-color: #FAC402; 
+  color: white;
+  padding: 5px 10px;
+  font-size: 0.80rem; 
+  font-weight: 600;
+  border-radius: 5px;
+  max-width: fit-content; 
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1.2;
+  cursor: default;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+
 
 /* BOTÓN */
 .card-botones {
@@ -62,16 +100,19 @@
 
 .btn-ver {
   background-color: white;
-  color: #f6c90e;
-  border: 3px solid #f6c90e;
+  color: #474747;
+  border: 3px solid #474747;
   border-radius: 15px;
   padding: 10px 20px;
   font-weight: 700;
   font-size: 1.3rem;
   cursor: pointer;
   white-space: nowrap;
+  transition: background-color 0.2s;
 }
 
 .btn-ver:hover {
-  background-color: #fff8d4;
+  background-color: #474747;
+  border: 3px solid #474747;
+  color: white;
 }

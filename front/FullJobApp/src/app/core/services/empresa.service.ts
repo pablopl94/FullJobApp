@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { IEmpresa } from '../interfaces/IEmpresa';
-
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -10,14 +9,15 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 })
 export class EmpresaService {
   private baseUrl = 'http://localhost:9007/empresas';
+  private authUrl = 'http://localhost:9007/auth';
 
-  // Sujeto reactivo de empresas
+  // Sujeto reactivo para almacenar y emitir las empresas
   private empresasSubject = new BehaviorSubject<IEmpresa[]>([]);
   public empresas$ = this.empresasSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
-  // Llama al backend y actualiza el BehaviorSubject
+  // Carga todas las empresas y las guarda en el subject
   fetchEmpresas(): void {
     this.http.get<IEmpresa[]>(this.baseUrl).subscribe({
       next: (empresas) => this.empresasSubject.next(empresas),
@@ -25,43 +25,48 @@ export class EmpresaService {
     });
   }
 
-  // Buscar sin afectar al estado global
+  // Devuelve las empresas directamente sin afectar al subject
+  getEmpresas(): Observable<IEmpresa[]> {
+    return this.http.get<IEmpresa[]>(this.baseUrl);
+  }
+
+  // Buscar empresas por nombre (sin afectar al estado global)
   buscarPorNombre(nombre: string): Observable<IEmpresa[]> {
     return this.http.get<IEmpresa[]>(`${this.baseUrl}/buscar/${nombre}`);
   }
 
-  //Metodo para modificar la empresa
+  // Actualiza los datos de una empresa y refresca la lista
   actualizarEmpresa(empresa: IEmpresa): Observable<IEmpresa> {
     return this.http.put<IEmpresa>(`${this.baseUrl}/${empresa.idEmpresa}`, empresa).pipe(
       tap(() => this.fetchEmpresas())
     );
   }
 
-  //Metodo para eliminar la empresa
+  // Elimina una empresa del backend y del estado local
   eliminarEmpresa(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`).pipe(
       tap(() => {
         const listaActual = this.empresasSubject.getValue();
-        const nuevaLista = listaActual.filter((e) => e.idEmpresa !== id);
+        const nuevaLista = listaActual.filter(e => e.idEmpresa !== id);
         this.empresasSubject.next(nuevaLista);
       })
     );
   }
 
-  //Metodo para obtener detalles de la empresa
+  // Devuelve los detalles de la empresa autenticada
   getDetallesEmpresaAutenticada(): Observable<IEmpresa> {
     return this.http.get<IEmpresa>(`${this.baseUrl}/perfil`);
   }
 
-  //Buscar empresa por su id
+  // Obtiene empresa por ID
   getEmpresaById(id: number): Observable<IEmpresa> {
     return this.http.get<IEmpresa>(`${this.baseUrl}/${id}`);
   }
 
-  //Metodo para registrare empresa
+  // Registra una nueva empresa y actualiza la lista global
   crearEmpresa(data: IEmpresa): Observable<IEmpresa> {
     return this.http
-      .post<IEmpresa>(`http://localhost:9007/auth/alta/empresa`, data)
+      .post<IEmpresa>(`${this.authUrl}/alta/empresa`, data)
       .pipe(tap(() => this.fetchEmpresas()));
   }
 }

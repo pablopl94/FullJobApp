@@ -1,33 +1,49 @@
-<section>
-    @if (miSolicitud) {
-      <div class="detalle-container">
-  
-        <h2>📄 Detalles de tu solicitud</h2>
-  
-        <div class="row">
-          <div class="col-md-6">
-            <p><strong>📅 Fecha:</strong> {{ miSolicitud.fecha }}</p>
-            <p><strong>🟢 Estado:</strong> {{ miSolicitud.estado }}</p>
-            <p><strong>📝 Comentarios:</strong> {{ miSolicitud.comentarios }}</p>
-          </div>
-          <div class="col-md-6">
-            <p><strong>📎 Archivo:</strong> {{ miSolicitud.archivo }}</p>
-            <p><strong>📄 CV:</strong> {{ miSolicitud.curriculum }}</p>
-          </div>
-        </div>
-  
-        <hr>
-  
-        <h5 class="seccion-titulo">🏢 Vacante</h5>
-        <p><strong>Puesto:</strong> {{ miSolicitud.nombreVacante }}</p>
-        <p><strong>Salario:</strong> {{ miSolicitud.salario }} €</p>
-        <p><strong>Categoría:</strong> {{ miSolicitud.nombreCategoria }}</p>
-        <p><strong>Empresa:</strong> {{ miSolicitud.nombreEmpresa }}</p>
-  
-      </div>
-    } @else {
-      <div class="detalle-container">
-        <p>Cargando detalles de la solicitud...</p>
-      </div>
-    }
-  </section>
+<div class="detalle-container">
+  <h2 class="detalle-titulo text-center mb-5">📝 Detalles de la Solicitud</h2>
+
+  <div class="row mb-5">
+    <div class="col-md-6">
+      <p><strong>📅 Fecha de solicitud: </strong> {{ miSolicitud.fecha }}</p>
+      <p>
+        <strong>📌 Estado: </strong>
+        <span class="badge"
+          [ngClass]="{
+            'bg-warning text-dark': miSolicitud.estado === 'PRESENTADA',
+            'bg-success': miSolicitud.estado === 'ASIGNADA',
+            'bg-secondary': miSolicitud.estado === 'CANCELADA'
+          }">
+          {{ miSolicitud.estado }}
+        </span>
+      </p>
+      <p><strong>🗒️ Comentarios: </strong> {{ miSolicitud.comentarios || 'Sin comentarios' }}</p>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <p><strong>📎 Archivo adjunto: </strong> {{ miSolicitud.archivo || 'No adjuntado' }}</p>
+      <p><strong>📄 Currículum: </strong> 
+        @if (miSolicitud.curriculum) {
+          <a [href]="miSolicitud.curriculum" target="_blank" class="link-cv">Ver currículum</a>
+        } @else {
+          <span>No disponible</span>
+        }
+      </p>
+    </div>
+  </div>
+
+  <hr class="separador">
+
+  <h5 class="seccion-titulo">💼 Información de la Vacante</h5>
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <p><strong>Vacante:</strong> {{ miSolicitud.nombreVacante }}</p>
+      <p><strong>Empresa:</strong> {{ miSolicitud.nombreEmpresa}}</p>
+      <p><strong>Categoría:</strong> {{ miSolicitud.nombreCategoria }}</p>
+      <p><strong>Salario:</strong> {{ miSolicitud.salario }} €</p>
+      
+    </div>
+  </div>
+
+  <div class="text-end mt-4">
+    <button class="btn-volver fw-bold" [routerLink]="['/candidatos/solicitudes']">← VOLVER</button>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ICategoria } from '../../../core/interfaces/Icategoria';
+import { ICategoria } from '../../../core/interfaces/ICategoria';
 import { CategoriasService } from '../../../core/services/categorias.service';
 // ...
 

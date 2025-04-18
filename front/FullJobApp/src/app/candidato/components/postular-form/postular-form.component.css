@@ -33,7 +33,7 @@
   
   .btn-cv {
     background-color: #222;
-    color: #f6c90e;
+    color: #FAC402;
     padding: 0.7rem 1.5rem;
     border-radius: 8px;
     font-weight: 600;
@@ -44,9 +44,9 @@
   }
   
   .btn-cv:hover {
-    background-color: #111;
-  }
-  
+      background-color: #FAC402;
+      color: black;
+    }
   .acciones {
     display: flex;
     justify-content: space-between;
@@ -54,11 +54,28 @@
     gap: 1rem;
   }
   
+  .btn-volver {
+    border-radius: 10px;
+    border: 2px solid #FAC402;
+    padding: 0.8rem 1.5rem;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #fff;
+    color: #FAC402;
+    transition: 0.2s ease;
+  }
+
+  .btn-volver:hover {
+    background-color: #FAC402;
+    color: #ffffff;
+  }
+
   .btn-postular {
-    background-color: #222;
-    color: #f6c90e;
+    background-color: black;
+    color: #FAC402;
     padding: 0.9rem 1.5rem;
-    border: 2px solid #f6c90e;
+    border: 2px solid ;
     border-radius: 10px;
     font-weight: 700;
     cursor: pointer;
@@ -66,20 +83,6 @@
   }
   
   .btn-postular:hover {
-    background-color: #111;
-  }
-  
-  .btn-volver {
     background-color: white;
-    color: #f6c90e;
-    border: 2px solid #f6c90e;
-    padding: 0.9rem 1.5rem;
-    border-radius: 10px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .btn-volver:hover {
-    background-color: #fff8dc;
+    color: black;
   }
