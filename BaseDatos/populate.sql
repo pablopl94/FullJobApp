@@ -58,9 +58,7 @@ INSERT INTO Vacantes (nombre, descripcion, fecha, salario, estatus, destacado, i
 INSERT INTO Solicitudes (fecha, archivo, comentarios, estado, curriculum, id_Vacante, email) VALUES
 
 -- 10 nuevas solicitudes para cliente@cliente.com
-('2025-04-01', 'cv_jose.pdf', 'Tengo formación específica para esta posición.', 0, 'cv_jose.pdf', 5, 'cliente@cliente.com'),
-('2025-04-02', 'cv_jose.pdf', 'Estoy muy interesado en esta vacante.', 0, 'cv_jose.pdf', 6, 'cliente@cliente.com'),
-('2025-04-03', 'cv_jose.pdf', 'Tengo disponibilidad inmediata.', 0, 'cv_jose.pdf', 11, 'cliente@cliente.com'),
+
 ('2025-04-04', 'cv_jose.pdf', 'Me gustaría aportar mis conocimientos aquí.', 0, 'cv_jose.pdf', 12, 'cliente@cliente.com'),
 ('2025-04-05', 'cv_jose.pdf', 'Esta vacante encaja con mi experiencia.', 0, 'cv_jose.pdf', 13, 'cliente@cliente.com'),
 ('2025-04-06', 'cv_jose.pdf', 'He trabajado en proyectos similares.', 0, 'cv_jose.pdf', 14, 'cliente@cliente.com'),

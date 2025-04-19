@@ -40,7 +40,7 @@ public class EmpresaRestController {
     //ENDPOINT PARA MOSTRAR TODAS LAS EMPRESAS
     // GET    /empresas ............................. [ROLE_ADMON]
     @GetMapping()
-    @PreAuthorize("hasAnyRole('CLIENTE', 'EMPRESA')")
+    @PreAuthorize("hasAnyRole('CLIENTE', 'ADMON')")
     public ResponseEntity<List<EmpresaResponseDto>> mostrarEmpresas() {
         List<EmpresaResponseDto> respuestaDTO = empresaService.findAll()
             .stream()
@@ -155,21 +155,4 @@ public class EmpresaRestController {
 
         return ResponseEntity.ok(responseDto);
     }
-
-    @PostMapping
-    @PreAuthorize("hasRole('ADMON')")
-    public ResponseEntity<EmpresaResponseDto> crearEmpresa(@RequestBody EmpresaRequestDto dto) {
-        Empresa nuevaEmpresa = new Empresa();
-
-        nuevaEmpresa.setCif(dto.getCif());
-        nuevaEmpresa.setNombreEmpresa(dto.getNombreEmpresa());
-        nuevaEmpresa.setDireccionFiscal(dto.getDireccionFiscal());
-        nuevaEmpresa.setPais(dto.getPais());
-
-        empresaService.save(nuevaEmpresa);
-
-        EmpresaResponseDto respuestaDto = mapper.map(nuevaEmpresa, EmpresaResponseDto.class);
-        return ResponseEntity.status(HttpStatus.CREATED).body(respuestaDto);
-    }
-
 }

@@ -19,8 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.fulljob.api.auth.JwtUtils;
-import com.fulljob.api.models.dto.AltaClienteAdminRequestDto;
-import com.fulljob.api.models.dto.AltaClienteAdminResponseDto;
 import com.fulljob.api.models.dto.AltaClienteRequestDto;
 import com.fulljob.api.models.dto.AltaClienteResponseDto;
 import com.fulljob.api.models.dto.AltaEmpresaRequestDto;
@@ -240,53 +238,6 @@ public class AuthServiceImpl extends GenericCrudServiceImpl<Usuario, String> imp
         }
     }
     
-    @Override
-    public AltaClienteAdminResponseDto altaAdministrador(AltaClienteAdminRequestDto dto) {
-        try {
-        	//comprobamos que no exista el usuario
-            if (usuarioRepository.existsById(dto.getEmail())) {
-                throw new ResponseStatusException(HttpStatus.CONFLICT, "El email ya está registrado.");
-            }
-
-            
-            //Creamos un usuario nuevo con builder y guardamos:
-            //Le añadimos el rol CLIENTE
-            //Encriptamos la contraseña con el metodo que tenemos en springsecurityconfg
-            //Le metemos la fecha de hoy a la fecha registro
-            Usuario nuevoUsuario = Usuario.builder()
-                    .email(dto.getEmail())
-                    .nombre(dto.getNombre())
-                    .apellidos(dto.getApellidos())
-                    .password(passwordEncoder.encode(dto.getPassword()))
-                    .enabled(1)
-                    .fechaRegistro(LocalDate.now())
-                    .rol("ADMON")
-                    .build();
-
-            usuarioRepository.save(nuevoUsuario);
-            
-            //Le agregamos la autoridad rol
-            nuevoUsuario.setAuthorities(List.of(new SimpleGrantedAuthority("ROLE_ADMON")));
-            
-            //Generamos el token con el usuario que hemos creado
-            //Aqui generamos el token por si nada mas regisrarnos queremos
-            //logearnos y entrar en la app
-            String token = jwtUtils.generateToken(nuevoUsuario);
-          
-            AltaClienteAdminResponseDto respuesta = mapper.map(nuevoUsuario,AltaClienteAdminResponseDto.class);
-            respuesta.setToken(token);
-            
-            //Devolvemos una respuesta en dto ( mas seguro )
-            return respuesta;
-
-        } catch (IllegalArgumentException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new ResponseStatusException(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Error inesperado al registrar al cliente: " + e.getMessage()
-            );
-        }
-    }
+   
 
 }
