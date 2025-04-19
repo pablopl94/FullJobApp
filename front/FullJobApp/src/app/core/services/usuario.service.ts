@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { IUsuario } from '../interfaces/iusuario';
 import { IAdminRegistro } from '../interfaces/IAdminRegistro';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
   // URL base del backend
-  private apiUrl = 'http://localhost:9007/clientes';
+  private apiUrl = `${environment.apiUrl}/clientes`;
 
   // BehaviorSubject para almacenar y compartir los candidatos
   private candidatosSubject = new BehaviorSubject<IUsuario[]>([]);

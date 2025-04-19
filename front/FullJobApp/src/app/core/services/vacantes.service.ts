@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { IVacante } from '../interfaces/IVacante';
+import { environment } from '../../../environments/environment';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { IVacante } from '../interfaces/IVacante';
 })
 export class VacantesService {
   // URL base del backend
-  private apiUrl = 'http://localhost:9007/vacantes';
+  private apiUrl = `${environment.apiUrl}/vacantes`;
 
   // Lista de vacantes creadas por la empresa
   private vacantesSubject = new BehaviorSubject<IVacante[]>([]);

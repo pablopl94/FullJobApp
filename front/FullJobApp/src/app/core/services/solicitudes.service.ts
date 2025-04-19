@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { ISolicitud } from '../interfaces/ISolicitud';
+import { environment } from '../../../environments/environment';
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import { ISolicitud } from '../interfaces/ISolicitud';
 })
 export class SolicitudesService {
 
-  private baseUrl = 'http://localhost:9007/solicitudes/';
+  private baseUrl =  `${environment.apiUrl}/empresas`;
 
   // Subject para misSolicitudes
   private solicitudesSubject = new BehaviorSubject<ISolicitud[]>([]);

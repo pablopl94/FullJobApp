@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { IEmpresa } from '../interfaces/IEmpresa';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmpresaService {
-  private baseUrl = 'http://localhost:9007/empresas';
-  private authUrl = 'http://localhost:9007/auth';
+  private baseUrl =  `${environment.apiUrl}/empresas`;
+  private authUrl =  `${environment.apiUrl}/auth`;
 
   // Sujeto reactivo para almacenar y emitir las empresas
   private empresasSubject = new BehaviorSubject<IEmpresa[]>([]);
@@ -66,7 +67,7 @@ export class EmpresaService {
   // Registra una nueva empresa y actualiza la lista global
   crearEmpresa(data: IEmpresa): Observable<IEmpresa> {
     return this.http
-      .post<IEmpresa>(`${this.authUrl}/alta/empresa`, data)
+      .post<IEmpresa>(`${this.authUrl}/auth/alta/empresa`, data)
       .pipe(tap(() => this.fetchEmpresas()));
   }
 }
