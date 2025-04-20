@@ -24,7 +24,7 @@ public class SFTPUtils {
 
         String host = "ftp.fulljob.paulopezdev.com";
         String username = "curriculumsftp";
-        String password = "contraseña_sftp"; // Reemplazar por la contraseña real
+        String password = ""; // Reemplazar por la contraseña real
 
         try {
             // Creamos una nueva sesión SFTP
