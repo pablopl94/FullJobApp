@@ -18,7 +18,9 @@ export class AuthService {
 
   // Iniciar sesión con email y contraseña
   login(email: string, password: string) {
+    console.log('API URL en uso:', environment.apiUrl);
     return this.http.post(`${this.baseUrl}/login`, { email, password });
+    
   }
 
   // Guarda el token y los datos del usuario en localStorage
