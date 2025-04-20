@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 })
 export class AuthService {
   
-  // URL base del backend para auth
+
   private baseUrl = `${environment.apiUrl}/auth`;
 
   constructor(private http: HttpClient, private router: Router) {}
