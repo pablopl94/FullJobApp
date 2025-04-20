@@ -113,10 +113,10 @@ export class VacantesService {
   getVacantesCandidato(): Observable<IVacante[]> {
     return this.http.get<IVacante[]>(`${this.apiUrl}`);
   }
-  postularme(idVacante: number, solicitudDto: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/inscribirse/${idVacante}`, solicitudDto);
-  }
 
+  postularme(idVacante: number, formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/inscribirse/${idVacante}`, formData);
+  }
   getVacantesPorEmpresa(nombreEmpresa: string): Observable<IVacante[]> {
     return this.http.get<IVacante[]>(`${this.apiUrl}/filtrar/empresa/${(nombreEmpresa)}`);
   }

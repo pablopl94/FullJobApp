@@ -1,6 +1,9 @@
 package com.fulljob.api.services;
 
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fulljob.api.models.dto.SolicitudResponseDto;
 import com.fulljob.api.models.entities.Solicitud;
 import com.fulljob.api.models.entities.Usuario;

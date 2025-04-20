@@ -2,6 +2,7 @@ package com.fulljob.api.services.impl;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -26,6 +27,7 @@ import com.fulljob.api.repository.IEmpresaRepository;
 import com.fulljob.api.repository.ISolicitudRepository;
 import com.fulljob.api.repository.IVacanteRepository;
 import com.fulljob.api.services.IVacanteService;
+import com.fulljob.api.utils.SFTPUtils;
 
 @Service
 public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer> implements IVacanteService {
@@ -321,43 +323,47 @@ public class VacanteServiceImpl extends GenericCrudServiceImpl<Vacante, Integer>
 		}
 	}
 	
-	
 	@Override
-	public SolicitudResponseDto inscribirseVacante (int idVacante, Usuario usuario, SolicitudRequestDto solicitudDto) {
-		
-		//Comprobamos que usuario no sea null
-		if(usuario == null){
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado");
-		}
-		
-		//Buscamos la vacante a la que el usuario se va a inscribir y la guardamos
-		Vacante nuevaVacante = vacanteRepo.findById(idVacante)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "La vacante no existe"));
-		
-		//Creamos la nueva solicitud metiendo los datos que nos llegan del dto
-		//El estado de la solicitud ya viene por defecto por pendiente por lo que no hay que añadirlo
-		Solicitud nuevaSolicitud = Solicitud.builder()
-				.usuario(usuario)
-				.vacante(nuevaVacante)
-				.archivo(solicitudDto.getArchivo())
-				.curriculum(solicitudDto.getCurriculum())
-				.comentarios(solicitudDto.getComentarios())
-				.fecha(LocalDate.now())
-				.build();
-		
-		//Comprobamos que no exista ya una solicitud de ese usuario a esta vacante
-		if(!solicitudRepo.existsByVacanteIdVacanteAndUsuarioEmail(idVacante, usuario.getEmail())) {
-			solicitudRepo.save(nuevaSolicitud);
-		}else {
-			throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Ya hay una solicitud para esta vacante con este usuario");
-		}
-		
-		//Ahora creamos el dto de respuesta y le añadimos datos extra como la empresa a la que es la vacante
-		SolicitudResponseDto respuestaDto = mapper.map(nuevaSolicitud, SolicitudResponseDto.class);
-		respuestaDto.setNombreEmpresa(nuevaVacante.getEmpresa().getNombreEmpresa());
-		
-		return respuestaDto;
-		
+	public SolicitudResponseDto inscribirseVacante(int idVacante, Usuario usuario, SolicitudRequestDto solicitudDto) {
+
+	    // Comprobamos que el usuario no sea null
+	    if (usuario == null) {
+	        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado");
+	    }
+
+	    // Buscamos la vacante a la que el usuario se va a inscribir
+	    Vacante nuevaVacante = vacanteRepo.findById(idVacante)
+	            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "La vacante no existe"));
+
+	    // Obtenemos el nombre del archivo con el nombre del cliente + ".pdf"
+	    String nombreArchivo = usuario.getNombre() + "_" + usuario.getApellidos() + ".pdf"; // Nombre basado en el cliente
+
+	    // Verificamos que el archivo sea un PDF y lo subimos al servidor SFTP
+	    String rutaSFTP = SFTPUtils.uploadToSFTP(solicitudDto.getCurriculum(), nombreArchivo);  // Usamos la utilidad
+
+	    // Creamos la nueva solicitud con los datos que nos llegan del DTO
+	    Solicitud nuevaSolicitud = Solicitud.builder()
+	            .usuario(usuario)
+	            .vacante(nuevaVacante)
+	            .archivo(nombreArchivo)  // Guardamos el nombre del archivo
+	            .curriculum(rutaSFTP)  // Guardamos la ruta completa del archivo en el servidor SFTP
+	            .comentarios(solicitudDto.getComentarios())
+	            .fecha(LocalDate.now())
+	            .build();
+
+	    // Comprobamos que no exista ya una solicitud de este usuario para esta vacante
+	    if (!solicitudRepo.existsByVacanteIdVacanteAndUsuarioEmail(idVacante, usuario.getEmail())) {
+	        solicitudRepo.save(nuevaSolicitud);
+	    } else {
+	        throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Ya existe una solicitud para esta vacante con este usuario");
+	    }
+
+	    // Creamos el DTO de respuesta y le añadimos datos extra como la empresa de la vacante
+	    SolicitudResponseDto respuestaDto = mapper.map(nuevaSolicitud, SolicitudResponseDto.class);
+	    respuestaDto.setNombreEmpresa(nuevaVacante.getEmpresa().getNombreEmpresa());
+
+	    return respuestaDto;
 	}
+
 	
 }

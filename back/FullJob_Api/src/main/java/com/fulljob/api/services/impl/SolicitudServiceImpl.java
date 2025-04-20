@@ -21,6 +21,7 @@ import com.fulljob.api.repository.ISolicitudRepository;
 import com.fulljob.api.repository.IVacanteRepository;
 import com.fulljob.api.services.ISolicitudService;
 
+
 @Service
 public class SolicitudServiceImpl extends GenericCrudServiceImpl<Solicitud, Integer> implements ISolicitudService {
 
@@ -231,5 +232,7 @@ public class SolicitudServiceImpl extends GenericCrudServiceImpl<Solicitud, Inte
             
         }).collect(Collectors.toList());
     }
-
+	
+	
+	
 }

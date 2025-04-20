@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fulljob.api.models.dto.SolicitudRequestDto;
 import com.fulljob.api.models.dto.SolicitudResponseDto;
@@ -171,15 +173,21 @@ public class VacanteRestController {
 	//METODO PARA INSCRIBIRSE UN CLIENTE EN UNA VACANTE
 	@PostMapping("/inscribirse/{id}")
 	@PreAuthorize("hasRole('CLIENTE')")
-	public ResponseEntity<SolicitudResponseDto> incribirseVacante(
-			@PathVariable int id , 
-			@AuthenticationPrincipal Usuario usuario , 
-			@RequestBody SolicitudRequestDto solicitudDto) {
-		
-		
-		SolicitudResponseDto respuestaDto = vacanteService.inscribirseVacante(id, usuario, solicitudDto);
-		
-		return ResponseEntity.ok(respuestaDto);
+	public ResponseEntity<SolicitudResponseDto> inscribirseVacante(
+	        @PathVariable int id, 
+	        @AuthenticationPrincipal Usuario usuario, 
+	        @RequestParam("comentarios") String comentarios, 
+	        @RequestParam("curriculum") MultipartFile curriculum) { // Aquí recibimos el archivo correctamente
+	    
+	    // Creamos un DTO para la solicitud
+	    SolicitudRequestDto solicitudDto = new SolicitudRequestDto();
+	    solicitudDto.setComentarios(comentarios);
+	    solicitudDto.setCurriculum(curriculum); 
+	    
+	    // Llamamos al servicio
+	    SolicitudResponseDto respuestaDto = vacanteService.inscribirseVacante(id, usuario, solicitudDto);
+	    
+	    return ResponseEntity.ok(respuestaDto);
 	}
 	
 	

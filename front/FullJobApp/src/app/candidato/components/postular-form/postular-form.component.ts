@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 export class PostularFormComponent {
   idVacante!: number;
   comentarios: string = '';
+  curriculum: File | null = null;  // Variable para almacenar el archivo seleccionado
 
   constructor(
     private route: ActivatedRoute,
@@ -27,17 +28,19 @@ export class PostularFormComponent {
   }
 
   postular(): void {
-    const solicitudDto = {
-      comentarios: this.comentarios,
-      archivo: 'cv_placeholder.pdf', 
-      curriculum: 'http://localhost:8080/cv/cv_placeholder.pdf'
-    };
+    // Verifica que se haya seleccionado un archivo
+    if (!this.curriculum) {
+      alert('Debes cargar un archivo PDF');
+      return;
+    }
 
-    this.vacanteService.postularme(this.idVacante, solicitudDto).subscribe({
+    const formData = new FormData();
+    formData.append('comentarios', this.comentarios);
+    formData.append('curriculum', this.curriculum); // Añadir el archivo
+
+    this.vacanteService.postularme(this.idVacante, formData).subscribe({
       next: () => {
         alert('Inscrito a la convocatoria con éxito');
-        // Redirigir a la página de solicitudes
-
         this.router.navigate(['/candidato/solicitudes']);
       },
       error: err => {
