@@ -9,7 +9,6 @@ import { environment } from '../../../environments/environment';
 })
 export class CategoriasService {
 
-  // URL del backend
   private apiUrl = `${environment.apiUrl}/categorias`;
 
   constructor(private http: HttpClient) {}
