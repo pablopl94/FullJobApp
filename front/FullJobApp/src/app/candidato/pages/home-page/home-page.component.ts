@@ -22,6 +22,7 @@ export class HomePageComponent implements OnInit {
   populares: IVacante[] = [];
 
   ngOnInit(): void {
+    
     // Cargamos usuario logueado (si existe)
     this.usuario = this.authService.obtenerUsuario();
   
