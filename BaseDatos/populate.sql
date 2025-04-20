@@ -2,7 +2,7 @@ USE vacantes_BBDD_2025_RETO;
 
 -- ================== USUARIOS ==================
 -- CONTRASEÑA PARA TODOS 123456
-INSERT INTO Usuarios (email, nombre, apellidos, password, enabled, fecha_registro, rol) VALUES
+INSERT INTO usuarios (email, nombre, apellidos, password, enabled, fecha_registro, rol) VALUES
 ('admin@admin.com', 'Pedro', 'Herrero', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-01', 'ADMON'),
 ('empresa@empresa.com', 'Elena', 'Cabrera', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-05', 'EMPRESA'),
 ('cliente@cliente.com', 'Jose', 'Benito', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-10', 'CLIENTE'),
@@ -14,7 +14,7 @@ INSERT INTO Usuarios (email, nombre, apellidos, password, enabled, fecha_registr
 ('hello@greencode.com', 'Miguel', 'Hernández', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-05', 'EMPRESA');
 
 -- ================== EMPRESA ==================
-INSERT INTO Empresas (cif, nombre_empresa, direccion_fiscal, pais, email) VALUES
+INSERT INTO empresas (cif, nombre_empresa, direccion_fiscal, pais, email) VALUES
 ('A98765432', 'InnovApps', 'Calle Creativa 50', 'España', 'empresa@empresa.com'),
 ('Z12312345', 'DataInsight', 'Avenida de los Datos 101', 'España', 'contact@datainsight.com'),
 ('C23456789', 'SoftTech Partners', 'Ronda del Progreso 10', 'España', 'info@softtechpartners.com'),
@@ -23,7 +23,7 @@ INSERT INTO Empresas (cif, nombre_empresa, direccion_fiscal, pais, email) VALUES
 
 
 -- ================== CATEGORÍAS ==================
-INSERT INTO Categorias (nombre, descripcion) VALUES
+INSERT INTO categorias (nombre, descripcion) VALUES
 ('Desarrollo Web', 'Puestos relacionados con programación frontend y backend'),
 ('Diseño Gráfico', 'Diseño de interfaces, logos, y material visual'),
 ('Administración de Sistemas', 'Gestión de redes, servidores y sistemas operativos'),
@@ -37,7 +37,7 @@ INSERT INTO Categorias (nombre, descripcion) VALUES
 
 
 -- ================== VACANTES ==================
-INSERT INTO Vacantes (nombre, descripcion, fecha, salario, estatus, destacado, imagen, detalles, id_categoria, id_empresa) VALUES
+INSERT INTO vacantes (nombre, descripcion, fecha, salario, estatus, destacado, imagen, detalles, id_categoria, id_empresa) VALUES
 ('Desarrollador Backend', 'Se busca programador con experiencia en Java y Spring.', '2025-04-01', 32000, 'CREADA', 1, '', 'INDEFINIDO', 1, 1),
 ('Analista de Datos', 'Experto en SQL, Python y herramientas de BI.', '2025-04-02', 30000, 'CREADA', 1, '', 'TEMPORAL', 2, 2),
 ('Arquitecto de Software', 'Liderar la arquitectura de una plataforma SaaS.', '2025-04-03', 40000, 'CREADA', 0, '', 'INDEFINIDO', 1, 3),
@@ -55,7 +55,7 @@ INSERT INTO Vacantes (nombre, descripcion, fecha, salario, estatus, destacado, i
 ('Especialista en Seguridad', 'Auditoría y hardening de sistemas.', '2025-04-15', 38000, 'CREADA', 1, '', 'INDEFINIDO', 5, 5);
 
 -- ================== SOLICITUD ==================
-INSERT INTO Solicitudes (fecha, archivo, comentarios, estado, curriculum, id_Vacante, email) VALUES
+INSERT INTO solicitudes (fecha, archivo, comentarios, estado, curriculum, id_Vacante, email) VALUES
 
 -- 10 nuevas solicitudes para cliente@cliente.com
 

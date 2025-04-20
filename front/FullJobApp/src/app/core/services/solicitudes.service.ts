@@ -27,7 +27,7 @@ export class SolicitudesService {
   //En el back ya tiene la logica que depende de si es un CLIENTE O UNA EMPRESA
   //te enseñara las solicitudes enviadas o recibidas
   obtenerMisSolicitudes(): Observable<ISolicitud[]> {
-    return this.http.get<ISolicitud[]>(`${this.baseUrl}missolicitudes`);
+    return this.http.get<ISolicitud[]>(`${this.baseUrl}/missolicitudes`);
   }
 
   //Aqui le decimos que mis solicitudes este sujeto a los cambios de los demas metodos en lo que lo definamos
@@ -46,12 +46,12 @@ export class SolicitudesService {
 
   //Obtener las 5 ultimas solicitudes de la base de datos para el dashboard
    obtenerUltimasSolicitudes(): Observable<ISolicitud[]> {
-     return this.http.get<ISolicitud[]>(`${this.baseUrl}top5`);
+     return this.http.get<ISolicitud[]>(`${this.baseUrl}/top5`);
     }
 
   //Metodo para que el usuario con rol CLIENTE cancele una solicitud ya enviada
   cancelarSolicitud(id: number): Observable<any> {
-    return this.http.put(`${this.baseUrl}cancelar/${id}`, {}, { responseType: 'text' }).pipe(
+    return this.http.put(`${this.baseUrl}/cancelar/${id}`, {}, { responseType: 'text' }).pipe(
       tap(() => {
         this.cargarMisSolicitudes();        
         this.cargarUltimasSolicitudes();     
@@ -61,17 +61,17 @@ export class SolicitudesService {
 
   //Metodo para obtener todas las solicitudes de una vacante *DE MOMENTO NO HACE FALTA*
   obtenerSolicitudesPorVacante(idVacante: number): Observable<ISolicitud[]> {
-    return this.http.get<ISolicitud[]>(`${this.baseUrl}vacante/${idVacante}`);
+    return this.http.get<ISolicitud[]>(`${this.baseUrl}/vacante/${idVacante}`);
   }
 
   //Metodo para obtener que la EMPRESA pueda ver detalles de una solicitud de un CLIENTE
   obtenerDetalleSolicitud(id: number): Observable<ISolicitud> {
-    return this.http.get<ISolicitud>(`${this.baseUrl}${id}`);
+    return this.http.get<ISolicitud>(`${this.baseUrl}/${id}`);
   }
 
   //Metodo para asignar a una solicitud a un CLIENTE por parte de la EMPRESA
   asignarVacante(id: number): Observable<string> {
-    return this.http.put(`${this.baseUrl}asignar/${id}`, {}, { responseType: 'text' }).pipe(
+    return this.http.put(`${this.baseUrl}/asignar/${id}`, {}, { responseType: 'text' }).pipe(
       tap(() => {
         this.cargarMisSolicitudes();        
         this.cargarUltimasSolicitudes();     

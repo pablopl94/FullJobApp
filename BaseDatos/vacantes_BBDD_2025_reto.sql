@@ -1,13 +1,13 @@
 
 USE vacantes_BBDD_2025_RETO;
 
-CREATE TABLE `Categorias` (
+CREATE TABLE `categorias` (
   id_categoria INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(100) NOT NULL,
   descripcion VARCHAR(2000)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `Usuarios` (
+CREATE TABLE `usuarios` (
   email VARCHAR(45) NOT NULL PRIMARY KEY,
   nombre VARCHAR(45) NOT NULL,
   apellidos VARCHAR(100) NOT NULL,
@@ -18,17 +18,17 @@ CREATE TABLE `Usuarios` (
   CHECK (rol IN ('EMPRESA', 'ADMON', 'CLIENTE'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `Empresas` (
+CREATE TABLE `empresas` (
   id_empresa INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   cif VARCHAR(10) NOT NULL UNIQUE,
   nombre_empresa VARCHAR(100) NOT NULL,
   direccion_fiscal VARCHAR(100),
   pais VARCHAR(45),
   email VARCHAR(45),
-  FOREIGN KEY (email) REFERENCES Usuarios(email)
+  FOREIGN KEY (email) REFERENCES usuarios(email)
 );
 
-CREATE TABLE `Vacantes` (
+CREATE TABLE `vacantes` (
   id_vacante INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(200) NOT NULL,
   descripcion TEXT NOT NULL,
@@ -40,11 +40,11 @@ CREATE TABLE `Vacantes` (
   detalles TEXT NOT NULL,
   id_categoria INT NOT NULL,
   id_empresa INT NOT NULL,
-  FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria),
-  FOREIGN KEY (id_empresa) REFERENCES Empresas(id_empresa)
+  FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria),
+  FOREIGN KEY (id_empresa) REFERENCES empresas(id_empresa)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `Solicitudes` (
+CREATE TABLE `solicitudes` (
   id_solicitud INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   fecha DATE NOT NULL,
   archivo VARCHAR(250) NOT NULL,
@@ -54,6 +54,6 @@ CREATE TABLE `Solicitudes` (
   id_vacante INT NOT NULL,
   email VARCHAR(45) NOT NULL,
   UNIQUE(id_vacante, email),
-  FOREIGN KEY (email) REFERENCES Usuarios(email),
-  FOREIGN KEY (id_vacante) REFERENCES Vacantes(id_vacante)
+  FOREIGN KEY (email) REFERENCES usuarios(email),
+  FOREIGN KEY (id_vacante) REFERENCES vacantes(id_vacante)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
