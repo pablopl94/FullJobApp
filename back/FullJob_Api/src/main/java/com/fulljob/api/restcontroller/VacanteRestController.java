@@ -29,6 +29,8 @@ import com.fulljob.api.models.entities.TipoDeContrato;
 import com.fulljob.api.models.entities.Usuario;
 import com.fulljob.api.models.entities.Vacante;
 import com.fulljob.api.services.IVacanteService;
+import org.springframework.http.MediaType;
+
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -170,26 +172,28 @@ public class VacanteRestController {
 	}
 
 	
-	//METODO PARA INSCRIBIRSE UN CLIENTE EN UNA VACANTE
-	@PostMapping("/inscribirse/{id}")
+	@PostMapping(value = "/inscribirse/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@PreAuthorize("hasRole('CLIENTE')")
 	public ResponseEntity<SolicitudResponseDto> inscribirseVacante(
 	        @PathVariable int id, 
 	        @AuthenticationPrincipal Usuario usuario, 
 	        @RequestParam("comentarios") String comentarios, 
-	        @RequestParam("curriculum") MultipartFile curriculum) { // Aquí recibimos el archivo correctamente
-	    
-	    // Creamos un DTO para la solicitud
+	        @RequestParam("curriculum") MultipartFile curriculum) {
+
+	    System.out.println("📨 Comentarios recibidos: " + comentarios);
+	    System.out.println("📎 Archivo recibido: " + curriculum.getOriginalFilename());
+
+	    // Construimos el DTO manualmente
 	    SolicitudRequestDto solicitudDto = new SolicitudRequestDto();
 	    solicitudDto.setComentarios(comentarios);
-	    solicitudDto.setCurriculum(curriculum); 
-	    
+	    solicitudDto.setCurriculum(curriculum);
+
 	    // Llamamos al servicio
 	    SolicitudResponseDto respuestaDto = vacanteService.inscribirseVacante(id, usuario, solicitudDto);
-	    
+
 	    return ResponseEntity.ok(respuestaDto);
 	}
-	
+
 	
 	//ENDPOINT PARA OBTENER LOS TIPOS DE CONTRATO PARA CARGAR LA LISTA EN EL BACK 
 	// SE PODRIA FILTRAR EN EL BACK - PERO ES UNA PRUEBA PARA VER SI FUNCIONA ASI TAMBIÉN
