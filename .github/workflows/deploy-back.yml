@@ -7,6 +7,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: back/FullJob_Api  
+
     steps:
     - name: Checkout del código
       uses: actions/checkout@v3
@@ -24,6 +29,11 @@ jobs:
       run: |
         echo "$SSH_KEY" > private_key && chmod 600 private_key
         scp -i private_key target/fulljob.war ubuntu@51.255.50.181:/tmp/fulljob.war
-        ssh -i private_key ubuntu@51.255.50.181 'sudo rm -rf /var/lib/tomcat10/webapps/fulljob /var/lib/tomcat10/webapps/fulljob.war && sudo mv /tmp/fulljob.war /var/lib/tomcat10/webapps/fulljob.war && sudo systemctl restart tomcat10'
+        ssh -i private_key ubuntu@51.255.50.181 '
+          sudo rm -rf /var/lib/tomcat10/webapps/fulljob \
+                      /var/lib/tomcat10/webapps/fulljob.war &&
+          sudo mv /tmp/fulljob.war /var/lib/tomcat10/webapps/fulljob.war &&
+          sudo systemctl restart tomcat10
+        '
       env:
         SSH_KEY: ${{ secrets.DEPLOY_KEY }}
