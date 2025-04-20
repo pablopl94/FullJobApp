@@ -41,8 +41,8 @@
   
   .btn-ver {
     background: transparent;
-    border: 2px solid #ffc107;
-    color: #ffc107;
+    border: 2px solid #f4c542;
+    color: #f4c542;
   }
   
   .btn-cancelar {
@@ -52,7 +52,7 @@
   }
 
   .btn-ver:hover {
-    background: #ffc107;
+    background: #f4c542;
     color: white;
   }
   

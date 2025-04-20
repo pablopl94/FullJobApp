@@ -37,7 +37,7 @@ jobs:
         ssh-keyscan 51.255.50.181 >> ~/.ssh/known_hosts
 
         # Subir los archivos generados al VPS
-        rsync -avz -e "ssh -i private_key" ./dist/full-job-app/ ubuntu@51.255.50.181:/tmp/angular_dist
+        rsync -avz -e "ssh -i private_key" ./dist/FullJobApp/ ubuntu@51.255.50.181:/tmp/angular_dist
 
         # Mover los archivos a Apache
         ssh -i private_key ubuntu@51.255.50.181 '
