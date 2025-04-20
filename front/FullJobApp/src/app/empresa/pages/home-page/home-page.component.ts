@@ -16,14 +16,18 @@ import { EmpresaService } from '../../../core/services/empresa.service';
 export class HomePageComponent {
 
   ultimasSolicitudes: ISolicitud[] = [];
-  private solicitudesService = inject(SolicitudesService);
   miEmpresa!: string; 
+  
+  private solicitudesService = inject(SolicitudesService);
   authService = inject(AuthService);
   empresaService = inject(EmpresaService);
+
+  
 
   constructor() {}
 
   ngOnInit(): void {
+
     //cargamos los datos de usuario para la home
      this.empresaService.getDetallesEmpresaAutenticada().subscribe({
       next:(empresa) =>{

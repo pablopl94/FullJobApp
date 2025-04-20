@@ -183,7 +183,8 @@ public class VacanteRestController {
 	}
 	
 	
-	//Metodo para obtener los tipos de contrato para los forms del from
+	//ENDPOINT PARA OBTENER LOS TIPOS DE CONTRATO PARA CARGAR LA LISTA EN EL BACK 
+	// SE PODRIA FILTRAR EN EL BACK - PERO ES UNA PRUEBA PARA VER SI FUNCIONA ASI TAMBIÉN
 	@GetMapping("/tiposcontrato")
 	public ResponseEntity<TipoDeContrato[]> getTiposContrato() {
 	    return ResponseEntity.ok(TipoDeContrato.values());

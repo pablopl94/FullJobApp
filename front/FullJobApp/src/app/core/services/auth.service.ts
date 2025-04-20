@@ -10,6 +10,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
+  
   // URL base del backend para auth
   private baseUrl = `${environment.apiUrl}/auth`;
 
