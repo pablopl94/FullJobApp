@@ -30,14 +30,18 @@ jobs:
         mkdir -p ~/.ssh
         ssh-keyscan -H 51.255.50.181 >> ~/.ssh/known_hosts
 
-    - name: Desplegar WAR en Tomcat del VPS
+    - name: Desplegar WAR como ROOT en Tomcat del VPS
       run: |
         echo "$SSH_KEY" > private_key && chmod 600 private_key
-        scp -i private_key target/fulljob.war ubuntu@51.255.50.181:/tmp/fulljob.war
+
+        # Subir y renombrar el WAR a ROOT.war
+        scp -i private_key target/fulljob.war ubuntu@51.255.50.181:/tmp/ROOT.war
+
+        # Reemplazar el WAR actual y reiniciar Tomcat
         ssh -i private_key ubuntu@51.255.50.181 '
-          sudo rm -rf /var/lib/tomcat10/webapps/fulljob \
-                      /var/lib/tomcat10/webapps/fulljob.war &&
-          sudo mv /tmp/fulljob.war /var/lib/tomcat10/webapps/fulljob.war &&
+          sudo rm -rf /var/lib/tomcat10/webapps/ROOT \
+                      /var/lib/tomcat10/webapps/ROOT.war &&
+          sudo mv /tmp/ROOT.war /var/lib/tomcat10/webapps/ROOT.war &&
           sudo systemctl restart tomcat10
         '
       env:
