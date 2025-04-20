@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 })
 export class SolicitudesService {
 
-  private baseUrl =  `${environment.apiUrl}/solicutudes`;
+  private baseUrl =  `${environment.apiUrl}/solicitudes`;
 
   // Subject para misSolicitudes
   private solicitudesSubject = new BehaviorSubject<ISolicitud[]>([]);
