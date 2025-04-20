@@ -45,6 +45,5 @@ jobs:
         sudo cp -r /tmp/angular_dist/. /var/www/fulljob/ &&
         sudo cp /tmp/angular_dist/.htaccess /var/www/fulljob/.htaccess || true
         '
-        '
       env:
         SSH_KEY: ${{ secrets.DEPLOY_KEY }}
