@@ -147,7 +147,7 @@ public class SpringSecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200")); // Permitir el frontend local
+        configuration.setAllowedOrigins(List.of("https://fulljob.paulopezdev.com")); // Permitir el frontend local
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE")); // Métodos permitidos
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type")); // Headers permitidos
         configuration.setAllowCredentials(true);
