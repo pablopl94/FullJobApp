@@ -28,9 +28,12 @@ export class VacanteDetailComponent {
     });
   }
 
+  //metodo con ruta para volver a vacantes
   volver(): void {
     this.router.navigate(['/candidato/vacantes']);
   }
+
+  //metodo con ruta para direccionar al formulario de inscripcion a la vacante
   inscripcion(): void {
     this.router.navigate(['/candidato/vacantes/postular', this.vacante.idVacante]);
   }
