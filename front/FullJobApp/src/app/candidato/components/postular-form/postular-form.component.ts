@@ -27,6 +27,18 @@ export class PostularFormComponent {
     this.idVacante = Number(this.route.snapshot.paramMap.get('id'));
   }
 
+  // Método para manejar la carga del archivo
+  onFileChange(event: any): void {
+    const file = event.target.files[0]; // Obtenemos el archivo seleccionado
+    if (file && file.type === 'application/pdf') {
+      this.curriculum = file;
+      console.log('Archivo seleccionado:', file);
+    } else {
+      alert('Solo se permiten archivos PDF');
+      this.curriculum = null;
+    }
+  }
+
   postular(): void {
     // Verifica que se haya seleccionado un archivo
     if (!this.curriculum) {
@@ -38,13 +50,21 @@ export class PostularFormComponent {
     formData.append('comentarios', this.comentarios);
     formData.append('curriculum', this.curriculum); // Añadir el archivo
 
+    // Log para verificar los datos antes de enviarlos
+    console.log('Datos a enviar:', {
+      comentarios: this.comentarios,
+      archivo: this.curriculum.name,  // Solo el nombre del archivo para ver qué se está enviando
+    });
+
+    // Llamada al servicio para enviar la solicitud
     this.vacanteService.postularme(this.idVacante, formData).subscribe({
-      next: () => {
+      next: (response) => {
+        console.log('Respuesta del servidor:', response);
         alert('Inscrito a la convocatoria con éxito');
         this.router.navigate(['/candidato/solicitudes']);
       },
-      error: err => {
-        console.error(' Error al postularse:', err);
+      error: (err) => {
+        console.error('Error al postularse:', err);
         alert('Ya estás postulado a esta vacante.');
         this.router.navigate(['/candidato/solicitudes']);
       }

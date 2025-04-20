@@ -3,7 +3,7 @@
     <h4>Queremos saber más de ti, mándanos tu currículum</h4>
     
     <!-- Campo de archivo para subir el CV -->
-    <input type="file" [(ngModel)]="curriculum" name="curriculum" accept="application/pdf" />
+    <input type="file" (change)="onFileChange($event)" name="curriculum" accept="application/pdf" />
     
     <h5>Déjanos un comentario</h5>
     <textarea [(ngModel)]="comentarios" name="comentarios" placeholder="Escribe tu comentario aquí..."></textarea>
