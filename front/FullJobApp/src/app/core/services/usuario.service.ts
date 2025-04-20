@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class UsuarioService {
-  // URL base del backend
+
   private apiUrl = `${environment.apiUrl}/clientes`;
 
   // BehaviorSubject para almacenar y compartir los candidatos
