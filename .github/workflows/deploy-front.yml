@@ -39,10 +39,12 @@ jobs:
         # Subir los archivos generados al VPS
         rsync -avz --include=".*" -e "ssh -i private_key" ./dist/FullJobApp/browser/ ubuntu@51.255.50.181:/tmp/angular_dist
 
-        # Mover los archivos a Apache (incluyendo .htaccess)
+        # Mover los archivos a Apache (INCLUYENDO .htaccess)
         ssh -i private_key ubuntu@51.255.50.181 '
         sudo rm -rf /var/www/fulljob/* &&
-        sudo sh -c "cd /tmp/angular_dist && cp -a . /var/www/fulljob/"
+        sudo cp -r /tmp/angular_dist/. /var/www/fulljob/ &&
+        sudo cp /tmp/angular_dist/.htaccess /var/www/fulljob/.htaccess || true
+        '
         '
       env:
         SSH_KEY: ${{ secrets.DEPLOY_KEY }}
