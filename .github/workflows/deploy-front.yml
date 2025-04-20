@@ -31,7 +31,18 @@ jobs:
     - name: Desplegar al servidor VPS vía SSH
       run: |
         echo "$SSH_KEY" > private_key && chmod 600 private_key
-        rsync -avz -e "ssh -i private_key" ./dist/FullJobApp/ ubuntu@51.255.50.181:/tmp/angular_dist
-        ssh -i private_key ubuntu@51.255.50.181 'sudo rm -rf /var/www/fulljob/* && sudo cp -r /tmp/angular_dist/* /var/www/fulljob/'
+
+        # Añadir la clave pública del VPS al known_hosts
+        mkdir -p ~/.ssh
+        ssh-keyscan 51.255.50.181 >> ~/.ssh/known_hosts
+
+        # Subir los archivos generados al VPS
+        rsync -avz -e "ssh -i private_key" ./dist/full-job-app/ ubuntu@51.255.50.181:/tmp/angular_dist
+
+        # Mover los archivos a Apache
+        ssh -i private_key ubuntu@51.255.50.181 '
+          sudo rm -rf /var/www/fulljob/* &&
+          sudo cp -r /tmp/angular_dist/* /var/www/fulljob/
+        '
       env:
         SSH_KEY: ${{ secrets.DEPLOY_KEY }}
