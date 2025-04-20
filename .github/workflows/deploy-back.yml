@@ -1,0 +1,29 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout del código
+      uses: actions/checkout@v3
+
+    - name: Configurar Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Construir el proyecto (sin tests)
+      run: mvn clean install -DskipTests
+
+    - name: Desplegar WAR en Tomcat del VPS
+      run: |
+        echo "$SSH_KEY" > private_key && chmod 600 private_key
+        scp -i private_key target/fulljob.war ubuntu@51.255.50.181:/tmp/fulljob.war
+        ssh -i private_key ubuntu@51.255.50.181 'sudo rm -rf /var/lib/tomcat10/webapps/fulljob /var/lib/tomcat10/webapps/fulljob.war && sudo mv /tmp/fulljob.war /var/lib/tomcat10/webapps/fulljob.war && sudo systemctl restart tomcat10'
+      env:
+        SSH_KEY: ${{ secrets.DEPLOY_KEY }}

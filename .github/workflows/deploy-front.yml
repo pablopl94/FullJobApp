@@ -1,0 +1,37 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'front/FullJobApp/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: front/FullJobApp
+
+    steps:
+    - name: Checkout del repositorio
+      uses: actions/checkout@v3
+
+    - name: Instalar Node.js y Angular
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Instalar dependencias
+      run: npm ci
+
+    - name: Construir Angular en modo producción
+      run: npm run build -- --configuration production
+
+    - name: Desplegar al servidor VPS vía SSH
+      run: |
+        echo "$SSH_KEY" > private_key && chmod 600 private_key
+        rsync -avz -e "ssh -i private_key" ./dist/FullJobApp/ ubuntu@51.255.50.181:/tmp/angular_dist
+        ssh -i private_key ubuntu@51.255.50.181 'sudo rm -rf /var/www/fulljob/* && sudo cp -r /tmp/angular_dist/* /var/www/fulljob/'
+      env:
+        SSH_KEY: ${{ secrets.DEPLOY_KEY }}
