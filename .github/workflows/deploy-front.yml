@@ -28,9 +28,6 @@ jobs:
     - name: Construir Angular en modo producción
       run: npm run build -- --configuration production
 
-    - name: Aceptar la clave SSH del servidor (known_hosts)
-      run: ssh-keyscan 51.255.50.181 >> ~/.ssh/known_hosts
-
     - name: Desplegar al servidor VPS vía SSH
       run: |
         echo "$SSH_KEY" > private_key && chmod 600 private_key
