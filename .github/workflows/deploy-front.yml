@@ -26,7 +26,7 @@ jobs:
       run: npm ci
 
     - name: Construir Angular en modo producción
-      run: npx ng build -- --configuration production
+      run: npm run build -- --configuration production
 
     - name: Desplegar al servidor VPS vía SSH
       run: |

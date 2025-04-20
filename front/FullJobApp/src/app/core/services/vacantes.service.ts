@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class VacantesService {
-  // URL base del backend
+
   private apiUrl = `${environment.apiUrl}/vacantes`;
 
   // Lista de vacantes creadas por la empresa
