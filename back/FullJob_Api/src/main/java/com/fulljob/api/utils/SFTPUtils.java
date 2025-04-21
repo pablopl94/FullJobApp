@@ -47,7 +47,7 @@ public class SFTPUtils {
             logger.info("Canal SFTP abierto.");
 
             // Subimos el archivo al servidor SFTP
-            String remoteFilePath = "curriculums/" + nombreArchivo;
+            String remoteFilePath = nombreArchivo;
             logger.info("Subiendo el archivo al servidor SFTP en la ruta: {}", remoteFilePath);
             InputStream inputStream = curriculum.getInputStream();
             channelSftp.put(inputStream, remoteFilePath); // Subimos el archivo
