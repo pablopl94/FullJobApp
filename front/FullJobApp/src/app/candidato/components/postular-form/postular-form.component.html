@@ -1,15 +1,22 @@
 <section class="formulario-inscripcion">
   <div class="contenedor-form">
     <h4>Queremos saber más de ti, mándanos tu currículum</h4>
-    
-    <!-- Campo de archivo para subir el CV -->
-    <input type="file" (change)="onFileChange($event)" name="curriculum" accept="application/pdf" />
-    
+
+    <!-- Botón personalizado para subir PDF -->
+    <label class="custom-file-upload">
+      <input type="file" (change)="onFileChange($event)" name="curriculum" accept="application/pdf" hidden />
+      <span *ngIf="!curriculum">Subir archivo PDF</span>
+      <span *ngIf="curriculum">{{ curriculum.name }}</span>
+    </label>
+
     <h5>Déjanos un comentario</h5>
     <textarea [(ngModel)]="comentarios" name="comentarios" placeholder="Escribe tu comentario aquí..."></textarea>
 
+    <!-- Indicador de carga -->
+    <div *ngIf="cargando" class="loading">Enviando solicitud...</div>
+
     <div class="acciones">
-      <button class="btn-postular" (click)="postular()">Inscribirme en esta oferta</button>
+      <button class="btn-postular" (click)="postular()" [disabled]="cargando">Inscribirme en esta oferta</button>
       <button class="btn-volver" (click)="volver()">Volver atrás</button>
     </div>
   </div>

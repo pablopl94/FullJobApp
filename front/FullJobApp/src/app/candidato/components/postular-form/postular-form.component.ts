@@ -16,6 +16,7 @@ export class PostularFormComponent {
   idVacante!: number;
   comentarios: string = '';
   curriculum: File | null = null;  // Variable para almacenar el archivo seleccionado
+  cargando: boolean = false;       // Nueva variable para mostrar el estado de carga
 
   constructor(
     private route: ActivatedRoute,
@@ -39,6 +40,7 @@ export class PostularFormComponent {
     }
   }
 
+  // Método para enviar la solicitud
   postular(): void {
     // Verifica que se haya seleccionado un archivo
     if (!this.curriculum) {
@@ -56,15 +58,19 @@ export class PostularFormComponent {
       archivo: this.curriculum.name,  // Solo el nombre del archivo para ver qué se está enviando
     });
 
+    this.cargando = true; // Activamos el modo "cargando"
+
     // Llamada al servicio para enviar la solicitud
     this.vacanteService.postularme(this.idVacante, formData).subscribe({
       next: (response) => {
         console.log('Respuesta del servidor:', response);
+        this.cargando = false; // Desactivamos "cargando"
         alert('Inscrito a la convocatoria con éxito');
         this.router.navigate(['/candidato/solicitudes']);
       },
       error: (err) => {
         console.error('Error al postularse:', err);
+        this.cargando = false; // Desactivamos "cargando" en caso de error también
         alert('Ya estás postulado a esta vacante.');
         this.router.navigate(['/candidato/solicitudes']);
       }

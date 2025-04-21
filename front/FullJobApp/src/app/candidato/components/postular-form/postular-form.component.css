@@ -86,3 +86,30 @@
     background-color: white;
     color: black;
   }
+
+
+  .custom-file-upload {
+    background-color: #222;
+    color: #FAC402;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 2rem;
+    transition: background-color 0.3s ease;
+    text-align: center;
+  }
+  
+  .custom-file-upload:hover {
+    background-color: #FAC402;
+    color: black;
+  }
+  
+  .loading {
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: #0099ff;
+    font-style: italic;
+  }
+  
