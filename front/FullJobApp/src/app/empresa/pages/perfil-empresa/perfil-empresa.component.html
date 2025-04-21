@@ -1,7 +1,8 @@
 <section class="perfil-empresa-seccion">
   <div class="perfil-card mx-auto p-5 shadow">
     <h2 class="perfil-titulo text-center mb-4">
-      <!-- Nombre de la empresa editable -->
+
+      <!-- Nombre de la empresa -->
       @if (modoEdicion) {
         <input class="form-control text-center fw-bold fs-4" [(ngModel)]="empresa.nombreEmpresa" />
       } @else {
@@ -62,10 +63,10 @@
           ✏️ Editar información
         </button>
       } @else {
-        <button class="btn btn-success me-2 fw-bold" (click)="guardarCambios()">
+        <button class="btn btn-warning me-2 fw-bold" (click)="guardarCambios()">
           💾 Guardar
         </button>
-        <button class="btn btn-secondary fw-bold" (click)="cancelarEdicion()">
+        <button class="btn btn-danger fw-bold" (click)="cancelarEdicion()">
           ❌ Cancelar
         </button>
       }
