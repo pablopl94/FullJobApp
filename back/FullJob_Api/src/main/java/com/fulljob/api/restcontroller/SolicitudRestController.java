@@ -88,26 +88,31 @@ public class SolicitudRestController {
 		return ResponseEntity.ok(listaDto);
 	}
 	
-	
-	//ENDPOINT PARA VER DETALLES DE UNA SOLICITUD
-	//GET    /solicitudes/vacante/{id} ............. [ROLE_EMPRESA]
+	// ENDPOINT PARA VER DETALLES DE UNA SOLICITUD
+	// GET /solicitudes/{id} ............. [ROLE_EMPRESA, CLIENTE]
 	@GetMapping("/{id}")
 	@PreAuthorize("hasAnyRole('CLIENTE','EMPRESA')")
 	public ResponseEntity<SolicitudResponseDto> detallesSolicitud(@PathVariable Integer id) {
-		
+
+		// Buscamos la solicitud en base de datos
 		Solicitud solicitud = solicitudService.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Solicitud no encontrada"));
 
+		// Convertimos a DTO
 		SolicitudResponseDto respuestaDto = modelMapper.map(solicitud, SolicitudResponseDto.class);
+
+		// Añadimos manualmente los campos relacionados
 		respuestaDto.setNombreEmpresa(solicitud.getVacante().getEmpresa().getNombreEmpresa());
 		respuestaDto.setSalario(solicitud.getVacante().getSalario());
 		respuestaDto.setNombreCategoria(solicitud.getVacante().getCategoria().getNombre());
 		respuestaDto.setEmail(solicitud.getUsuario().getEmail());
-		
-		
+
+		// Aseguraramos de incluir la URL del curriculum 
+		respuestaDto.setCurriculum(solicitud.getCurriculum());
+
 		return ResponseEntity.ok(respuestaDto);
 	}
-	
+
 	
 	//ENDPOINT PARA ASIGNAR UNA VACANTE A UN USUARIO, CAMBIA EL ESTADO DE LA SOLICITUD
 	//PUT    /solicitudes/asignar/{id} ............. [ROLE_EMPRESA] 
