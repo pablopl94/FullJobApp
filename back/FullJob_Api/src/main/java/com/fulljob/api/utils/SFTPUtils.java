@@ -47,20 +47,10 @@ public class SFTPUtils {
             logger.info("Canal SFTP abierto.");
 
             // Subimos el archivo al servidor SFTP
-            String remoteFilePath = "curriculums/" + nombreArchivo;
+            String remoteFilePath = "/curriculums/" + nombreArchivo;
             logger.info("Subiendo el archivo al servidor SFTP en la ruta: {}", remoteFilePath);
-            
             InputStream inputStream = curriculum.getInputStream();
-            
-            try {
-                channelSftp.cd("curriculums"); // Navega a la carpeta
-            } catch (SftpException e) {
-                logger.warn("La carpeta 'curriculums' no existe, se va a crear");
-                channelSftp.mkdir("curriculums");
-                channelSftp.cd("curriculums");
-            }
-            
-            channelSftp.put(inputStream, nombreArchivo); // Subimos el archivo
+            channelSftp.put(inputStream, remoteFilePath); // Subimos el archivo
 
             // Cerramos el canal SFTP y la sesión
             channelSftp.exit();
