@@ -38,7 +38,7 @@ export class EmpresaService {
 
   // Actualiza los datos de una empresa y refresca la lista
   actualizarEmpresa(empresa: IEmpresa): Observable<IEmpresa> {
-    return this.http.put<IEmpresa>(`${this.baseUrl}/${empresa.idEmpresa}`, empresa).pipe(
+    return this.http.put<IEmpresa>(`${this.baseUrl}/update/${empresa.idEmpresa}`, empresa).pipe(
       tap(() => this.fetchEmpresas())
     );
   }
