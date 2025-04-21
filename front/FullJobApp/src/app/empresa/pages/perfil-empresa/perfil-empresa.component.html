@@ -1,9 +1,9 @@
 <section class="perfil-empresa-seccion">
   <div class="perfil-card mx-auto p-5 shadow">
-    <h2 class="perfil-titulo text-center">
+    <h2 class="perfil-titulo text-center mb-4">
       <!-- Nombre de la empresa editable -->
       @if (modoEdicion) {
-        <input class="form-control text-center" [(ngModel)]="empresa.nombreEmpresa" />
+        <input class="form-control text-center fw-bold fs-4" [(ngModel)]="empresa.nombreEmpresa" />
       } @else {
         {{ empresa.nombreEmpresa }}
       }
@@ -16,51 +16,58 @@
         <img
           src="assets/img/avatar.svg"
           alt="Avatar Empresa"
-          class="img-fluid rounded-circle shadow-sm perfil-avatar"
+          class="img-fluid rounded-circle shadow-sm perfil-avatar mb-3"
         />
+        <p class="text-muted small">Logo de la empresa</p>
         <hr class="d-md-none my-4" />
       </div>
 
       <div class="col-md-8">
         <!-- CIF -->
-        <div class="mb-3">
-          <strong class="text-dark">CIF:</strong>
+        <div class="mb-4">
+          <label class="form-label fw-semibold text-dark">📄 CIF:</label>
           @if (modoEdicion) {
             <input class="form-control" [(ngModel)]="empresa.cif" />
           } @else {
-            <p>{{ empresa.cif }}</p>
+            <div class="form-control bg-light">{{ empresa.cif }}</div>
           }
         </div>
 
         <!-- Dirección -->
-        <div class="mb-3">
-          <strong class="text-dark">Dirección:</strong>
+        <div class="mb-4">
+          <label class="form-label fw-semibold text-dark">📍 Dirección fiscal:</label>
           @if (modoEdicion) {
             <input class="form-control" [(ngModel)]="empresa.direccionFiscal" />
           } @else {
-            <p>{{ empresa.direccionFiscal }}</p>
+            <div class="form-control bg-light">{{ empresa.direccionFiscal }}</div>
           }
         </div>
 
         <!-- País -->
-        <div>
-          <strong class="text-dark">País:</strong>
+        <div class="mb-4">
+          <label class="form-label fw-semibold text-dark">🌍 País:</label>
           @if (modoEdicion) {
             <input class="form-control" [(ngModel)]="empresa.pais" />
           } @else {
-            <p>{{ empresa.pais }}</p>
+            <div class="form-control bg-light">{{ empresa.pais }}</div>
           }
         </div>
       </div>
     </div>
 
-    <!-- Botones para editar/guardar -->
+    <!-- Botones de acción -->
     <div class="text-end mt-4">
       @if (!modoEdicion) {
-        <button class="btn btn-warning" (click)="modoEdicion = true">Editar</button>
+        <button class="btn btn-outline-warning fw-bold">
+          ✏️ Editar información
+        </button>
       } @else {
-        <button class="btn btn-success me-2" (click)="guardarCambios()">Guardar</button>
-        <button class="btn btn-secondary" (click)="cancelarEdicion()">Cancelar</button>
+        <button class="btn btn-success me-2 fw-bold" (click)="guardarCambios()">
+          💾 Guardar
+        </button>
+        <button class="btn btn-secondary fw-bold" (click)="cancelarEdicion()">
+          ❌ Cancelar
+        </button>
       }
     </div>
   </div>
