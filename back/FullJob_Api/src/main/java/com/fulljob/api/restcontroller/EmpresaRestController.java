@@ -91,7 +91,7 @@ public class EmpresaRestController {
     //ENDOPINT PARA MODIFICAR EMPRESA ADMIN
     // PUT    /empresas/{id} ........................ [ROLE_ADMON]
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMON')")
+    @PreAuthorize("hasAnyRole('ADMON', 'EMPRESA')")
     public ResponseEntity<EmpresaResponseDto> actualizarEmpresa(@PathVariable Integer id, @RequestBody EmpresaRequestDto dto) {
     	
         Empresa empresa = empresaService.findById(id).orElseThrow(() -> new RuntimeException("La empresa no existe"));
@@ -136,23 +136,4 @@ public class EmpresaRestController {
         return ResponseEntity.ok(dto);
     }
 
-
-    //MODIFICAR LOS DATOS DE LA EMPRESA POR LA EMPRESA
-    //PUT    /empresas/update ...................... [ROLE_EMPRESA ]
-    @PutMapping("/update")
-    @PreAuthorize("hasRole('EMPRESA')")
-    public ResponseEntity<EmpresaResponseDto> updateEmpresa(@AuthenticationPrincipal Usuario usuario, @RequestBody EmpresaRequestDto dto){     
-
-        Empresa empresa = empresaService.buscarPorEmail(usuario.getEmail());
-
-        empresa.setCif(dto.getCif());
-        empresa.setNombreEmpresa(dto.getNombreEmpresa());
-        empresa.setDireccionFiscal(dto.getDireccionFiscal());
-        empresa.setPais(dto.getPais());
-
-        empresaService.updateOne(empresa);
-        EmpresaResponseDto responseDto = mapper.map(empresa, EmpresaResponseDto.class);
-
-        return ResponseEntity.ok(responseDto);
-    }
 }
