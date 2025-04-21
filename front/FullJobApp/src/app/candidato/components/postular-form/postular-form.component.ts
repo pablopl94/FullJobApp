@@ -28,7 +28,7 @@ export class PostularFormComponent {
     this.idVacante = Number(this.route.snapshot.paramMap.get('id'));
   }
 
-  // Método para manejar la carga del archivo
+  // Método para manejar la carga el cv
   onFileChange(event: any): void {
     const file = event.target.files[0]; // Obtenemos el archivo seleccionado
     if (file && file.type === 'application/pdf') {
