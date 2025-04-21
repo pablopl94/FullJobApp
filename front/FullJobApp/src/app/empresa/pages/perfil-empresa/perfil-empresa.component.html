@@ -1,36 +1,67 @@
 <section class="perfil-empresa-seccion">
-    <div class="perfil-card mx-auto p-5 shadow">
-      <h2 class="perfil-titulo text-center">
+  <div class="perfil-card mx-auto p-5 shadow">
+    <h2 class="perfil-titulo text-center">
+      <!-- Nombre de la empresa editable -->
+      @if (modoEdicion) {
+        <input class="form-control text-center" [(ngModel)]="empresa.nombreEmpresa" />
+      } @else {
         {{ empresa.nombreEmpresa }}
-      </h2>
-      
-      <hr class="perfil-divider mb-5" />
-  
-      <div class="row align-items-center">
-        <div class="col-md-4 text-center">
-          <img
-            src="assets/img/avatar.svg"
-            alt="Avatar Empresa"
-            class="img-fluid rounded-circle shadow-sm perfil-avatar"
-          />
-          <hr class="d-md-none my-4" />
-        </div>
-  
-        <div class="col-md-8">
-          <div class="mb-3">
-            <strong class="text-dark">CIF:</strong>
+      }
+    </h2>
+
+    <hr class="perfil-divider mb-5" />
+
+    <div class="row align-items-center">
+      <div class="col-md-4 text-center">
+        <img
+          src="assets/img/avatar.svg"
+          alt="Avatar Empresa"
+          class="img-fluid rounded-circle shadow-sm perfil-avatar"
+        />
+        <hr class="d-md-none my-4" />
+      </div>
+
+      <div class="col-md-8">
+        <!-- CIF -->
+        <div class="mb-3">
+          <strong class="text-dark">CIF:</strong>
+          @if (modoEdicion) {
+            <input class="form-control" [(ngModel)]="empresa.cif" />
+          } @else {
             <p>{{ empresa.cif }}</p>
-          </div>
-          <div class="mb-3">
-            <strong class="text-dark">Dirección:</strong>
+          }
+        </div>
+
+        <!-- Dirección -->
+        <div class="mb-3">
+          <strong class="text-dark">Dirección:</strong>
+          @if (modoEdicion) {
+            <input class="form-control" [(ngModel)]="empresa.direccionFiscal" />
+          } @else {
             <p>{{ empresa.direccionFiscal }}</p>
-          </div>
-          <div>
-            <strong class="text-dark">País:</strong>
+          }
+        </div>
+
+        <!-- País -->
+        <div>
+          <strong class="text-dark">País:</strong>
+          @if (modoEdicion) {
+            <input class="form-control" [(ngModel)]="empresa.pais" />
+          } @else {
             <p>{{ empresa.pais }}</p>
-          </div>
+          }
         </div>
       </div>
     </div>
-  </section>
-  
+
+    <!-- Botones para editar/guardar -->
+    <div class="text-end mt-4">
+      @if (!modoEdicion) {
+        <button class="btn btn-warning" (click)="modoEdicion = true">Editar</button>
+      } @else {
+        <button class="btn btn-success me-2" (click)="guardarCambios()">Guardar</button>
+        <button class="btn btn-secondary" (click)="cancelarEdicion()">Cancelar</button>
+      }
+    </div>
+  </div>
+</section>

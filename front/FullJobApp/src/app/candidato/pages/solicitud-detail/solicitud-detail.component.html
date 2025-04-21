@@ -22,7 +22,7 @@
       <p><strong>📎 Archivo adjunto: </strong> {{ miSolicitud.archivo || 'No adjuntado' }}</p>
       <p><strong>📄 Currículum: </strong> 
         @if (miSolicitud.curriculum) {
-          <a [href]="miSolicitud.curriculum" target="_blank" class="link-cv">Ver currículum</a>
+          <a [href]="'https://ftp.fulljob.paulopezdev.com' + miSolicitud.curriculum" target="_blank" class="link-cv">Ver currículum</a>
         } @else {
           <span>No disponible</span>
         }

@@ -6,7 +6,6 @@ INSERT INTO usuarios (email, nombre, apellidos, password, enabled, fecha_registr
 ('admin@admin.com', 'Pedro', 'Herrero', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-01', 'ADMON'),
 ('empresa@empresa.com', 'Elena', 'Cabrera', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-05', 'EMPRESA'),
 ('cliente@cliente.com', 'Jose', 'Benito', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-10', 'CLIENTE'),
-('pacoporras@cliente.com', 'Paco', 'Porras', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-10', 'CLIENTE'),
 ('info@innovapps.com', 'Carlos', 'López', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-01', 'EMPRESA'),
 ('contact@datainsight.com', 'Ana', 'Martínez', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-02', 'EMPRESA'),
 ('info@softtechpartners.com', 'Luis', 'Rodríguez', '$2a$12$F1iPJsRuBH0Ap9p.XYe3geIteE62QEvh4yl/NBp1VYGYyuRb84fI2', 1, '2025-01-03', 'EMPRESA'),
@@ -59,22 +58,10 @@ INSERT INTO solicitudes (fecha, archivo, comentarios, estado, curriculum, id_Vac
 
 -- 10 nuevas solicitudes para cliente@cliente.com
 
-('2025-04-04', 'cv_jose.pdf', 'Me gustaría aportar mis conocimientos aquí.', 0, 'cv_jose.pdf', 12, 'cliente@cliente.com'),
-('2025-04-05', 'cv_jose.pdf', 'Esta vacante encaja con mi experiencia.', 0, 'cv_jose.pdf', 13, 'cliente@cliente.com'),
-('2025-04-06', 'cv_jose.pdf', 'He trabajado en proyectos similares.', 0, 'cv_jose.pdf', 14, 'cliente@cliente.com'),
-('2025-04-07', 'cv_jose.pdf', 'Busco una oportunidad estable.', 0, 'cv_jose.pdf', 15, 'cliente@cliente.com'),
-('2025-04-08', 'cv_jose.pdf', 'Interesado en nuevas tecnologías.', 0, 'cv_jose.pdf', 5, 'cliente@cliente.com'),
-('2025-04-09', 'cv_jose.pdf', 'Me apasiona el desarrollo web.', 0, 'cv_jose.pdf', 6, 'cliente@cliente.com'),
-('2025-04-10', 'cv_jose.pdf', 'Tengo conocimientos en el stack requerido.', 0, 'cv_jose.pdf', 11, 'cliente@cliente.com'),
-
--- 10 nuevas solicitudes para pacoporras@cliente.com
-('2025-04-01', 'cv_paco.pdf', 'Me gustaría formar parte del equipo.', 0, 'cv_paco.pdf', 1, 'pacoporras@cliente.com'),
-('2025-04-02', 'cv_paco.pdf', 'Estoy disponible a jornada completa.', 0, 'cv_paco.pdf', 2, 'pacoporras@cliente.com'),
-('2025-04-03', 'cv_paco.pdf', 'Tengo experiencia previa en esta área.', 0, 'cv_paco.pdf', 3, 'pacoporras@cliente.com'),
-('2025-04-04', 'cv_paco.pdf', 'He trabajado con herramientas similares.', 0, 'cv_paco.pdf', 4, 'pacoporras@cliente.com'),
-('2025-04-05', 'cv_paco.pdf', 'Soy una persona resolutiva.', 0, 'cv_paco.pdf', 5, 'pacoporras@cliente.com'),
-('2025-04-06', 'cv_paco.pdf', 'Me interesa aprender y crecer.', 0, 'cv_paco.pdf', 6, 'pacoporras@cliente.com'),
-('2025-04-07', 'cv_paco.pdf', 'Tengo motivación para este puesto.', 0, 'cv_paco.pdf', 7, 'pacoporras@cliente.com'),
-('2025-04-08', 'cv_paco.pdf', 'Mi perfil encaja con la vacante.', 0, 'cv_paco.pdf', 8, 'pacoporras@cliente.com'),
-('2025-04-09', 'cv_paco.pdf', 'Deseo adquirir experiencia profesional.', 0, 'cv_paco.pdf', 9, 'pacoporras@cliente.com'),
-('2025-04-10', 'cv_paco.pdf', 'Tengo formación adecuada para este rol.', 0, 'cv_paco.pdf', 10, 'pacoporras@cliente.com');
+('2025-04-04', 'cv_jose.pdf', 'Me gustaría aportar mis conocimientos aquí.', 0, '/curriculums/cv_jose.pdf', 12, 'cliente@cliente.com'),
+('2025-04-05', 'cv_jose.pdf', 'Esta vacante encaja con mi experiencia.', 0, '/curriculums/cv_jose.pdf', 13, 'cliente@cliente.com'),
+('2025-04-06', 'cv_jose.pdf', 'He trabajado en proyectos similares.', 0, '/curriculums/cv_jose.pdf', 14, 'cliente@cliente.com'),
+('2025-04-07', 'cv_jose.pdf', 'Busco una oportunidad estable.', 0, '/curriculums/cv_jose.pdf', 15, 'cliente@cliente.com'),
+('2025-04-08', 'cv_jose.pdf', 'Interesado en nuevas tecnologías.', 0, '/curriculums/cv_jose.pdf', 5, 'cliente@cliente.com'),
+('2025-04-09', 'cv_jose.pdf', 'Me apasiona el desarrollo web.', 0, '/curriculums/cv_jose.pdf', 6, 'cliente@cliente.com'),
+('2025-04-10', 'cv_jose.pdf', 'Tengo conocimientos en el stack requerido.', 0, '/curriculums/cv_jose.pdf', 11, 'cliente@cliente.com');

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { FormsModule } from '@angular/forms';
 import { IUsuario } from '../../../core/interfaces/iusuario';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-candidatos-page',
@@ -11,7 +12,7 @@ import { IUsuario } from '../../../core/interfaces/iusuario';
   imports: [CommonModule, FormsModule],
 })
 export class CandidatosPageComponent implements OnInit {
-  
+ 
   usuarios: IUsuario[] = [];
 
   constructor(private usuarioService: UsuarioService) {}
@@ -37,11 +38,27 @@ export class CandidatosPageComponent implements OnInit {
       // Si está activo → lo desactivamos
       this.usuarioService.desactivar(usuario.email).subscribe(() => {
         usuario.enabled = 0;
+
+        Swal.fire({
+          icon: 'warning',
+          title: 'Usuario suspendido',
+          text: `El usuario ${usuario.nombre} ha sido suspendido.`,
+          timer: 2000,
+          showConfirmButton: false
+        });
       });
     } else {
       // Si está desactivado → lo activamos
       this.usuarioService.activar(usuario.email).subscribe(() => {
         usuario.enabled = 1;
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Usuario activado',
+          text: `El usuario ${usuario.nombre} ha sido reactivado.`,
+          timer: 2000,
+          showConfirmButton: false
+        });
       });
     }
   }

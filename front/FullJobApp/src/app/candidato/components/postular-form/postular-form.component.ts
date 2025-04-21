@@ -4,6 +4,7 @@ import { VacantesService } from '../../../core/services/vacantes.service';
 import { IVacante } from '../../../core/interfaces/IVacante';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-postular-form',
@@ -13,10 +14,11 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './postular-form.component.css'
 })
 export class PostularFormComponent {
+
   idVacante!: number;
   comentarios: string = '';
-  curriculum: File | null = null;  // Variable para almacenar el archivo seleccionado
-  cargando: boolean = false;       // Nueva variable para mostrar el estado de carga
+  curriculum: File | null = null;  
+  cargando: boolean = false;    
 
   constructor(
     private route: ActivatedRoute,
@@ -28,14 +30,14 @@ export class PostularFormComponent {
     this.idVacante = Number(this.route.snapshot.paramMap.get('id'));
   }
 
-  // Método para manejar la carga el cv
+  // Método para manejar la carga del cv
   onFileChange(event: any): void {
     const file = event.target.files[0]; // Obtenemos el archivo seleccionado
     if (file && file.type === 'application/pdf') {
       this.curriculum = file;
       console.log('Archivo seleccionado:', file);
     } else {
-      alert('Solo se permiten archivos PDF');
+      Swal.fire('Formato inválido', 'Solo se permiten archivos PDF', 'warning'); 
       this.curriculum = null;
     }
   }
@@ -44,7 +46,7 @@ export class PostularFormComponent {
   postular(): void {
     // Verifica que se haya seleccionado un archivo
     if (!this.curriculum) {
-      alert('Debes cargar un archivo PDF');
+      Swal.fire('Archivo requerido', 'Debes cargar un archivo PDF', 'warning'); 
       return;
     }
 
@@ -65,14 +67,28 @@ export class PostularFormComponent {
       next: (response) => {
         console.log('Respuesta del servidor:', response);
         this.cargando = false; // Desactivamos "cargando"
-        alert('Inscrito a la convocatoria con éxito');
-        this.router.navigate(['/candidato/solicitudes']);
+
+        Swal.fire({
+          title: '¡Éxito!',
+          text: 'Inscrito a la convocatoria con éxito.',
+          icon: 'success',
+          confirmButtonText: 'Ver mis solicitudes'
+        }).then(() => {
+          this.router.navigate(['/candidato/solicitudes']);
+        });
       },
       error: (err) => {
         console.error('Error al postularse:', err);
-        this.cargando = false; // Desactivamos "cargando" en caso de error también
-        alert('Ya estás postulado a esta vacante.');
-        this.router.navigate(['/candidato/solicitudes']);
+        this.cargando = false; 
+
+        Swal.fire({
+          title: 'Postulación repetida',
+          text: 'Ya estás postulado a esta vacante.',
+          icon: 'info',
+          confirmButtonText: 'Ver mis solicitudes'
+        }).then(() => {
+          this.router.navigate(['/candidato/solicitudes']);
+        });
       }
     });
   }
