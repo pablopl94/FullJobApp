@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IClienteRegistro } from '../interfaces/IClienteRegistro';
 import { environment } from '../../../environments/environment';
+import { IUsuario } from '../interfaces/iusuario';
 
 
 @Injectable({
@@ -72,5 +73,11 @@ export class AuthService {
     const usuario = this.obtenerUsuario();
     return usuario?.rol || '';
   }
+
+    //Envia un correo al cliente cuando se registra
+    emailLogin(email: string, nombre: string): Observable<any> {
+      const webhookUrl = 'https://n8n.pabloprietounir.ovh/webhook-test/enviarrCorreo';
+      return this.http.post<any>(webhookUrl, { email, nombre });
+    }
 
 }

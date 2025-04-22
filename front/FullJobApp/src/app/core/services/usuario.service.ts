@@ -99,4 +99,5 @@ export class UsuarioService {
     return this.http.put<IUsuario>(`${this.apiUrl}/modificar/${email}`, usuario);
   }
 
+  
 }
