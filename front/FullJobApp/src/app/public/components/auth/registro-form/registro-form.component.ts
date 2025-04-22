@@ -61,6 +61,11 @@ export class RegistroFormComponent {
     this.authService.registrarCliente(cliente).subscribe({
       // Si todo va bien
       next: () => {
+        // ✅ Enviar correo mediante webhook de n8n
+        this.authService.emailLogin(cliente.email, cliente.nombre).subscribe({
+          next: () => console.log('✅ Correo enviado con éxito desde n8n'),
+          error: (err) => console.error('❌ Error al enviar correo desde n8n:', err)
+        });
         // Mostramos un mensaje bonito con SweetAlert
         Swal.fire({
           title: '¡Registro completado!',
