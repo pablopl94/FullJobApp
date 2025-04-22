@@ -76,7 +76,7 @@ export class AuthService {
 
     //Envia un correo al cliente cuando se registra
     emailLogin(email: string, nombre: string): Observable<any> {
-      const webhookUrl = 'https://n8n.pabloprietounir.ovh/webhook-test/correo';
+      const webhookUrl = 'https://n8n.pabloprietounir.ovh/webhook/correo';
       return this.http.post<any>(webhookUrl, { email, nombre });
     }
 
