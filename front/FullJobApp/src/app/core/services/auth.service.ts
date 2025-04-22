@@ -74,10 +74,10 @@ export class AuthService {
     return usuario?.rol || '';
   }
 
-    //Envia un correo al cliente cuando se registra
-    emailLogin(email: string, nombre: string): Observable<any> {
-      const webhookUrl = 'https://n8n.pabloprietounir.ovh/webhook-test/enviarrCorreo';
-      return this.http.post<any>(webhookUrl, { email, nombre });
-    }
+    // //Envia un correo al cliente cuando se registra
+    // emailLogin(email: string, nombre: string): Observable<any> {
+    //   const webhookUrl = 'https://n8n.pabloprietounir.ovh/webhook-test/enviarrCorreo';
+    //   return this.http.post<any>(webhookUrl, { email, nombre });
+    // }
 
 }
