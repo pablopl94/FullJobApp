@@ -48,7 +48,7 @@ export class CandidatosPageComponent implements OnInit {
         });
       });
     } else {
-      // Si está desactivado → lo activamos
+      // Si está desactivado → lo activamos  COMENTARIOS
       this.usuarioService.activar(usuario.email).subscribe(() => {
         usuario.enabled = 1;
 
