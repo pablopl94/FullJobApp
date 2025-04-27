@@ -84,6 +84,9 @@ public class SpringSecurityConfig {
             .csrf(csrf -> csrf.disable()) // Deshabilitamos CSRF porque usamos JWT y la app es stateless
             .cors(Customizer.withDefaults()) // Usamos configuración CORS por defecto
             .authorizeHttpRequests(authorize -> {
+
+				// =================== RUTAS DE SWAGGER ======================
+				authorize.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-resources/**", "/configuration/**", "/webjars/**").permitAll();
             	
             	// =================== AUTHORIZATION ======================
             	authorize.requestMatchers(HttpMethod.POST, "/auth/login", "/auth/alta/cliente").permitAll();
